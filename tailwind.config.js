@@ -16,6 +16,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        firaSans: ['var(--font-firaSans)'],
+        raleway: ['var(--font-raleway)'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -25,6 +29,7 @@ module.exports = {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          from: "hsl(var(--primary-from))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
