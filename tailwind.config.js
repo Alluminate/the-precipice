@@ -20,6 +20,12 @@ module.exports = {
         firaSans: ['var(--font-firaSans)'],
         raleway: ['var(--font-raleway)'],
       },
+      backgroundImage: {
+        'thorium-rad-1': "url('/home/thorium-radiance/thorium-rad-1.png')",
+        'thorium-rad-2': "url('/home/thorium-radiance/thorium-rad-2.png')",
+        'thorium-rad-3': "url('/home/thorium-radiance/thorium-rad-3.png')",
+        'thorium-rad-4': "url('/home/thorium-radiance/thorium-rad-4.png')",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,6 +63,8 @@ module.exports = {
         },
       },
       borderRadius: {
+        "2xl": "calc(var(--radius) + 17px)",
+        xl: "calc(var(--radius) + 2px)",
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",

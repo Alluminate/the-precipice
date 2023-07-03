@@ -11,7 +11,7 @@ function PageHeader({
   return (
     <section
       className={cn(
-        "flex max-w-[980px] flex-col items-start gap-2 px-4 pt-8 md:pt-12",
+        "flex max-w-[980px] h-[100svh] md:h-[100vh] flex-col items-start gap-2 px-4 pt-8 md:pt-12",
         className
       )}
       {...props}
@@ -23,16 +23,19 @@ function PageHeader({
 
 function PageHeaderHeading({
   className,
+  children,
   ...props
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h1
       className={cn(
-        "text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1]",
+        "text-3xl font-raleway font-bold leading-tight tracking-tighter md:text-7xl lg:leading-[1.1]",
         className
       )}
       {...props}
-    />
+    >
+      <Balance>{children}</Balance>
+    </h1>
   )
 }
 
@@ -43,7 +46,7 @@ function PageHeaderDescription({
   return (
     <Balance
       className={cn(
-        "max-w-[750px] text-lg text-muted-foreground sm:text-xl",
+        "max-w-[750px] text-lg font-firaSans text-muted-foreground sm:text-xl",
         className
       )}
       {...props}
@@ -51,4 +54,16 @@ function PageHeaderDescription({
   )
 }
 
-export { PageHeader, PageHeaderHeading, PageHeaderDescription }
+function SubHeader({ className, children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h3 className={cn("text-2xl sm:text-3xl font-bold max-w-xs", className)} {...props}>{children}</h3>
+  )
+}
+
+function Paragraph({ className, children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p className={cn("text-base md:text-lg font-firaSans", className)} {...props}>{children}</p>
+  )
+}
+
+export { PageHeader, PageHeaderHeading, PageHeaderDescription, SubHeader, Paragraph }

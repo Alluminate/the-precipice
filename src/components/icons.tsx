@@ -98,4 +98,5 @@ export const Icons = {
   youtube: Youtube,
   github: Github,
   chevrondown: ChevronDown,
+  arrowRight: ArrowRight
 }
