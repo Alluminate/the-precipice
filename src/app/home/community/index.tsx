@@ -1,5 +1,6 @@
 import { SubHeader } from '@/components/elements'
-import React from 'react'
+import { data } from './data'
+import { CommunityCard } from './community-card'
 
 export default function Community() {
   return (
@@ -7,8 +8,8 @@ export default function Community() {
       <SubHeader className=''>
         Join the <span className='golden-italic'>Community</span>
       </SubHeader>
-      <div>
-
+      <div className='flex justify-center flex-wrap'>
+        {data.map(item => <CommunityCard key={item.title} {...item} />)}
       </div>
     </div>
   )

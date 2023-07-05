@@ -1,24 +1,26 @@
 import Link from "next/link";
 import { PageHeader, PageHeaderHeading, Paragraph } from "@/components/elements";
-import { cn } from "@/lib/utils";
-import { data } from "./data";
-import { HeroCard } from "./hero-card";
 import { buttonVariants } from "@/components/ui/button";
+import { calculateRange, cn } from "@/lib/utils";
+import { HeroCard } from "./hero-card";
+import { data } from "./data";
 
 
 export default function Hero() {
   return (
     <div className="container">
-      <PageHeader className="space-y-20">
-        <PageHeaderHeading className="text-center">
-          We <span className="golden-italic">energize</span> products, protocols, & the pros to accelerate Web 3.0.
-        </PageHeaderHeading>
-        <div className="relative w-full">
-          <div className="flex flex-col w-full md:flex-row items-center justify-around gap-5 absolute -top-10">
-            {data?.map(item => <HeroCard key={item.imageUrl} {...item} />)}
-          </div>
-          <div className="flex flex-col space-y-5 min-w-[calc(100%+8000px)] ml-[-4000px]">
-            {Array.from({ length: 8 }, (_, k) => k + 1).map((_, index) => <div key={index} className={cn("h-[20px] bg-secondary-foreground/50")}></div>)}
+      <PageHeader className="">
+        <div className="space-y-20 flex flex-col mx-auto">
+          <PageHeaderHeading className="text-center">
+            We <span className="golden-italic">energize</span> products, protocols, & the pros to accelerate Web 3.0.
+          </PageHeaderHeading>
+          <div className="relative w-full">
+            <div className="flex flex-col w-full md:flex-row items-center justify-around gap-5 absolute -top-10">
+              {data?.map(item => <HeroCard key={item.imageUrl} {...item} />)}
+            </div>
+            <div className="flex flex-col space-y-5 min-w-[calc(100%+8000px)] ml-[-4000px]">
+              {calculateRange(8).map((_, index) => <div key={index} className={cn("h-[20px] bg-secondary-foreground/50")}></div>)}
+            </div>
           </div>
         </div>
       </PageHeader>

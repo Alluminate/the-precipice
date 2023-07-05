@@ -19,8 +19,8 @@ export interface WWSCardProps {
 
 export const WWSCard: React.FC<WWSCardProps> = ({ imageUrl, title, body, learnMoreList, button }) => {
   return (
-    <Card className="pt-3 border-0 flex flex-col items-center md:items-start ">
-      <CardContent className="max-w-[300px] space-y-4 flex-1 flex flex-col">
+    <Card className="pt-3 border-0 flex flex-col flex-[0_0_calc(33.33% - 40px)] m-5 w-80 items-center lg:items-start">
+      <CardContent className="space-y-4 flex-1 flex flex-col">
         <Image
           className="self-center"
           src={`/home/where-we-shine/${imageUrl}.svg`}
@@ -38,7 +38,7 @@ export const WWSCard: React.FC<WWSCardProps> = ({ imageUrl, title, body, learnMo
         </div>
       </CardContent>
       <CardFooter className="flex items-center justify-center">
-        <Link href={button.link} className={cn(buttonVariants({ variant: 'outline' }))}>{button.label} <Icons.arrowRight className="text-[1em]" /></Link>
+        <Link href={button.link} className={cn(buttonVariants({ variant: 'outline' }), 'gap-1')}>{button.label} <Icons.arrowRight size={'1em'} /></Link>
       </CardFooter>
     </Card>
   );

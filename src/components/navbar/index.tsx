@@ -4,14 +4,14 @@ import Link from "next/link";
 import { Navbar } from "./navbar-container";
 import { Button } from '@/components/ui/button'
 import { Icons } from "@/components/icons"
-import { cn } from "@/lib/utils";
+import { calculateRange, cn } from "@/lib/utils";
 import { navsConfig } from "@/config/navs";
 import { NavbarLink, NavbarLinkWithSubMenu } from "./link";
 
 const NavTop = () => {
   return (
     <div className="grid grid-cols-9">
-      {Array.from({ length: 9 }, (_, k) => k + 1).map((_, index) => <div key={index} className={cn("h-[20px]", index % 2 === 0 ? 'bg-secondary-foreground' : 'bg-transparent')}></div>)}
+      {calculateRange(9).map((_, index) => <div key={index} className={cn("h-[20px]", index % 2 === 0 ? 'bg-secondary-foreground' : 'bg-transparent')}></div>)}
     </div>
   )
 }

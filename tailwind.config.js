@@ -25,6 +25,7 @@ module.exports = {
         'thorium-rad-2': "url('/home/thorium-radiance/thorium-rad-2.png')",
         'thorium-rad-3': "url('/home/thorium-radiance/thorium-rad-3.png')",
         'thorium-rad-4': "url('/home/thorium-radiance/thorium-rad-4.png')",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       colors: {
         border: "hsl(var(--border))",
@@ -68,6 +69,9 @@ module.exports = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      gridTemplateColumns: {
+        'holy-grail': 'repeat(auto-fill, minmax(var(--min-column-width), 1fr))'
       },
       keyframes: {
         "accordion-down": {

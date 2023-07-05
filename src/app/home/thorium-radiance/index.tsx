@@ -13,7 +13,7 @@ export default function ThoriumRadiance() {
           <div className='absolute bottom-6 space-y-2'>
             <h4 className='text-lg md:text-xl'>Thorium is Discovered</h4>
             <Paragraph>News • July 30, 2023</Paragraph>
-            <Paragraph>Read Here <Icons.arrowRight className='inline text-[1em]' /></Paragraph>
+            <Paragraph className='flex items-center gap-1'>Read Here <Icons.arrowRight className='inline' size={'1em'} /></Paragraph>
           </div>
         </div>
         <div className="relative p-6 border border-secondary-foreground h-[350px] col-span-1 sm:col-span-2 bg-thorium-rad-2 bg-cover bg-no-repeat">
@@ -21,8 +21,8 @@ export default function ThoriumRadiance() {
             <SubHeader className='font-normal max-w-xl sm:max-w-md'>Automated + AI DeFi Trading Strategies</SubHeader>
             <Paragraph>Webinar • July 30, 2023</Paragraph>
             <div className="flex flex-col sm:flex-row items-center gap-2">
-              <Button variant='outline' className='border-foreground'>Get Your Ticket <Icons.arrowRight className='inline text-[1em]' /></Button>
-              <Paragraph className='text-sm md:text-sm'>Become a Speaker <Icons.arrowRight className='inline text-[1em]' /></Paragraph>
+              <Button variant='outline' className='border-foreground flex items-center gap-1'>Get Your Ticket <Icons.arrowRight className='inline' size={'1em'} /></Button>
+              <Paragraph className='text-sm md:text-sm flex items-center gap-1'>Become a Speaker <Icons.arrowRight className='inline' size={'1em'} /></Paragraph>
             </div>
           </div>
         </div>
@@ -31,8 +31,8 @@ export default function ThoriumRadiance() {
             <SubHeader className='font-normal max-w-xl sm:max-w-md'>Thorium Presents: Convergence 2023</SubHeader>
             <Paragraph>Metaverse Conference • July 30, 2023</Paragraph>
             <div className="flex flex-col sm:flex-row items-center gap-2">
-              <Button variant='outline' className='border-foreground'>Get Your Ticket <Icons.arrowRight className='inline text-[1em]' /></Button>
-              <Paragraph className='text-sm md:text-sm'>Become a Speaker <Icons.arrowRight className='inline text-[1em]' /></Paragraph>
+              <Button variant='outline' className='border-foreground flex items-center gap-1'>Get Your Ticket <Icons.arrowRight className='inline' size={'1em'} /></Button>
+              <Paragraph className='text-sm md:text-sm flex items-center gap-1'>Become a Speaker <Icons.arrowRight className='inline' size={'1em'} /></Paragraph>
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default function ThoriumRadiance() {
           <div className='absolute bottom-6 space-y-2'>
             <h4 className='text-lg md:text-xl'>The Thorium Team Meets IRL</h4>
             <Paragraph>News • July 30, 2023</Paragraph>
-            <Paragraph>Read Here <Icons.arrowRight className='inline text-[1em]' /></Paragraph>
+            <Paragraph className='flex items-center gap-1'>Read Here <Icons.arrowRight className='inline' size={'1em'} /></Paragraph>
           </div>
         </div>
       </div>

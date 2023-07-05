@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { Fira_Sans, Raleway } from 'next/font/google'
 import { siteConfig } from '@/config/site'
 import { NavBar } from '@/components/navbar'
+import Footer from '@/components/footer'
 
 const firaSans = Fira_Sans({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'], variable: '--font-firaSans', })
 const raleway = Raleway({ subsets: ['latin'], style: ['italic', 'normal'], weight: ['400', '700'], variable: '--font-raleway' })
@@ -71,12 +72,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head />
       <body className={`${firaSans.variable} ${raleway.variable}`}>
         <main className="relative flex min-h-screen flex-col overflow-x-clip">
           <NavBar />
           <div className="flex-1 max-w-screen-xl mx-auto">{children}</div>
-          {/* <SiteFooter /> */}
+          <Footer />
         </main>
       </body>
     </html>

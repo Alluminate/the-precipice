@@ -6,7 +6,7 @@ import Community from './home/community'
 
 export default function Home() {
   return (
-    <section className='space-y-8'>
+    <section className='space-y-20'>
       <Hero />
       <WhereWeShine />
       <ThoriumRadiance />

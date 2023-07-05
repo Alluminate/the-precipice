@@ -11,7 +11,7 @@ function PageHeader({
   return (
     <section
       className={cn(
-        "flex max-w-[980px] h-[100svh] md:h-[100vh] flex-col items-start gap-2 px-4 pt-8 md:pt-12",
+        "flex h-[100svh] md:h-[100vh] flex-col items-center  gap-2 px-4 md:px-12 pt-8 md:pt-12",
         className
       )}
       {...props}
@@ -46,7 +46,7 @@ function PageHeaderDescription({
   return (
     <Balance
       className={cn(
-        "max-w-[750px] text-lg font-firaSans text-muted-foreground sm:text-xl",
+        "max-w-[750px] text-lg font-firaSans text-foreground sm:text-xl",
         className
       )}
       {...props}
