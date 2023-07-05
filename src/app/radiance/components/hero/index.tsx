@@ -4,21 +4,21 @@ import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-
 export function Hero() {
   return (
     <div className="container">
-      <PageHeader>
-        <div className="flex flex-col mx-auto gap-4">
+      <PageHeader className="md:h-fit px-0 md:px-0">
+        <div className="flex flex-col items-center mx-auto gap-4">
           <PageHeaderHeading className="text-center">
             Learn from the <span className="golden-italic">brightest.</span>
           </PageHeaderHeading>
           <PageHeaderDescription className="text-center">
             Thorium’s <span className="golden-italic">Radiance</span> is a pro-level focused academy, informed by Web 3.0 Convergence theory, years of implementation, and subject-matter experts.
           </PageHeaderDescription>
-          <div className="mt-8 w-full flex flex-col sm:flex-row h-[480px] gap-5">
-            <div className="flex flex-col flex-[2] gap-5 justify-between h-full">
-              <div className="p-5 grid gap-2 content-end flex-[5] rounded border border-secondary-foreground bg-gradient-radial from-[#33066D] to-black">
+          {/* // TODO: Try Grid for the Hero 3 section  */}
+          <div className="mt-8 lg:w-[960px] flex flex-col sm:flex-row h-[480px] gap-5"> 
+            <div className="flex flex-col flex-1 sm:flex-[2] gap-5 justify-between h-full">
+              <div className="p-5 grid gap-2 content-end flex-1 sm:flex-[5] rounded border border-secondary-foreground bg-gradient-radial from-[#33066D] to-black">
                 <h3 className="text-2xl">The Radiance Academy</h3>
                 <Link href='/' className={cn(buttonVariants({ variant: 'outline' }), 'inline-flex items-center gap-1 border-foreground font-bold w-fit')}>Click to Start <Icons.arrowRight size={'1em'} strokeWidth={3} /></Link>
               </div>

@@ -8,25 +8,24 @@ export const navsConfig: NavsConfig = {
   topNav: [
     {
       label: "Academy",
-      href: "/academy",
+      href: "/radiance",
     },
     {
       label: "Services",
       href: "/services",
       submenuList: [
-        {
-          label: "Academy",
-          href: "/services/academy",
-        },
-        {
-          label: "Blog",
-          href: "/services/blog",
-        },
-        {
-          label: "About",
-          href: "/services/about",
-        },
-
+        // {
+        //   label: "Academy",
+        //   href: "/services/academy",
+        // },
+        // {
+        //   label: "Blog",
+        //   href: "/services/blog",
+        // },
+        // {
+        //   label: "About",
+        //   href: "/services/about",
+        // },
       ]
     },
     {

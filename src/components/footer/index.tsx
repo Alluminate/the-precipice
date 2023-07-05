@@ -8,9 +8,8 @@ export default function Footer() {
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex gap-8 sm:gap-24">
           <div className="mb-6 md:mb-0">
-            <Link href="/" className="flex items-center">
+            <Link href="/">
               <Icons.logoNoText width={60} height={60} />
-              {/* <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span> */}
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4 justify-between w-full">
@@ -77,8 +76,8 @@ export default function Footer() {
         </div>
         <Separator className='my-6 sm:mx-auto lg:my-8' />
         <div className="sm:flex sm:justify-center">
-          <span className="text-sm text-primary sm:text-center sm:flex">
-            © 2023 &nbsp;<Link href="/" className="hover:underline">Thorium Development Group</Link>. All Rights Reserved.
+          <span className="text-xs sm:text-sm text-primary sm:text-center sm:flex">
+            © {new Date().getFullYear()} <Link href="/" className="hover:underline">Thorium Development Group</Link>. All Rights Reserved.
             <Separator className='mx-2' orientation='vertical' /> <Link href="/" className="hover:underline">Terms of Service</Link> <Separator className='mx-2' orientation='vertical' /> <Link href="/" className="hover:underline">Privacy Policy</Link>
           </span>
           {/* <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
