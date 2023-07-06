@@ -20,10 +20,10 @@ export default function Footer() {
                   <Link href="/" className="hover:underline">Home</Link>
                 </li>
                 <li>
-                  <Link href="/" className="hover:underline">Blog</Link>
+                  <Link href="/blog" className="hover:underline">Blog</Link>
                 </li>
                 <li>
-                  <Link href="/" className="hover:underline">About</Link>
+                  <Link href="/about" className="hover:underline">About</Link>
                 </li>
                 <li>
                   <Link href="/" className="hover:underline">Brand Assets</Link>
@@ -54,13 +54,13 @@ export default function Footer() {
               <h2 className="mb-6 text-base font-semibold text-primary capitalize">Nanoforge</h2>
               <ul className="text-sm font-medium space-y-4">
                 <li>
-                  <Link href="#" className="hover:underline">All Services</Link>
+                  <Link href="/services" className="hover:underline">All Services</Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:underline">DeFi Logic</Link>
+                  <Link href="/" className="hover:underline">DeFi Logic</Link>
                 </li>
                 <li>
-                  <Link href="#" className="hover:underline">Architecture</Link>
+                  <Link href="/" className="hover:underline">Architecture</Link>
                 </li>
               </ul>
             </div>
@@ -68,7 +68,7 @@ export default function Footer() {
               <h2 className="mb-6 text-base font-semibold text-primary capitalize">Partners</h2>
               <ul className="text-sm font-medium space-y-4">
                 <li>
-                  <Link href="#" className="hover:underline">Flexible</Link>
+                  <Link href="/" className="hover:underline">Flexible</Link>
                 </li>
               </ul>
             </div>

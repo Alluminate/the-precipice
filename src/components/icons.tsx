@@ -1,5 +1,6 @@
 import {
   ArrowRight,
+  ArrowLeft,
   ChevronDown,
   Github,
   LucideProps,
@@ -202,5 +203,6 @@ export const Icons = {
   ),
   github: Github,
   chevrondown: ChevronDown,
-  arrowRight: ArrowRight
+  arrowRight: ArrowRight,
+  arrowLeft: ArrowLeft,
 }

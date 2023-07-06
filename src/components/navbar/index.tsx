@@ -34,7 +34,7 @@ const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
-            {navsConfig.topNav.map((nav, index) => {
+            {navsConfig.topNav.map(nav => {
               return (
                 nav.submenuList?.length ?
                   <NavbarLinkWithSubMenu key={nav.href} {...nav} /> :

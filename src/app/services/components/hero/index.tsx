@@ -6,7 +6,7 @@ import { data } from "./data";
 export function Hero() {
   return (
     <section className="container">
-      <PageHeader className="md:h-fit">
+      <PageHeader className="h-fit md:h-fit">
         <div className="flex flex-col mx-auto gap-4">
           <PageHeaderHeading className="text-center">
             World class Web 3.0 products, protocols, and pros trust the <span className="golden-italic">Nanoforge.</span>

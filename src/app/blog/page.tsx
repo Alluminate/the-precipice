@@ -1,11 +1,9 @@
 import { Hero } from "./components";
-import { FAQS } from "../services/components";
 
-export default function Contact() {   
+export default function Blog() {   
   return (
     <section className='space-y-20'>
       <Hero />
-      <FAQS />
     </section>
   )
  }

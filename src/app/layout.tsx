@@ -73,7 +73,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${firaSans.variable} ${raleway.variable}`}>
+      <body className={`min-h-screen antialiased ${firaSans.variable} ${raleway.variable}`}>
         <main className="relative flex min-h-screen flex-col overflow-x-clip">
           <NavBar />
           <div className="flex-1 max-w-screen-xl mx-auto">{children}</div>

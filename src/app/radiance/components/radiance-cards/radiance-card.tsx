@@ -14,7 +14,7 @@ export interface RadianceCardProps {
 
 export const RadianceCard: React.FC<RadianceCardProps> = ({ imageUrl, title, description, link }) => {
   return (
-    <Card className="bg-black border border-primary">
+    <Card className="bg-black border border-primary shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
        <CardContent className="space-y-4 flex-1 flex flex-col pt-6">
         <Image
           className="self-center"

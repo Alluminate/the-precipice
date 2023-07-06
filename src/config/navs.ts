@@ -28,23 +28,13 @@ export const navsConfig: NavsConfig = {
         // },
       ]
     },
-    {
-      label: "Blog",
-      href: "/blog",
-    },
+    // {
+    //   label: "Blog",
+    //   href: "/blog",
+    // },
     {
       label: "About",
       href: "/about",
     },
-    // {
-    //   title: "GitHub",
-    //   href: "https://github.com/shadcn/ui",
-    //   external: true,
-    // },
-    // {
-    //   title: "Twitter",
-    //   href: "https://twitter.com/shadcn",
-    //   external: true,
-    // },
   ],
 }

@@ -1,5 +1,5 @@
 import { PageHeader, PageHeaderDescription, PageHeaderHeading } from "@/components/elements";
-import { ContactForm } from "./contact-form";
+
 
 export function Hero() {
   return (
@@ -7,13 +7,12 @@ export function Hero() {
       <PageHeader className="h-fit md:h-fit">
         <div className="flex flex-col mx-auto gap-4">
           <PageHeaderHeading className="">
-            Let’s partner.
+            Thorium will <span className="golden-italic">change</span> your relationship with technology.
           </PageHeaderHeading>
           <PageHeaderDescription>
-            Fill in the short form below or skip to the bottom to arrange a chat with us. We’ll be back in touch as soon as we can to arrange an informal call.
+            The next-generation of web has come, but it is not uniform, safe, accessible, trustworthy, seamless, nor usable.
           </PageHeaderDescription>
         </div>
-        <ContactForm />
       </PageHeader>
     </div>
   )
