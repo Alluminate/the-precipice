@@ -9,7 +9,7 @@ export const AccordionCard: React.FC<AccordionCardProps> = ({ title, content }) 
   return (
     <AccordionItem value={title}>
       <AccordionTrigger className="text-xl text-left font-normal hover:no-underline">{title}</AccordionTrigger>
-      <AccordionContent>
+      <AccordionContent className="max-w-[52rem]">
         {content}
       </AccordionContent>
     </AccordionItem>

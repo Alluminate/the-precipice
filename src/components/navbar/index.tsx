@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Navbar } from "./navbar-container";
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Icons } from "@/components/icons"
 import { calculateRange, cn } from "@/lib/utils";
 import { navsConfig } from "@/config/navs";
@@ -28,9 +28,9 @@ const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
           </Link>
           {/* <div className="flex gap-3"> */}
           <div className="flex md:order-2">
-            <Button>
+            <Link href='/contact' className={cn(buttonVariants())}>
               Contact Us
-            </Button>
+            </Link>
             <Navbar.Toggle />
           </div>
           <Navbar.Collapse>
