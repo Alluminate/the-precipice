@@ -16,7 +16,7 @@ export interface CommunityCardProps {
 
 export const CommunityCard: React.FC<CommunityCardProps> = ({ title, icon, description, button }) => {
   return (
-    <Card className="bg-[#0C0B16] flex flex-col flex-[0_0_calc(33.33% - 32px)] m-4 border-0 w-80 shadow-primary">
+    <Card className="bg-[#0C0B16] flex flex-col flex-[0_0_calc(33.33% - 32px)] m-4 border-0 w-full sm:w-80 shadow-primary">
       <CardHeader className="flex-row items-center justify-between">
         <CardTitle>
           {title}

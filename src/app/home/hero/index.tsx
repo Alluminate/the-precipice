@@ -9,7 +9,7 @@ import { data } from "./data";
 export default function Hero() {
   return (
     <div className="container">
-      <PageHeader className="">
+      <PageHeader className="md:h-[85vh]">
         <div className="space-y-20 flex flex-col mx-auto">
           <PageHeaderHeading className="text-center">
             We <span className="golden-italic">energize</span> products, protocols, & the pros to accelerate Web 3.0.
