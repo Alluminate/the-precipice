@@ -8,7 +8,7 @@ import { data } from "./data";
 
 export default function Hero() {
   return (
-    <div className="container">
+    <div className="container space-y-24">
       <PageHeader className="md:h-[85vh]">
         <div className="space-y-20 flex flex-col mx-auto">
           <PageHeaderHeading className="text-center">

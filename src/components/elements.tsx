@@ -11,7 +11,7 @@ function PageHeader({
   return (
     <section
       className={cn(
-        "flex h-[100svh] md:h-[100vh] flex-col items-center  gap-2 px-4 md:px-12 pt-8 md:pt-12",
+        "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 ",
         className
       )}
       {...props}
