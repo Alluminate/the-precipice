@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Navbar } from "./navbar-container";
-import { Button, buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Icons } from "@/components/icons"
 import { calculateRange, cn } from "@/lib/utils";
 import { navsConfig } from "@/config/navs";

@@ -7,6 +7,7 @@ export const siteConfig = {
     twitter: "https://twitter.com",
     github: "https://github.com",
   },
+  pageSize: 6,
 }
 
 export type SiteConfig = typeof siteConfig

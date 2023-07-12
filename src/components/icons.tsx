@@ -3,6 +3,7 @@ import {
   ArrowLeft,
   ChevronDown,
   Github,
+  Link,
   LucideProps,
   type Icon as LucideIcon,
 } from "lucide-react"
@@ -205,4 +206,5 @@ export const Icons = {
   chevrondown: ChevronDown,
   arrowRight: ArrowRight,
   arrowLeft: ArrowLeft,
+  permaLink: Link,
 }

@@ -1,6 +1,8 @@
-// import Contentful, { ContentfulClientApi, createClient } from "contentful";
-// import { PAGE_SIZE } from "./constants";
-// import * as CFRichTextTypes from "@contentful/rich-text-types";
+import { ContentfulClientApi, createClient } from "contentful";
+import type { EntryFieldTypes, EntrySkeletonType } from "contentful";
+
+import { siteConfig } from "@/config/site";
+
 
 export type Author = {
   name: string;
@@ -20,8 +22,7 @@ export type BlogPost = {
   excerpt: string;
   publishedDate: string | undefined;
   slug: string;
-  // tags: Array<string>;
-  tags: string;
+  tag: string;
   title: string;
   heroImage?: HeroImage | null;
   author?: Author | null;
@@ -38,16 +39,43 @@ export type HelpArticle = {
   author?: Author | null;
 };
 
-// export type TypeBlogFields = {
-//   title: Contentful.EntryFields.Symbol;
-//   content: CFRichTextTypes.Block | CFRichTextTypes.Inline;
-//   excerpt?: Contentful.EntryFields.Text;
-//   heroImage?: Contentful.Asset;
-//   date?: Contentful.EntryFields.Date;
-//   slug: Contentful.EntryFields.Symbol;
-//   author?: Contentful.Entry<Record<string, any>>;
-//   tags?: Contentful.Entry<Record<string, any>>[];
-// }
+export type TypeBlogFields = {
+  title: EntryFieldTypes.Symbol;
+  content: EntryFieldTypes.RichText;
+  excerpt: EntryFieldTypes.Text;
+  heroImage?: EntryFieldTypes.AssetLink;
+  date?: EntryFieldTypes.Date;
+  slug: EntryFieldTypes.Symbol;
+  author?: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+  tag: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+}
+
+export type BlogSkeleton = EntrySkeletonType<TypeBlogFields, "blog">;
+
+export interface TypeBlogTagsFields {
+  title: EntryFieldTypes.Symbol;
+  description: EntryFieldTypes.RichText;
+  slug: EntryFieldTypes.Symbol;
+}
+
+export type BlogTagsSkeleton = EntrySkeletonType<TypeBlogTagsFields, "blogTags">;
+
+export interface TypeAcademyFields {
+  title: EntryFieldTypes.Symbol;
+  subtitle: EntryFieldTypes.Text;
+  slug: EntryFieldTypes.Symbol;
+  author: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+  date?: EntryFieldTypes.Date;
+  content?: EntryFieldTypes.RichText;
+  tag: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+}
+
+export interface TypeAcademyTagsFields {
+  title: EntryFieldTypes.Symbol;
+  description?: EntryFieldTypes.Text;
+  tagIcon?: EntryFieldTypes.AssetLink;
+  slug?: EntryFieldTypes.Symbol;
+}
 
 export type BlogEntriesProps = {
   limit?: number;
@@ -85,7 +113,7 @@ type ArticleTagsType = 'helpTags' | 'academyTags';
 
 
 export class ContentfulApi {
-  client: ContentfulClientApi;
+  client: ContentfulClientApi<undefined>;
   dateOptions: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
 
   constructor(preview?: boolean) {
@@ -125,7 +153,7 @@ export class ContentfulApi {
 
     const rawHeroImage = rawPost.heroImage ? rawPost.heroImage.fields : null;
     const rawAuthor = rawPost.author ? rawPost.author.fields : null;
-    const rawTags = rawPost?.tags[0] ? rawPost?.tags[0].fields : null;
+    const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
 
     return {
       id: rawData.sys.id,
@@ -133,7 +161,7 @@ export class ContentfulApi {
       excerpt: rawPost?.excerpt,
       publishedDate: rawPost?.date ? this.formatDate(rawPost?.date) : this.formatDate(rawData.sys.createdAt),
       slug: rawPost?.slug,
-      tags: rawTags?.title,
+      tag: rawTag?.title,
       title: rawPost?.title,
       heroImage: this.convertImage(rawHeroImage),
       author: this.convertAuthor(rawAuthor),
@@ -159,18 +187,18 @@ export class ContentfulApi {
   };
 
   async fetchBlogEntries({ limit, skip, tag }: BlogEntriesProps = {
-    limit: PAGE_SIZE,
+    limit: siteConfig.pageSize,
     skip: 0,
     tag: ''
   }): Promise<BlogEntriesReturnType> {
     try {
-      const res = await this.client?.getEntries({
+      const res = await this.client?.getEntries<BlogSkeleton>({
+        content_type: 'blog',
         include: 1,
         limit,
         skip,
-        'fields.tags.sys.id': tag,
-        content_type: 'blog',
-        order: '-fields.date',
+        'fields.tag.sys.id': tag,
+        order: ['-fields.date'],
       })
 
       if (res && res.items && res.items.length > 0) {
@@ -178,7 +206,7 @@ export class ContentfulApi {
         const total = res.total;
         return { blogPosts, total, limit, skip };
       }
-      return { blogPosts: [], limit: PAGE_SIZE, skip: 0, total: 0 };
+      return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
 
     } catch (error) {
       console.log(error)
@@ -186,9 +214,9 @@ export class ContentfulApi {
     }
   }
 
-  async fetchBlogBySlug(slug: string): Promise<BlogPost | null> {
+  async fetchBlogBySlug(slug: string): Promise<BlogPost> {
     try {
-      const res = await this.client.getEntries({
+      const res = await this.client.getEntries<BlogSkeleton>({
         content_type: "blog",
         "fields.slug": slug,
       })
@@ -196,7 +224,7 @@ export class ContentfulApi {
         const post = this.convertPost(res.items[0]);
         return post;
       }
-      return null;
+      return {} as BlogPost;
 
     } catch (error) {
       console.log(error)
@@ -205,8 +233,8 @@ export class ContentfulApi {
   }
 
   async getAllTags(): Promise<{ id: string; title: string; }[]> {
-    const res = await this.client.getEntries({
-      content_type: 'tags'
+    const res = await this.client.getEntries<BlogTagsSkeleton>({
+      content_type: 'blogTags'
     });
 
     const tags = res.items.map(
@@ -234,16 +262,16 @@ export class ContentfulApi {
   }
 
   //Help and Academy Articles
-  async fetchArticleEntries({ tag, content_type }: ArticleEntriesProps = {
+  async fetchArticleEntries({ tag, content_type = 'academy' }: ArticleEntriesProps = {
     tag: '',
-    content_type: 'help'
+    content_type: 'academy'
   }): Promise<ArticleEntriesReturnType> {
     try {
       const res = await this.client?.getEntries({
+        content_type,
         include: 1,
         'fields.tag.sys.id': tag,
-        content_type,
-        order: '-fields.date',
+        order: ['-fields.date'],
       })
 
       if (res && res.items && res.items.length > 0) {
@@ -280,7 +308,7 @@ export class ContentfulApi {
   async getAllArticleTags(content_type: ArticleTagsType = 'helpTags'): Promise<ArticleTagsReturnType[]> {
     const res = await this.client.getEntries({
       content_type,
-      order: 'sys.updatedAt',
+      order: ['sys.updatedAt'],
     });
 
     const tags = res.items.map(
