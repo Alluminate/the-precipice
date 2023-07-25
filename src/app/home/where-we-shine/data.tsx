@@ -10,7 +10,8 @@ export const data: WWSCardProps[] = [
     button: {
       label: 'Engineer It',
       link: '/services/engineer-it'
-    }
+    },
+    delay: 0
   },
   {
     imageUrl: 'middleware-infra',
@@ -20,7 +21,8 @@ export const data: WWSCardProps[] = [
     button: {
       label: 'Scale Up',
       link: '/services/scale-up'
-    }
+    },
+    delay: 150
   },
   {
     imageUrl: 'defi-archi',
@@ -30,6 +32,7 @@ export const data: WWSCardProps[] = [
     button: {
       label: 'Build It',
       link: '/services/build-it'
-    }
+    },
+    delay: 300
   },
 ]

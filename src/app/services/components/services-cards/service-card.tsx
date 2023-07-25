@@ -7,14 +7,15 @@ import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
 
 export interface ServiceCardProps {
+  id: number;
   imageUrl: string;
   title: string;
   description: string;
 }
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({ imageUrl, title, description, }) => {
+export const ServiceCard: React.FC<ServiceCardProps> = ({ id, imageUrl, title, description }) => {
   return (
-    <Card className="bg-black border border-primary shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
+    <Card data-aos={`fade-up-${id % 2 === 0 ? "right" : "left"}`} className="bg-black border border-primary shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

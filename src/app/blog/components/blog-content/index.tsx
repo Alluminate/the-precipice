@@ -12,9 +12,8 @@ interface BlogContentProps {
 
 export function BlogContent({ post: { heroImage, tag, title, excerpt, publishedDate, content } }: BlogContentProps) {
   return (
-    <section className="container space-y-20">
-       <PageHeader className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[928px] md:px-0">
-       {/* <PageHeader className="h-fit md:h-fit items-start w-full md:px-0"> */}
+    <section className="container space-y-20 flex flex-col flex-[1_1_65ch] max-w-blog">
+      <PageHeader className="h-fit md:h-fit items-start w-full md:px-0">
         <Link href="/blog" passHref>
           <p className="flex items-center gap-2 cursor-pointer">
             <Icons.arrowLeft size={'1em'} /> Go back to the blog
@@ -26,15 +25,17 @@ export function BlogContent({ post: { heroImage, tag, title, excerpt, publishedD
           </div>
         }
       </PageHeader>
-      <article className="rounded-md bg-black p-8">
+      <div className="rounded-md bg-black md:p-8">
         <div className="max-w-2xl mb-16">
           <p className="bg-primary px-4 py-2 rounded inline">{tag}</p>
           <h1 className="font-bold text-4xl mt-4 mb-2">{title}</h1>
           <h3 className="text-xl">{excerpt}</h3>
           <span className="text-sm text-muted-foreground">{publishedDate}</span>
         </div>
-        {documentToReactComponents(content, richTextOptions)}
-      </article>
+        <article className="prose max-w-none lg:prose-base prose-headings:text-foreground prose-headings:scroll-pt-28 prose-p:text-foreground">
+          {documentToReactComponents(content, richTextOptions)}
+        </article>
+      </div>
     </section>
   )
 }

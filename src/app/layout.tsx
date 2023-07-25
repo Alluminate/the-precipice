@@ -3,8 +3,11 @@ import { Metadata } from 'next'
 import { Fira_Sans, Raleway } from 'next/font/google'
 import { siteConfig } from '@/config/site'
 import { NavBar } from '@/components/navbar'
-import Footer from '@/components/footer'
-import { Toaster } from "@/components/ui/toaster"
+import { Footer } from '@/components/footer'
+import { Toaster } from '@/components/ui/toaster'
+import { GoogleAnalytics } from '@/lib/google-analytics'
+import { AOSInit } from '@/lib/aos'
+
 
 const firaSans = Fira_Sans({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'], variable: '--font-firaSans', })
 const raleway = Raleway({ subsets: ['latin'], style: ['italic', 'normal'], weight: ['400', '700'], variable: '--font-raleway' })
@@ -16,19 +19,21 @@ export const metadata: Metadata = {
   //   default: siteConfig.name,
   //   template: `%s - ${siteConfig.name}`,
   // },
-  // keywords: [
-  //   "Next.js",
-  //   "React",
-  //   "Tailwind CSS",
-  //   "Server Components",
-  //   "Radix UI",
-  // ],
-  // authors: [
-  //   {
-  //     name: "shadcn",
-  //     url: "https://shadcn.com",
-  //   },
-  // ],
+  keywords: [
+    "Web 3.0",
+    "DeFi",
+    "Blockchain Engineering",
+    "Consulting",
+    "Thorium",
+    "Innovation",
+    "Finance"
+  ],
+  authors: [
+    {
+      name: "Thorium",
+      url: "https://thorium.com",
+    },
+  ],
 
   // themeColor: [
   //   { media: "(prefers-color-scheme: light)", color: "white" },
@@ -55,14 +60,14 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    // creator: "@shadcn",
+    // creator: "@sthorium",
   },
-  // icons: {
-  //   icon: "/favicon.ico",
-  //   shortcut: "/favicon-16x16.png",
-  //   apple: "/apple-touch-icon.png",
-  // },
-  // manifest: `${siteConfig.url}/site.webmanifest`,
+  icons: {
+    icon: "/icon.ico",
+    shortcut: "/shortcut-icon.png",
+    apple: "/apple-icon.png",
+  },
+  manifest: `${siteConfig.url}/site.webmanifest`,
 }
 
 
@@ -72,8 +77,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={`min-h-screen antialiased ${firaSans.variable} ${raleway.variable}`}>
+    <html lang="en" className="scroll-smooth">
+      <GoogleAnalytics />
+      <AOSInit />
+      <body className={`min-h-screen antialiased ${firaSans.variable} ${raleway.variable}`} suppressHydrationWarning>
         <main className="relative flex min-h-screen flex-col overflow-x-clip">
           <NavBar />
           <div className="flex-1 max-w-screen-xl mx-auto">{children}</div>

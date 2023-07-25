@@ -2,6 +2,7 @@ import { TeamCardProps } from "./team-card";
 
 export const data: TeamCardProps[] = [
   {
+    id: 1,
     imageUrl: 'mike-powers',
     name: 'Mike Powers',
     role: 'SENIOR DEVOPS ENGINEER',
@@ -14,8 +15,8 @@ export const data: TeamCardProps[] = [
       linkedin: 'https://www.linkedin.com/in/mjpowersjr',
     }
   },
-
   {
+    id: 2,
     imageUrl: 'mike-coon',
     name: 'Michael Coon',
     role: 'SENIOR BLOCKCHAIN ENGINEER',
@@ -28,8 +29,8 @@ export const data: TeamCardProps[] = [
       linkedin: 'https://www.linkedin.com/in/michael-coon-68136967/',
     }
   },
-
   {
+    id: 3,
     imageUrl: 'mitchell-opatowsky',
     name: 'Mitchell Opatowsky',
     role: 'SENIOR PRODUCT MANAGER',

@@ -41,8 +41,8 @@ export default async function Home() {
     <section className='space-y-20'>
       <Hero />
       <WhereWeShine />
-      <ThoriumRadiance />
-      <DevBlog />
+      {/* <ThoriumRadiance /> */}
+      {/* <DevBlog /> */}
       <Community />
     </section>
   )

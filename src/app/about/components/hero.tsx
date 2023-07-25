@@ -4,7 +4,7 @@ import { PageHeader, PageHeaderDescription, PageHeaderHeading } from "@/componen
 export function Hero() {
   return (
     <div className="container">
-      <PageHeader className="h-fit md:h-fit">
+      <PageHeader data-aos="fade-in" className="h-fit md:h-fit">
         <div className="flex flex-col mx-auto gap-4">
           <PageHeaderHeading className="">
             Thorium will <span className="golden-italic">change</span> your relationship with technology.

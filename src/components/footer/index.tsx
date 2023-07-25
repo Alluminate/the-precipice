@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Separator } from "@/components/ui/separator";
 import { Icons } from "@/components/icons";
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="container pt-20">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
@@ -110,5 +110,4 @@ export default function Footer() {
       </div>
     </footer>
   )
-
 }

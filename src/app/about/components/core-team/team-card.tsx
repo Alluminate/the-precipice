@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import Link from "next/link";
 
 export interface TeamCardProps {
+  id: number;
   name: string;
   imageUrl: string;
   role: string;
@@ -17,9 +18,9 @@ export interface TeamCardProps {
   }
 }
 
-export const TeamCard: React.FC<TeamCardProps> = ({ name, imageUrl, role, bio, socials }) => {
+export const TeamCard: React.FC<TeamCardProps> = ({ id, name, imageUrl, role, bio, socials }) => {
   return (
-    <Card className="bg-black border border-primary flex-[0_0_calc(50% - 32px)] m-4 w-full md:w-96 shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
+    <Card data-aos={id % 2 === 1 ? "flip-right" : "flip-left"} className="bg-black border border-primary flex-[0_0_calc(50% - 32px)] m-4 w-full md:w-96 shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
       <CardContent className="space-y-4 flex-1 flex flex-col items-center pt-6">
         <Image
           className="rounded-full p-2 ring ring-primary"

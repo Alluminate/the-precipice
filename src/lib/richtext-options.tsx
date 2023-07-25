@@ -61,73 +61,73 @@ export const richTextOptions: Options = {
     },
     [BLOCKS.HEADING_1]: (node: any) => {
       const headingId = slugify(node.content[0].value)
-      return <h1 className="group mt-14 mr-0 mb-8 ml-0">
+      return <h1 className="flex items-center group mt-14 mr-0 mb-7 ml-0 text-3xl">
         <span id={headingId}></span>
-        <a className="mr-2" href={`#${headingId}`}>
+        <a className="mr-2 not-prose text-foreground no-underline font-bold text-3xl" href={`#${headingId}`}>
           {node.content[0].value}
         </a>
         <span className="invisible group-hover:visible">
-          <Icons.permaLink size={'1em'} />
+          <Icons.permaLink size={'0.75em'} />
         </span>
       </h1>
     },
     [BLOCKS.HEADING_2]: (node: any) => {
       const headingId = slugify(node.content[0].value)
-      return <h2 className="group mt-14 mr-0 mb-8 ml-0">
+      return <h2 className="flex items-center group mt-14 mr-0 mb-5 ml-0 text-xl">
         <span id={headingId}></span>
-        <a className="mr-2" href={`#${headingId}`}>
+        <a className="mr-2 not-prose text-foreground no-underline font-bold text-xl" href={`#${headingId}`}>
           {node.content[0].value}
         </a>
         <span className="invisible group-hover:visible">
-          <Icons.permaLink size={'1em'} />
+          <Icons.permaLink size={'0.75em'} />
         </span>
       </h2>
     },
     [BLOCKS.HEADING_3]: (node: any) => {
       const headingId = slugify(node.content[0].value)
-      return <h3 className="group mt-14 mr-0 mb-8 ml-0">
+      return <h3 className="flex items-center group mt-14 mr-0 mb-4 ml-0 text-lg">
         <span id={headingId}></span>
-        <a className="mr-2" href={`#${headingId}`}>
+        <a className="mr-2 not-prose text-foreground no-underline font-bold text-lg" href={`#${headingId}`}>
           {node.content[0].value}
         </a>
         <span className="invisible group-hover:visible">
-          <Icons.permaLink size={'1em'} />
+          <Icons.permaLink size={'0.75em'} />
         </span>
       </h3>
     },
     [BLOCKS.HEADING_4]: (node: any) => {
       const headingId = slugify(node.content[0].value)
-      return <h4 className="group mt-14 mr-0 mb-8 ml-0">
+      return <h4 className="flex items-center group mt-14 mr-0 mb-8 ml-0">
         <span id={headingId}></span>
-        <a className="mr-2" href={`#${headingId}`}>
+        <a className="mr-2 not-prose text-foreground no-underline font-bold" href={`#${headingId}`}>
           {node.content[0].value}
         </a>
         <span className="invisible group-hover:visible">
-          <Icons.permaLink size={'1em'} />
+          <Icons.permaLink size={'0.75em'} />
         </span>
       </h4>
     },
     [BLOCKS.HEADING_5]: (node: any) => {
       const headingId = slugify(node.content[0].value)
-      return <h5 className="group mt-14 mr-0 mb-8 ml-0">
+      return <h5 className="flex items-center group mt-14 mr-0 mb-8 ml-0">
         <span id={headingId}></span>
-        <a className="mr-2" href={`#${headingId}`}>
+        <a className="mr-2 not-prose text-foreground no-underline font-bold" href={`#${headingId}`}>
           {node.content[0].value}
         </a>
         <span className="invisible group-hover:visible">
-          <Icons.permaLink size={'1em'} />
+          <Icons.permaLink size={'0.75em'} />
         </span>
       </h5>
     },
     [BLOCKS.HEADING_6]: (node: any) => {
       const headingId = slugify(node.content[0].value)
-      return <h6 className="group mt-14 mr-0 mb-8 ml-0">
+      return <h6 className="flex items-center group mt-14 mr-0 mb-8 ml-0">
         <span id={headingId}></span>
-        <a className="mr-2" href={`#${headingId}`}>
+        <a className="mr-2 not-prose text-foreground no-underline font-bold" href={`#${headingId}`}>
           {node.content[0].value}
         </a>
         <span className="invisible group-hover:visible">
-          <Icons.permaLink size={'1em'} />
+          <Icons.permaLink size={'0.75em'} />
         </span>
       </h6>
     },

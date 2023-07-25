@@ -5,8 +5,8 @@ export function Hero() {
   return (
     <div className="container">
       <PageHeader className="h-fit md:h-fit">
-        <div className="flex flex-col mx-auto gap-4">
-          <PageHeaderHeading className="">
+        <div data-aos="fade-in" className="flex flex-col mx-auto gap-4">
+          <PageHeaderHeading>
             Let’s partner.
           </PageHeaderHeading>
           <PageHeaderDescription>

@@ -15,11 +15,12 @@ export interface WWSCardProps {
     label: string;
     link: string;
   }
+  delay: number;
 }
 
-export const WWSCard: React.FC<WWSCardProps> = ({ imageUrl, title, body, learnMoreList, button }) => {
+export const WWSCard: React.FC<WWSCardProps> = ({ imageUrl, title, body, learnMoreList, button, delay }) => {
   return (
-    <Card className="pt-3 border-0 flex flex-col flex-[0_0_calc(33.33% - 40px)] m-5 w-full sm:w-80 items-center lg:items-start">
+    <Card data-aos="fade-up" data-aos-delay={delay} className="pt-3 border-0 flex flex-col flex-[0_0_calc(33.33% - 40px)] m-5 w-full sm:w-80 items-center lg:items-start">
       <CardContent className="space-y-4 flex-1 flex flex-col">
         <Image
           className="self-center"

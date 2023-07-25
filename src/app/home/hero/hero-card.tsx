@@ -10,7 +10,7 @@ export interface HeroCardProps {
 
 export const HeroCard: React.FC<HeroCardProps> = ({ imageUrl, description }) => {
   return (
-    <Card className="pt-3 border-8 border-secondary-foreground w-[260px] h-[270px] md:w-[450px] md:h-[450px] rounded-2xl">
+    <Card data-aos={imageUrl === 'hero-radiance' ? 'fade-right' : 'fade-left'}className="pt-3 border-8 border-secondary-foreground w-[260px] h-[270px] md:w-[450px] md:h-[450px] rounded-2xl">
       <CardContent className="grid place-items-center h-3/4">
         <Image
           className="relative"

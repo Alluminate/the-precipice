@@ -37,7 +37,8 @@
     --ring: 217.2 32.6% 17.5%;
  
     --radius: 0.5rem;
-    --min-column-width: min(260px, 100%)
+    --min-column-width: min(300px, 100%);
+    --max-width-blog: min(calc(75ch + 64px),100%);
   }
 
   /* .light-theme {

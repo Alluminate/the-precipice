@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
@@ -17,7 +18,6 @@ import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import Image from "next/image"
 
 const FormSchema = z.object({
   fullname: z.string().min(2, {
@@ -52,7 +52,7 @@ export function ContactForm() {
   return (
     <div className="w-full flex flex-col items-center gap-16 mt-8">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full sm:w-2/3 space-y-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} data-aos="fade-up" className="w-full sm:px-4 space-y-6">
           <FormField
             control={form.control}
             name="fullname"
@@ -121,10 +121,10 @@ export function ContactForm() {
       </Form>
       <div className="space-y-4">
         <div className="flex flex-col sm:flex-row items-center gap-4">
-          <Image src='/about/team/mike-powers.png' width={100} height={100} alt='Mike Powers' className="rounded-full p-2 ring ring-primary" />
-          <h3 className="text-xl max-w-xs text-center sm:text-left">Or arrange a call with Mitchell, our Lead of Business Development.</h3>
+          <Image src='/about/team/mitchell-opatowsky.png' width={100} height={100} alt='Mitchell Opatowsky' data-aos="fade-right" className="rounded-full p-2 ring ring-primary" />
+          <h3 data-aos="fade-left" className="text-xl max-w-xs text-center sm:text-left">Or arrange a call with Mitchell, our Lead of Business Development.</h3>
         </div>
-        <div className="flex justify-center">
+        <div data-aos="fade-in" className="flex justify-center">
           <Button variant='outline'>Book a time</Button>
         </div>
       </div>

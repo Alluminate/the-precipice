@@ -27,6 +27,9 @@ module.exports = {
         'thorium-rad-4': "url('/home/thorium-radiance/thorium-rad-4.png')",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
+      maxWidth: {
+        blog: "var(--max-width-blog)"
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -89,5 +92,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography')],
 }

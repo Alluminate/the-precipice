@@ -2,15 +2,16 @@ import { ContentfulApi } from "@/lib/contentfulApi";
 import { BlogContent } from "../components";
 import { Metadata, ResolvingMetadata } from "next";
 import { siteConfig } from "@/config/site";
+import { notFound } from "next/navigation";
 
 export const dynamicParams = true;
 
 type Props = {
   params: { slug: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const contentful = new ContentfulApi();
   const post = await contentful.fetchBlogBySlug(params.slug);
 
@@ -22,7 +23,9 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
       url: `${siteConfig.url}/blog/${params.slug}`,
       title: `${post.title}`,
       description: `${post.excerpt}`,
+      publishedTime: `${post.publishedDate}`,
       siteName: siteConfig.name,
+      authors: ['Thorium'],
       images: [
         {
           url: `${post.heroImage?.imageUrl}`,
@@ -54,13 +57,16 @@ type Params = {
 async function getPost(params: Params) {
   // const contentful = new ContentfulApi(preview);
   const contentful = new ContentfulApi();
-  const post = await contentful.fetchBlogBySlug(params.slug);
+  const post = await contentful.fetchBlogBySlug(params?.slug);
+  if (!post) {
+    notFound()
+  }
 
   return post;
 }
 
-export default async function BlogContentPage({ params, searchParams }: Props) {
-  await generateMetadata({ params, searchParams });
+export default async function BlogContentPage({ params }: Props) {
+  await generateMetadata({ params });
   const post = await getPost(params)
 
   return (

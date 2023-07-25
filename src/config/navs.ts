@@ -6,10 +6,10 @@ interface NavsConfig {
 
 export const navsConfig: NavsConfig = {
   topNav: [
-    {
-      label: "Academy",
-      href: "/radiance",
-    },
+    // {
+    //   label: "Academy",
+    //   href: "/radiance",
+    // },
     {
       label: "Services",
       href: "/services",

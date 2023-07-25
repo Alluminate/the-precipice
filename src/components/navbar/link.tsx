@@ -16,7 +16,7 @@ export const NavbarLink: React.FC<NavbarLinkProps> = ({ href, label }) => {
 
   return (
     <li>
-      <Link href={href} className={cn("block py-2 pl-3 pr-4 text-primary md:text-foreground rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-foreground/80 md:p-0", isActive ? "text-foreground bg-primary md:text-primary md:hover:text-primary/80 md:bg-transparent" : "")}>{label}</Link>
+      <Link href={href} className={cn("block py-2 pl-3 pr-4 text-primary md:text-foreground rounded  md:hover:bg-transparent md:border-0 md:hover:text-foreground/80 md:p-0", isActive ? "text-foreground bg-primary md:text-primary md:hover:text-primary/80 md:bg-transparent" : "")}>{label}</Link>
     </li>
   )
 }
@@ -26,7 +26,7 @@ export const NavbarSubmenuLink: React.FC<NavbarLinkProps> = ({ href, label }) =>
   const isActive = pathname === href;
 
   return (
-    <li key={href}><Link href={href} className={cn("block px-4 py-2 hover:text-primary hover:bg-gray-100", isActive ? "text-primary bg-gray-100 hover:text-primary/80 hover:bg-gray-100/80" : '' )}>{label}</Link></li>
+    <li><Link href={href} className={cn("block px-4 py-2 hover:text-primary hover:bg-gray-100", isActive ? "text-primary bg-gray-100 hover:text-primary/80 hover:bg-gray-100/80" : '' )}>{label}</Link></li>
   )
 }
 
