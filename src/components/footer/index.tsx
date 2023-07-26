@@ -12,22 +12,22 @@ export function Footer() {
               <Icons.logoNoText width={60} height={60} />
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-4 justify-between w-full">
+          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 justify-between w-full">
             <div>
               <h2 className="mb-6 text-base font-semibold text-primary capitalize">Browse</h2>
               <ul className="text-sm font-medium space-y-4">
                 <li>
                   <Link href="/" className="hover:underline">Home</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="/blog" className="hover:underline">Blog</Link>
-                </li>
+                </li> */}
                 <li>
                   <Link href="/about" className="hover:underline">About</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="/" className="hover:underline">Brand Assets</Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div>
@@ -36,7 +36,7 @@ export function Footer() {
                 <li>
                   <Link href="/" className="hover:underline ">Start Here</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="/" className="hover:underline">DeFi</Link>
                 </li>
                 <li>
@@ -47,7 +47,7 @@ export function Footer() {
                 </li>
                 <li>
                   <Link href="/" className="hover:underline">Automation</Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div>
@@ -56,28 +56,28 @@ export function Footer() {
                 <li>
                   <Link href="/services" className="hover:underline">All Services</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link href="/" className="hover:underline">DeFi Logic</Link>
                 </li>
                 <li>
                   <Link href="/" className="hover:underline">Architecture</Link>
-                </li>
+                </li> */}
               </ul>
             </div>
-            <div>
+            {/* <div>
               <h2 className="mb-6 text-base font-semibold text-primary capitalize">Partners</h2>
               <ul className="text-sm font-medium space-y-4">
                 <li>
                   <Link href="/" className="hover:underline">Flexible</Link>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
         <Separator className='my-6 sm:mx-auto lg:my-8' />
         <div className="sm:flex sm:justify-center">
-          <span className="text-xs sm:text-sm text-primary sm:text-center sm:flex">
-            © {new Date().getFullYear()} <Link href="/" className="hover:underline">Thorium Development Group</Link>. All Rights Reserved.
+          <span className="text-xs sm:text-sm text-primary sm:text-center sm:flex gap-1">
+            © <span>{new Date().getFullYear()}</span> <Link href="/" className="hover:underline">Thorium Development Group.</Link> All Rights Reserved.
             <Separator className='mx-2' orientation='vertical' /> <Link href="/" className="hover:underline">Terms of Service</Link> <Separator className='mx-2' orientation='vertical' /> <Link href="/" className="hover:underline">Privacy Policy</Link>
           </span>
           {/* <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">

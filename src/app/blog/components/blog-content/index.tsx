@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { ContentfulImage } from "@/components/ui/contentful-image";
+import { PageHeader } from "@/components/elements";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { BlogPost } from "@/lib/contentfulApi";
 import { richTextOptions } from "@/lib/richtext-options";
-import { PageHeader } from "@/components/elements";
 
 interface BlogContentProps {
   post: BlogPost
@@ -32,7 +32,7 @@ export function BlogContent({ post: { heroImage, tag, title, excerpt, publishedD
           <h3 className="text-xl">{excerpt}</h3>
           <span className="text-sm text-muted-foreground">{publishedDate}</span>
         </div>
-        <article className="prose max-w-none lg:prose-base prose-headings:text-foreground prose-headings:scroll-pt-28 prose-p:text-foreground">
+        <article className="prose max-w-none lg:prose-base prose-headings:text-foreground prose-headings:scroll-pt-28 prose-p:text-foreground prose-code:text-background prose-code:bg-foreground prose-code:rounded-sm prose-code:p-1">
           {documentToReactComponents(content, richTextOptions)}
         </article>
       </div>

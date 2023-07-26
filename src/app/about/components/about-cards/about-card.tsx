@@ -11,7 +11,7 @@ export interface AboutCardProps {
 
 export const AboutCard: React.FC<AboutCardProps> = ({ id, imageUrl, title, description, }) => {
   return (
-    <Card data-aos={`fade-up-${id % 2 === 0 ? "right" : "left"}`} className="bg-black border border-primary shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
+    <Card data-aos={`fade-up-${id % 2 === 0 ? "right" : "left"}`} className="bg-[#0C0B16] border border-primary shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>

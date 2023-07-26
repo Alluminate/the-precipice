@@ -214,6 +214,18 @@ export class ContentfulApi {
     }
   }
 
+  async fetchBlogImages() {
+    try {
+      const res = await this.client.getAssets()
+      if (res && res.items && res.items.length > 0) {
+        return res.items.map(asset => `https:${asset?.fields?.file?.url}`)
+      }
+      return []
+    } catch (error) {
+      return []
+    }
+  }
+
   async fetchBlogBySlug(slug: string): Promise<BlogPost> {
     try {
       const res = await this.client.getEntries<BlogSkeleton>({
@@ -221,6 +233,7 @@ export class ContentfulApi {
         "fields.slug": slug,
       })
       if (res && res.items && res.items.length > 0) {
+        
         const post = this.convertPost(res.items[0]);
         return post;
       }

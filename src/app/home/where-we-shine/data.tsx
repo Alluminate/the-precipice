@@ -9,7 +9,7 @@ export const data: WWSCardProps[] = [
     learnMoreList: ['3 Traits of Senior Blockchain Engineers'],
     button: {
       label: 'Engineer It',
-      link: '/services/engineer-it'
+      link: '/services'
     },
     delay: 0
   },
@@ -20,7 +20,7 @@ export const data: WWSCardProps[] = [
     learnMoreList: ['The Ultimate Guide to Building a DeFi Infrastructure.', 'The Web 3.0 Middleware Vendors Map'],
     button: {
       label: 'Scale Up',
-      link: '/services/scale-up'
+      link: '/services'
     },
     delay: 150
   },
@@ -31,7 +31,7 @@ export const data: WWSCardProps[] = [
     learnMoreList: ['A Senior Blockchain Architect’s Framework for Modular Web 3.0 Protocols'],
     button: {
       label: 'Build It',
-      link: '/services/build-it'
+      link: '/services'
     },
     delay: 300
   },

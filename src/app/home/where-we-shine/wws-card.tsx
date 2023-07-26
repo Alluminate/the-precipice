@@ -31,12 +31,12 @@ export const WWSCard: React.FC<WWSCardProps> = ({ imageUrl, title, body, learnMo
         />
         <h4 className="text-base md:text-lg capitalize font-bold text-center">{title}</h4>
         <Paragraph>{body}</Paragraph>
-        <div>
+        {/* <div>
           <h6>Learn More:</h6>
           <ul className="list-disc list-outside pl-5">
             {learnMoreList.map((item, index) => <li key={index} className="text-primary">{item}</li>)}
           </ul>
-        </div>
+        </div> */}
       </CardContent>
       <CardFooter className="flex items-center justify-center">
         <Link href={button.link} className={cn(buttonVariants({ variant: 'outline' }), 'gap-1')}>{button.label} <Icons.arrowRight size={'1em'} /></Link>

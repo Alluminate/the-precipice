@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    // creator: "@sthorium",
+    creator: "@Thoriumdev",
   },
   icons: {
     icon: "/icon.ico",

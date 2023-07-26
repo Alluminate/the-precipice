@@ -32,7 +32,8 @@ export default function Hero() {
         </Paragraph>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link href="/services" className={cn(buttonVariants())}>See our Services</Link>
-          <Link href="/academy" className={cn(buttonVariants({ variant: 'outline' }))}>Learn from the best</Link>
+          {/* <Link href="/academy" className={cn(buttonVariants({ variant: 'outline' }))}>Learn from the best</Link> */}
+          <Link href="/contact" className={cn(buttonVariants({ variant: 'outline' }))}>Learn from the best</Link>
         </div>
       </div>
     </div>

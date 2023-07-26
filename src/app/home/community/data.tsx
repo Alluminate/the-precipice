@@ -1,5 +1,6 @@
 import { CommunityCardProps } from "./community-card";
 import { Icons } from "@/components/icons";
+import { siteConfig } from "@/config/site";
 
 
 export const data: CommunityCardProps[] = [
@@ -9,7 +10,7 @@ export const data: CommunityCardProps[] = [
     description: "A recurring news update from the Thorium team.",
     button: {
       label: "Subscribe",
-      link: "#",
+      link: `${siteConfig.socials.newsletter}`,
     }
   },
   {
@@ -18,7 +19,7 @@ export const data: CommunityCardProps[] = [
     description: "Where we post frequent updates, reactions to news, and announcements. Follow to get ongoing education commentary.",
     button: {
       label: "Follow Us",
-      link: "#",
+      link: `${siteConfig.socials.twitter}`,
     }
   },
   {
@@ -27,7 +28,7 @@ export const data: CommunityCardProps[] = [
     description: "Where community members chat, news drops, and our team provides support in real-time. Join us for technical support 24/7.",
     button: {
       label: "Join Us",
-      link: "#",
+      link: `${siteConfig.socials.discord}`,
     }
   },
   {
@@ -36,7 +37,7 @@ export const data: CommunityCardProps[] = [
     description: "A recurring news update from the Thorium team.",
     button: {
       label: "Follow Us",
-      link: "#",
+      link: `${siteConfig.socials.linkedin}`,
     }
   },
   {
@@ -45,7 +46,7 @@ export const data: CommunityCardProps[] = [
     description: "Where we post all video footage, tutorials, community calls, and Twitter space edits.",
     button: {
       label: "Subscribe",
-      link: "#",
+      link: `${siteConfig.socials.youtube}`,
     }
   },
 ]
