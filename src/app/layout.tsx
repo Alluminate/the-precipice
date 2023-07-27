@@ -13,6 +13,7 @@ const firaSans = Fira_Sans({ subsets: ['latin'], style: ['normal', 'italic'], we
 const raleway = Raleway({ subsets: ['latin'], style: ['italic', 'normal'], weight: ['400', '700'], variable: '--font-raleway' })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://thoriumdev.com'),
   title: siteConfig.name,
   description: siteConfig.description,
   // title: {
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Thorium",
-      url: "https://thorium.com",
+      url: "https://thoriumdev.com",
     },
   ],
 
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
     shortcut: "/shortcut-icon.png",
     apple: "/apple-icon.png",
   },
-  manifest: `${siteConfig.url}/site.webmanifest`,
+  manifest: `/site.webmanifest`,
 }
 
 
