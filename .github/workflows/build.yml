@@ -53,9 +53,6 @@ jobs:
           BUILD_PATH: out
           S3_TARGET_BUCKET: thoriumdev.com-cloudfront-release
           CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Deploy to CloudFront Staging
         run: ./ci-cd/utils/deploy-release.sh
@@ -63,6 +60,3 @@ jobs:
           S3_SOURCE_BUCKET: thoriumdev.com-cloudfront-release
           S3_TARGET_BUCKET: thoriumdev.com-cloudfront-staging
           CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
