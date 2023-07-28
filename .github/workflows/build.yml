@@ -3,6 +3,7 @@ name: build
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 permissions:
       id-token: write   # This is required for requesting the JWT
@@ -46,7 +47,7 @@ jobs:
           role-to-assume: ${{ vars.AWS_GITHUB_ACTIONS_ROLE }}
           role-session-name: GithubActionsBuild
 
-      - name: Upload to CloudFront Release Bucket (Landing)
+      - name: Upload to CloudFront Release
         run: ./ci-cd/utils/upload-release.sh
         env:
           BUILD_PATH: out
@@ -56,7 +57,7 @@ jobs:
           AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Deploy to CloudFront Staging Bucket (Landing)
+      - name: Deploy to CloudFront Staging
         run: ./ci-cd/utils/deploy-release.sh
         env:
           S3_SOURCE_BUCKET: thoriumdev.com-cloudfront-release
