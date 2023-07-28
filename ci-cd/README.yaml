@@ -1,0 +1,68 @@
+
+# Release Process
+
+A Github Actions ci/cd pipeline automatically builds and deploys new releases 
+every time new code is merged into pre-determined release branches.
+
+A typical release setup involves three S3 buckets:
+
+* release - This bucket contains every static build of the site, stored under a
+    path containing the most recent git commits full sha hash.
+
+* staging / production - assets will be copied from the release bucket into
+    the root of a corresponding content bucket. Each content bucket is 
+    configured to be served via a CloudFront CDN.
+
+
+More information on the Github Actions steps can be found under:
+`./github/workflows/build.yaml`
+
+## Staging
+New commits to specified branches will automatically:
+1) Build & Upload a new release to the *release* bucket.
+2) Replace the current staging release with the new build.
+
+## Production
+For now, production releases will be a manual process. In order to produce
+a new production release, an engineer will manually run the `deploy-release.sh`
+script with the desired git commit hash to deploy.
+
+```sh
+# list recent commits
+git log <branch>
+
+# verify build exists
+aws s3 ls s3://<release-bucket>/<hash>/index.html
+
+# deploy release
+export S3_SOURCE_BUCKET=...
+export S3_TARGET_BUCKET=...
+export CI_COMMIT_SHA=...
+./utils/deploy-release.sh
+```
+
+
+## Asset Management
+By separating concerns between release and content hosting buckets, this allows
+us to easily switch between the current 'deployed' version of the site for any
+environment. 
+
+Using version specific bucket paths, and updating the CloudFront CDN's root
+path was explored, but may have subtle drawbacks. In the case that a client is
+actively using a static site, and a new deployment occurs, they may fail to load
+stale assets their browser is expecting to be available.
+
+By syncing the most recent release into the same root path as previous releases,
+we can effectively prevent stale browser loads from getting 404 responses. The
+side effect is we will need to introduce a reasonable pruning mechanism to 
+prevent the content buckets from growing with every new release.
+
+## Tagging
+All assets are automatically tagged with the current git hash when uploading to
+S3. 
+
+## Pruning
+TODO - over time we will need to consider space saving measures to limit the
+growth of release and content buckets.
+
+

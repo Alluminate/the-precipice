@@ -1,0 +1,65 @@
+name: dexible-ui build
+
+on:
+  push:
+    branches: [ main ]
+  # pull_request:
+  #   branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      # - uses: actions/cache@v2
+      #   with:
+      #     path: '**/node_modules'
+      #     key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install --immutable
+        env:
+          YARN_ENABLE_COLORS: "false"
+
+      - name: Build Packages
+        run: yarn build
+        env:
+          CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+          CONTENTFUL_PREVIEW_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_PREVIEW_ACCESS_TOKEN }}
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          NEXT_PUBLIC_GA4_TRACKING_ID: ${{secrets.NEXT_PUBLIC_GA4_TRACKING_ID }}
+          YARN_ENABLE_COLORS: "false"
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.AWS_GITHUB_ACTIONS_ROLE }}
+          role-session-name: GithubActionsBuild
+
+      - name: Upload to CloudFront Release Bucket (Landing)
+        run: ./ci-cd/utils/upload-release.sh
+        env:
+          BUILD_PATH: out
+          S3_TARGET_BUCKET: thoriumdev.com-cloudfront-release
+          CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Deploy to CloudFront Staging Bucket (Landing)
+        run: ./ci-cd/utils/deploy-release.sh
+        env:
+          S3_SOURCE_BUCKET: thoriumdev.com-cloudfront-release
+          S3_TARGET_BUCKET: thoriumdev.com-cloudfront-staging
+          CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}          
