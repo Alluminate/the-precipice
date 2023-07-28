@@ -1,4 +1,4 @@
-name: dexible-ui build
+name: build
 
 on:
   push:
