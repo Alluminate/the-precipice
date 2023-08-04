@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-RELEASE_BUCKET=thoriumdev.com-cloudfront-release
-STAGING_CONTENT_BUCKET=thoriumdev.com-cloudfront-staging
-PRODUCTION_CONTENT_BUCKET=thoriumdev.com-cloudfront-production
+RELEASE_BUCKET=thoriumdev.com-cf-release
+STAGING_CONTENT_BUCKET=thoriumdev.com-cf-staging
+PRODUCTION_CONTENT_BUCKET=thoriumdev.com-cf-production
 
 echo "looking up staging commit hash"
 metadata=$(aws s3api head-object --bucket $STAGING_CONTENT_BUCKET --key index.html)

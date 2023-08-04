@@ -51,12 +51,12 @@ jobs:
         run: ./ci-cd/utils/upload-release.sh
         env:
           BUILD_PATH: out
-          S3_TARGET_BUCKET: thoriumdev.com-cloudfront-release
+          S3_TARGET_BUCKET: thoriumdev.com-cf-release
           CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
 
       - name: Deploy to CloudFront Staging
         run: ./ci-cd/utils/deploy-release.sh
         env:
-          S3_SOURCE_BUCKET: thoriumdev.com-cloudfront-release
-          S3_TARGET_BUCKET: thoriumdev.com-cloudfront-staging
+          S3_SOURCE_BUCKET: thoriumdev.com-cf-release
+          S3_TARGET_BUCKET: thoriumdev.com-cf-staging
           CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
