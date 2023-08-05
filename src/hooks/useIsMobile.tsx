@@ -1,28 +1,32 @@
 "use client"
 
 import { useEffect, useState } from "react";
+import { useIsClient } from "@/context/is-client-ctx";
 
 const useIsMobile = (size: number = 768): boolean => {
-  const [width, setWidth] = useState(window.innerWidth);
+  const isClient = useIsClient();
+  const [width, setWidth] = useState(isClient ? window?.innerWidth : 0);
 
   // create an event listener
   useEffect(() => {
-    setWidth(prev => prev + window.innerWidth);
+    isClient ? setWidth(prev => prev + window?.innerWidth) : null;
     let timeoutId: NodeJS.Timeout | undefined = undefined;
     //choose the screen size 
     const handleResize = () => {
-       // prevent execution of previous setTimeout
-       clearTimeout(timeoutId);
-  
-      timeoutId = setTimeout(() => setWidth(window.innerWidth), 150);
+      // prevent execution of previous setTimeout
+      if (isClient) {
+        clearTimeout(timeoutId);
+
+        timeoutId = setTimeout(() => setWidth(window.innerWidth), 150);
+      }
     }
-  
-    window.addEventListener("resize", handleResize)
+
+    isClient ? window.addEventListener("resize", handleResize) : null;
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      isClient ? window.removeEventListener('resize', handleResize) : null;
     }
-  }, [])
+  }, [isClient])
 
   return (width <= size);
 }

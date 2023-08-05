@@ -7,6 +7,7 @@ import { Footer } from '@/components/footer'
 import { Toaster } from '@/components/ui/toaster'
 import { GoogleAnalytics } from '@/lib/google-analytics'
 import { AOSInit } from '@/lib/aos'
+import { IsClientCtxProvider } from '@/context/is-client-ctx'
 
 
 const firaSans = Fira_Sans({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'], variable: '--font-firaSans', })
@@ -81,6 +82,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <GoogleAnalytics />
       <AOSInit />
+      <IsClientCtxProvider>
       <body className={`min-h-screen antialiased ${firaSans.variable} ${raleway.variable}`} suppressHydrationWarning>
         <main className="relative flex min-h-screen flex-col overflow-x-clip">
           <NavBar />
@@ -89,6 +91,7 @@ export default function RootLayout({
           <Toaster />
         </main>
       </body>
+      </IsClientCtxProvider>
     </html>
   )
 }
