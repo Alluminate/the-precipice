@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
@@ -5,6 +7,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Paragraph } from "@/components/elements";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks";
 
 export interface WWSCardProps {
   imageUrl: string;
@@ -19,8 +22,10 @@ export interface WWSCardProps {
 }
 
 export const WWSCard: React.FC<WWSCardProps> = ({ imageUrl, title, body, learnMoreList, button, delay }) => {
+  const isMobile = useIsMobile();
+
   return (
-    <Card data-aos="fade-up" data-aos-delay={delay} className="pt-3 border-0 flex flex-col flex-[0_0_calc(33.33% - 40px)] m-5 w-full sm:w-80 items-center lg:items-start">
+    <Card data-aos="fade-up" data-aos-delay={isMobile ? null : delay} className="pt-3 border-0 flex flex-col flex-[0_0_calc(33.33% - 40px)] m-5 w-full sm:w-80 items-center lg:items-start">
       <CardContent className="space-y-4 flex-1 flex flex-col">
         <Image
           className="self-center"
