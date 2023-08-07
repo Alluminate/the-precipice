@@ -60,3 +60,12 @@ jobs:
           S3_SOURCE_BUCKET: thoriumdev.com-cf-release
           S3_TARGET_BUCKET: thoriumdev.com-cf-staging
           CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
+
+      # Note: in the future we may want to move this into a separate workflow
+      # that is manually triggered via the GitHub Actions interface.
+      - name: Deploy to CloudFront Production
+        run: ./ci-cd/utils/deploy-release.sh
+        env:
+          S3_SOURCE_BUCKET: thoriumdev.com-cf-release
+          S3_TARGET_BUCKET: thoriumdev.com-cf-production
+          CI_COMMIT_SHA: ${{github.event.pull_request.head.sha || github.sha}}
