@@ -6,70 +6,37 @@
 @tailwind utilities;
 
 /* The @layer directive is a Tailwind-specific feature that allows you to group your custom utility classes, components, or base styles together. This is useful for keeping your styles organized and ensuring that they're injected in the right order. */
-
-/* We must update this to use HEX instead of HSL bullshit */
-
 @layer base {
   :root {
-    /* Black */
-    /* Foreground is text */
-    --foreground: #000000;
+    /* --background: 267 89% 7%; */
+    --background: #FFFFF;
+    --foreground: 189 100% 97%;
 
-    /* White */
-    /* Page Background */
-    --background: #ffffff;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    /* Azure */
-    --popover-foreground: #f0fdff;
-    --card-foreground: #f0fdff;
-    --primary-foreground: #f0fdff;
-    --accent-foreground: #f0fdff;
-    /* --primary-foreground: 189 100% 97%; */
-    /* --popover-foreground: 189 100% 97%; */
-    /* --card-foreground: 189 100% 97%; */
-    /* --accent-foreground: 189 100% 97%; */
+    --popover: 267 89% 7%;
+    --popover-foreground: 189 100% 97%;
 
-    /* Lavender Blush */
-    --destructive-foreground: #fef2f2;
-    /* --destructive-foreground: 0 85.7% 97.3%; */
+    --card: 267 89% 7%;
+    --card-foreground: 189 100% 97%;
 
-    /*  */
-    /* Prussian Blue */
-    --muted: #1d238a;
-    --border: #1d238a;
-    --input: #1d238a;
-    /* --secondary: 217.2 32.6% 17.5%; */
-    /* --accent: 217.2 32.6% 17.5%; */
-    /* --muted: 217.2 32.6% 17.5%; */
-    /* --border: 217.2 32.6% 17.5%; */
-    /* --input: 217.2 32.6% 17.5%; */
-    /*  */
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
 
-    /* Cadet Gray */
-    --muted-foreground: #94a3b8;
-    /* --muted-foreground: 215 20.2% 65.1%; */
+    --primary: 189 96% 35%;
+    --primary-from: 189 55% 68%;
+    --primary-foreground: 189 100% 97%;
 
-    /* Dark Purple */
-    --popover: #100222;
-    /* --popover: 267 89% 7%; */
-    --card: #100222;
-    /* --card: 267 89% 7%; */
+    --secondary: 217.2 32.6% 17.5%;
+    /* --secondary-foreground: 189 100% 97%; */
+    --secondary-foreground: 50 100% 62%;
 
-    /* Blue (Munsell) */
-    --primary: #0495af;
-    /* --primary: 189 96% 35%; */
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 189 100% 97%;
 
-    /* Non Photo Blue */
-    --primary-from: #81cdda;
-    /* --primary-from: 189 55% 68%; */
-
-    /* School Bus Yellow */
-    --secondary-foreground: #ffdf3d;
-    /* --secondary-foreground: 50 100% 62%; */
-
-    /* Falu Red */
-    --destructive: #7f1d1d;
-    /* --destructive: 0 62.8% 30.6%; */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
 
     --ring: 217.2 32.6% 17.5%;
 

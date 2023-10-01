@@ -1,15 +1,15 @@
-import { NavbarLinkProps } from "@/components/navbar/link"
+import { NavbarLinkProps } from "@/components/navbar/link";
 
 interface NavsConfig {
-  topNav: NavbarLinkProps[]
+  topNav: NavbarLinkProps[];
 }
 
 export const navsConfig: NavsConfig = {
   topNav: [
-    // {
-    //   label: "Academy",
-    //   href: "/radiance",
-    // },
+    {
+      label: "Academy",
+      href: "/radiance",
+    },
     {
       label: "Services",
       href: "/services",
@@ -26,15 +26,15 @@ export const navsConfig: NavsConfig = {
         //   label: "About",
         //   href: "/services/about",
         // },
-      ]
+      ],
     },
-    // {
-    //   label: "Blog",
-    //   href: "/blog",
-    // },
+    {
+      label: "Blog",
+      href: "/blog",
+    },
     {
       label: "About",
       href: "/about",
     },
   ],
-}
+};

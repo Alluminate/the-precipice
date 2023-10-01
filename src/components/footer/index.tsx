@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Icons } from "@/components/icons";
 
@@ -14,16 +14,24 @@ export function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 justify-between w-full">
             <div>
-              <h2 className="mb-6 text-base font-semibold text-primary capitalize">Browse</h2>
+              <h2 className="mb-6 text-base font-semibold text-primary capitalize">
+                Browse
+              </h2>
               <ul className="text-sm font-medium space-y-4">
                 <li>
-                  <Link href="/" className="hover:underline">Home</Link>
+                  <Link href="/" className="hover:underline">
+                    Home
+                  </Link>
                 </li>
-                {/* <li>
-                  <Link href="/blog" className="hover:underline">Blog</Link>
-                </li> */}
                 <li>
-                  <Link href="/about" className="hover:underline">About</Link>
+                  <Link href="/blog" className="hover:underline">
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/about" className="hover:underline">
+                    About
+                  </Link>
                 </li>
                 {/* <li>
                   <Link href="/" className="hover:underline">Brand Assets</Link>
@@ -31,10 +39,14 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-base font-semibold text-primary capitalize">Radiance</h2>
+              <h2 className="mb-6 text-base font-semibold text-primary capitalize">
+                Radiance
+              </h2>
               <ul className="text-sm font-medium space-y-4">
                 <li>
-                  <Link href="/" className="hover:underline ">Start Here</Link>
+                  <Link href="/" className="hover:underline ">
+                    Start Here
+                  </Link>
                 </li>
                 {/* <li>
                   <Link href="/" className="hover:underline">DeFi</Link>
@@ -51,10 +63,14 @@ export function Footer() {
               </ul>
             </div>
             <div>
-              <h2 className="mb-6 text-base font-semibold text-primary capitalize">Nanoforge</h2>
+              <h2 className="mb-6 text-base font-semibold text-primary capitalize">
+                Nanoforge
+              </h2>
               <ul className="text-sm font-medium space-y-4">
                 <li>
-                  <Link href="/services" className="hover:underline">All Services</Link>
+                  <Link href="/services" className="hover:underline">
+                    All Services
+                  </Link>
                 </li>
                 {/* <li>
                   <Link href="/" className="hover:underline">DeFi Logic</Link>
@@ -74,11 +90,22 @@ export function Footer() {
             </div> */}
           </div>
         </div>
-        <Separator className='my-6 sm:mx-auto lg:my-8' />
+        <Separator className="my-6 sm:mx-auto lg:my-8" />
         <div className="sm:flex sm:justify-center">
           <span className="text-xs sm:text-sm text-primary sm:text-center sm:flex gap-1">
-            © <span>{new Date().getFullYear()}</span> <Link href="/" className="hover:underline">Thorium Development Group.</Link> All Rights Reserved.
-            <Separator className='mx-2' orientation='vertical' /> <Link href="/" className="hover:underline">Terms of Service</Link> <Separator className='mx-2' orientation='vertical' /> <Link href="/" className="hover:underline">Privacy Policy</Link>
+            © <span>{new Date().getFullYear()}</span>{" "}
+            <Link href="/" className="hover:underline">
+              Thorium Development Group.
+            </Link>{" "}
+            All Rights Reserved.
+            <Separator className="mx-2" orientation="vertical" />{" "}
+            <Link href="/" className="hover:underline">
+              Terms of Service
+            </Link>{" "}
+            <Separator className="mx-2" orientation="vertical" />{" "}
+            <Link href="/" className="hover:underline">
+              Privacy Policy
+            </Link>
           </span>
           {/* <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
             <Link href="#" className="text-primary hover:text-gray-900 dark:hover:text-white">
@@ -109,5 +136,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }

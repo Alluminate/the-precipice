@@ -1,13 +1,13 @@
 import * as React from "react";
+// A library that provides a low-level primitive for creating components.
 import { Slot } from "@radix-ui/react-slot";
+// Presumably a utility for defining CSS class variations based on component props
 import { cva, type VariantProps } from "class-variance-authority";
-
+// classnames function for conditionally adding class strings.
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  // "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-
-  "inline-flex items-center justify-center text-sm font-bold ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -15,7 +15,6 @@ const buttonVariants = cva(
           "bg-gradient-to-r from-primary-from to-primary text-primary-foreground hover:from-primary-from/90 hover:to-primary/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
-        // Secondary button style
         outline:
           "border border-primary bg-transparent hover:bg-accent hover:text-accent-foreground",
         secondary:
@@ -26,7 +25,7 @@ const buttonVariants = cva(
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
-        // lg: "h-11 rounded-md px-8",
+        lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
       },
     },
