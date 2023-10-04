@@ -11,6 +11,11 @@ export interface NavbarLinkProps {
   submenuList?: NavbarLinkProps[];
 }
 
+export interface NavbarSectionProps {
+  sectionTitle: string;
+  links: NavbarLinkProps[];
+}
+
 // This describes the links for Archives & About
 export const NavbarLink: React.FC<NavbarLinkProps> = ({ href, label }) => {
   const pathname = usePathname();
@@ -22,7 +27,7 @@ export const NavbarLink: React.FC<NavbarLinkProps> = ({ href, label }) => {
         <Link href={href}>
           <p
             className={cn(
-              "block py-8 pl-3 text-secondary font-bold hover:bg-destructive cursor-pointer",
+              "block py-2 pl-3 text-secondary font-bold hover:bg-destructive cursor-pointer",
               "md:p-0 md:text-secondary md:hover:bg-transparent",
               isActive
                 ? "text-secondary md:text-secondary underline underline-secondary"
@@ -33,7 +38,22 @@ export const NavbarLink: React.FC<NavbarLinkProps> = ({ href, label }) => {
           </p>
         </Link>
       </li>
-      <NavBorder />
+    </div>
+  );
+};
+
+export const NavbarSection: React.FC<NavbarSectionProps> = ({
+  sectionTitle,
+  links,
+}) => {
+  return (
+    <div className="py-2">
+      <h2 className="px-4 font-bold text-primary">{sectionTitle}</h2>
+      <ul>
+        {links.map((link) => (
+          <NavbarLink key={link.href} {...link} />
+        ))}
+      </ul>
     </div>
   );
 };
@@ -51,7 +71,8 @@ export const NavbarSubmenuLink: React.FC<NavbarLinkProps> = ({
         <Link href={href}>
           <p
             className={cn(
-              "block px-6 py-6 hover:text-secondary font-bold hover:bg-destructive",
+              // Changed padding
+              "block px-6 py-2 hover:text-secondary font-bold hover:bg-destructive",
               isActive ? "text-primary bg-gray-100" : ""
             )}
           >
@@ -79,7 +100,8 @@ export const NavbarLinkWithSubMenu: React.FC<NavbarLinkProps> = ({
         <label
           tabIndex={0}
           className={cn(
-            "flex cursor-pointer py-2 my-6 text-secondary hover:bg-destructive",
+            // my-2
+            "flex cursor-pointer py-2 text-secondary hover:bg-destructive",
             "md:text-secondary md:hover:bg-transparent md:border-0 md:hover:text-foreground/80 md:p-0 md:w-auto font-bold",
             isActive
               ? "text-foreground bg-primary md:text-primary md:bg-transparent"
@@ -98,7 +120,6 @@ export const NavbarLinkWithSubMenu: React.FC<NavbarLinkProps> = ({
           ))}
         </ul>
       </div>
-      <NavBorder />
     </li>
   );
 };

@@ -16,7 +16,7 @@ const Drawer: React.FC = () => {
   return (
     <div
       className={`
-      fixed right-0 top-0 w-full md:w-2/5 h-full bg-foreground transition-transform transform-gpu
+      fixed right-0 top-0 w-full md:w-2/5 h-full bg-foreground overflow-y-auto transition-transform transform-gpu
       ${isDrawerOpen ? "translate-x-0" : "translate-x-full"}
     `}
     >
@@ -33,19 +33,28 @@ const Drawer: React.FC = () => {
       </div>
 
       {/* Mapping navigation links from config */}
-      <div className={cn("w-full")}>
-        {navsDrawerConfig.drawerNav.map((nav) => {
-          return nav.submenuList?.length ? (
-            <NavbarLinkWithSubMenu
-              key={nav.href}
-              href={nav.href}
-              label={nav.label}
-              submenuList={nav.submenuList}
-            />
-          ) : (
-            <NavbarLink key={nav.href} href={nav.href} label={nav.label} />
-          );
-        })}
+      <div className="w-full p-4">
+        {navsDrawerConfig.drawerNav.map((section, idx) => (
+          <div key={idx} className="mb-6">
+            {/* Section Header */}
+            <h3 className="text-lg font-semibold text-secondary mb-4">
+              {section.sectionTitle}
+            </h3>
+            {/* Optional: Border or Separator */}
+            <NavBorder />
+
+            {/* Links */}
+            <ul>
+              {section.links.map((link) =>
+                link.submenuList ? (
+                  <NavbarLinkWithSubMenu key={link.href} {...link} />
+                ) : (
+                  <NavbarLink key={link.href} {...link} />
+                )
+              )}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
