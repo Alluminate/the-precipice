@@ -7,50 +7,50 @@ interface NavsConfig {
 export const navsConfig: NavsConfig = {
   topNav: [
     {
-      label: "Archives",
+      label: "ARCHIVES",
       href: "/archives",
     },
     {
-      label: "Topics",
-      href: "/archives",
-      submenuList: [
-        {
-          label: "The Endgame Crisis",
-          href: "/endgame-crisis",
-        },
-        {
-          label: "Humanity's Potential",
-          href: "/humanitys-potential",
-        },
-        {
-          label: "Society",
-          href: "/society",
-        },
-        {
-          label: "Culture",
-          href: "/culture",
-        },
-        {
-          label: "Meaning",
-          href: "/meaning",
-        },
-        {
-          label: "Venture Philosophy",
-          href: "/venture-philosophy",
-        },
-        {
-          label: "Core Concepts",
-          href: "/core-concepts",
-        },
-        {
-          label: "Shared Truth",
-          href: "/shared-truth",
-        },
-      ],
-    },
-    {
-      label: "About",
+      label: "ABOUT",
       href: "/about",
     },
+    // {
+    //   label: "Topics",
+    //   href: "/archives",
+    //   submenuList: [
+    //     {
+    //       label: "The Endgame Crisis",
+    //       href: "/endgame-crisis",
+    //     },
+    //     {
+    //       label: "Humanity's Potential",
+    //       href: "/humanitys-potential",
+    //     },
+    //     {
+    //       label: "Society",
+    //       href: "/society",
+    //     },
+    //     {
+    //       label: "Culture",
+    //       href: "/culture",
+    //     },
+    //     {
+    //       label: "Meaning",
+    //       href: "/meaning",
+    //     },
+    //     {
+    //       label: "Venture Philosophy",
+    //       href: "/venture-philosophy",
+    //     },
+    //     {
+    //       label: "Core Concepts",
+    //       href: "/core-concepts",
+    //     },
+    //     {
+    //       label: "Shared Truth",
+    //       href: "/shared-truth",
+    //     },
+    //   ],
+    // },
   ],
 };

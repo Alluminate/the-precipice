@@ -12,9 +12,19 @@ import { NavbarLink, NavbarLinkWithSubMenu } from "./link";
 
 const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="flex justify-between w-full fixed top-0 left-0 z-50">
+    <div className="flex justify-between w-full fixed top-0 left-0 z-50 bg-white border border-b-border">
       {/* <div className="flex flex-col flex-wrap items-end mx-auto w-full fixed top-0 left-0 z-50"> */}
-      <Logo />
+      <div className="flex justify-between top-0 left-0 z-50">
+        <Logo />
+        {/* <div className="hidden md:flex space-x-4"> */}
+        <div className="hidden md:flex space-x-4 pl-5 pt-3">
+          {navsConfig.topNav.map((nav) => (
+            <Link key={nav.href} href={nav.href}>
+              <p className="text-foreground p-2 font-bold">{nav.label}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
       <NavbarDrawer />
     </div>
   );
