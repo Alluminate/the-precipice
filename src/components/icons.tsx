@@ -5,6 +5,7 @@ import {
   Github,
   Link,
   LucideProps,
+  X,
   type Icon as LucideIcon,
 } from "lucide-react";
 
@@ -2730,4 +2731,5 @@ export const Icons = {
   arrowRight: ArrowRight,
   arrowLeft: ArrowLeft,
   permaLink: Link,
+  x: X,
 };

@@ -7,30 +7,46 @@ interface NavsConfig {
 export const navsConfig: NavsConfig = {
   topNav: [
     {
-      label: "Academy",
-      href: "/radiance",
+      label: "Archives",
+      href: "/archives",
     },
     {
-      label: "Services",
-      href: "/services",
+      label: "Topics",
+      href: "/archives",
       submenuList: [
-        // {
-        //   label: "Academy",
-        //   href: "/services/academy",
-        // },
-        // {
-        //   label: "Blog",
-        //   href: "/services/blog",
-        // },
-        // {
-        //   label: "About",
-        //   href: "/services/about",
-        // },
+        {
+          label: "The Endgame Crisis",
+          href: "/endgame-crisis",
+        },
+        {
+          label: "Humanity's Potential",
+          href: "/humanitys-potential",
+        },
+        {
+          label: "Society",
+          href: "/society",
+        },
+        {
+          label: "Culture",
+          href: "/culture",
+        },
+        {
+          label: "Meaning",
+          href: "/meaning",
+        },
+        {
+          label: "Venture Philosophy",
+          href: "/venture-philosophy",
+        },
+        {
+          label: "Core Concepts",
+          href: "/core-concepts",
+        },
+        {
+          label: "Shared Truth",
+          href: "/shared-truth",
+        },
       ],
-    },
-    {
-      label: "Blog",
-      href: "/blog",
     },
     {
       label: "About",

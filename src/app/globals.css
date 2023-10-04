@@ -17,7 +17,9 @@
 
     /* White */
     /* Page Background */
+    --secondary: #ffffff;
     --background: #ffffff;
+    --destructive-foreground: #ffffff;
 
     /* Azure */
     --popover-foreground: #f0fdff;
@@ -29,21 +31,14 @@
     /* --card-foreground: 189 100% 97%; */
     /* --accent-foreground: 189 100% 97%; */
 
-    /* Lavender Blush */
-    --destructive-foreground: #fef2f2;
-    /* --destructive-foreground: 0 85.7% 97.3%; */
+    /* Silver */
+    --border: #cccccc;
 
-    /*  */
-    /* Prussian Blue */
-    --muted: #1d238a;
-    --border: #1d238a;
-    --input: #1d238a;
-    /* --secondary: 217.2 32.6% 17.5%; */
-    /* --accent: 217.2 32.6% 17.5%; */
-    /* --muted: 217.2 32.6% 17.5%; */
-    /* --border: 217.2 32.6% 17.5%; */
-    /* --input: 217.2 32.6% 17.5%; */
-    /*  */
+    /* Platinum */
+    /* --accent: #d9d9d9; */
+    --muted: #fae9c4;
+    --input: #feca26;
+    --accent: #f58447;
 
     /* Cadet Gray */
     --muted-foreground: #94a3b8;
@@ -67,15 +62,33 @@
     --secondary-foreground: #ffdf3d;
     /* --secondary-foreground: 50 100% 62%; */
 
-    /* Falu Red */
-    --destructive: #7f1d1d;
-    /* --destructive: 0 62.8% 30.6%; */
+    /* Jasper */
+    --destructive: #c64b37;
 
     --ring: 217.2 32.6% 17.5%;
 
     --radius: 0.5rem;
     --min-column-width: min(300px, 100%);
     --max-width-blog: min(calc(75ch + 64px), 100%);
+
+    /* Falu Red */
+    /* --destructive: #7f1d1d; */
+    /* --destructive: 0 62.8% 30.6%; */
+
+    /* Lavender Blush */
+    /* --destructive-foreground: #fef2f2; */
+    /* --destructive-foreground: 0 85.7% 97.3%; */
+
+    /* OLD Prussian Blue */
+    /* --muted: #1d238a;
+    --border: #1d238a;
+    --input: #1d238a; */
+    /* --secondary: 217.2 32.6% 17.5%; */
+    /* --accent: 217.2 32.6% 17.5%; */
+    /* --muted: 217.2 32.6% 17.5%; */
+    /* --border: 217.2 32.6% 17.5%; */
+    /* --input: 217.2 32.6% 17.5%; */
+    /*  */
   }
 
   /* .light-theme {

@@ -1,43 +1,60 @@
 "use client";
 
 import Link from "next/link";
-import { Navbar } from "./navbar-container";
 import Logo from "./logo";
 import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { calculateRange, cn } from "@/lib/utils";
 import { navsConfig } from "@/config/navs";
+import { NavbarDrawer } from "./navbar-drawer";
+
 import { NavbarLink, NavbarLinkWithSubMenu } from "./link";
 
 const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="flex flex-col w-full fixed top-0 left-0 z-50">
-      <Navbar {...props} className="bg-background border-b border-foreground">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <Logo />
-          {/* <div className="flex gap-3"> */}
-          {/* IIII */}
-          <div className="flex md:order-2">
-            <Link href="/contact" className={cn(buttonVariants())}>
-              Contact Us
-            </Link>
-            <Navbar.Toggle />
-          </div>
-          {/* IIII */}
-          <Navbar.Collapse>
-            {navsConfig.topNav.map((nav) => {
-              return nav.submenuList?.length ? (
-                <NavbarLinkWithSubMenu key={nav.href} {...nav} />
-              ) : (
-                <NavbarLink key={nav.href} href={nav.href} label={nav.label} />
-              );
-            })}
-          </Navbar.Collapse>
-        </div>
-        {/* </div> */}
-      </Navbar>
+    <div className="flex justify-between w-full fixed top-0 left-0 z-50">
+      {/* <div className="flex flex-col flex-wrap items-end mx-auto w-full fixed top-0 left-0 z-50"> */}
+      <Logo />
+      <NavbarDrawer />
     </div>
   );
 };
+
+// import { Navbar } from "./navbar-container";
+// import NavbarToggle from "./toggle-drawer";
+// import { DrawerProvider } from "./context-drawer";
+
+// const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
+//   return (
+//     <div className="flex flex-col w-full fixed top-0 left-0 z-50">
+//       <Navbar {...props} className="bg-background border-b border-border">
+//         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+//           <div
+//             className={cn(
+//               // Logo container
+//               ""
+//             )}
+//           >
+//             <Logo />
+//           </div>
+//           <div className="flex">
+//             {/* // container for the hamburger menu */}
+//             <Navbar.Toggle />
+//           </div>
+
+//           <Navbar.Collapse>
+//             {navsConfig.topNav.map((nav) => {
+//               return nav.submenuList?.length ? (
+//                 <NavbarLinkWithSubMenu key={nav.href} {...nav} />
+//               ) : (
+//                 <NavbarLink key={nav.href} href={nav.href} label={nav.label} />
+//               );
+//             })}
+//           </Navbar.Collapse>
+//         </div>
+//       </Navbar>
+//     </div>
+//   );
+// };
 
 export { NavBar };
