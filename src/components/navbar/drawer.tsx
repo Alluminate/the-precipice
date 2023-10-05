@@ -33,11 +33,11 @@ const Drawer: React.FC = () => {
       </div>
 
       {/* Mapping navigation links from config */}
-      <div className="w-full p-4">
+      <div className="w-full p-4 uppercase">
         {navsDrawerConfig.drawerNav.map((section, idx) => (
-          <div key={idx} className="mb-6">
+          <div key={idx} className="mb-6 pt-4 md:pt-6">
             {/* Section Header */}
-            <h3 className="text-lg font-semibold text-secondary mb-4">
+            <h3 className="text-xl font-bold text-secondary mb-4">
               {section.sectionTitle}
             </h3>
             {/* Optional: Border or Separator */}

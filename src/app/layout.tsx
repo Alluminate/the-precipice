@@ -1,20 +1,53 @@
-import './globals.css'
-import { Metadata } from 'next'
-import { Fira_Sans, Raleway } from 'next/font/google'
-import { siteConfig } from '@/config/site'
-import { NavBar } from '@/components/navbar'
-import { Footer } from '@/components/footer'
-import { Toaster } from '@/components/ui/toaster'
-import { GoogleAnalytics } from '@/lib/google-analytics'
-import { AOSInit } from '@/lib/aos'
-import { IsClientCtxProvider } from '@/context/is-client-ctx'
+import "./globals.css";
+import { Metadata } from "next";
+import {
+  Fira_Sans,
+  Raleway,
+  Open_Sans,
+  Fira_Sans_Condensed,
+  Lora,
+} from "next/font/google";
+import { siteConfig } from "@/config/site";
+import { NavBar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
+import { Toaster } from "@/components/ui/toaster";
+import { GoogleAnalytics } from "@/lib/google-analytics";
+import { AOSInit } from "@/lib/aos";
+import { IsClientCtxProvider } from "@/context/is-client-ctx";
 
-
-const firaSans = Fira_Sans({ subsets: ['latin'], style: ['normal', 'italic'], weight: ['400', '700'], variable: '--font-firaSans', })
-const raleway = Raleway({ subsets: ['latin'], style: ['italic', 'normal'], weight: ['400', '700'], variable: '--font-raleway' })
+const firaSans = Fira_Sans({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["400", "700"],
+  variable: "--font-firaSans",
+});
+const raleway = Raleway({
+  subsets: ["latin"],
+  style: ["italic", "normal"],
+  weight: ["400", "700"],
+  variable: "--font-raleway",
+});
+const firaSansCondensed = Fira_Sans_Condensed({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  weight: ["600", "900"],
+  variable: "--font-firaSansCondensed",
+});
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  style: ["italic", "normal"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-openSans",
+});
+const lora = Lora({
+  subsets: ["latin"],
+  style: ["italic", "normal"],
+  weight: ["400", "700"],
+  variable: "--font-lora",
+});
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://thoriumdev.com'),
+  metadataBase: new URL("https://theprecipice.co"),
   title: siteConfig.name,
   description: siteConfig.description,
   // title: {
@@ -22,18 +55,20 @@ export const metadata: Metadata = {
   //   template: `%s - ${siteConfig.name}`,
   // },
   keywords: [
-    "Web 3.0",
-    "DeFi",
-    "Blockchain Engineering",
-    "Consulting",
-    "Thorium",
-    "Innovation",
-    "Finance"
+    "Existential Risk",
+    "Rational Optimism",
+    "Rationality",
+    "NHI Intelligence",
+    "The Precipice",
+    "Venture Philosophy",
+    "The Future of Humanity",
+    "What the Future Looks Like",
+    "2030",
   ],
   authors: [
     {
-      name: "Thorium",
-      url: "https://thoriumdev.com",
+      name: "The Precipice",
+      url: "https://theprecipice.co",
     },
   ],
 
@@ -62,7 +97,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@Thoriumdev",
+    creator: "@ThePrecipice",
   },
   icons: {
     icon: "/icon.ico",
@@ -70,28 +105,32 @@ export const metadata: Metadata = {
     apple: "/apple-icon.png",
   },
   manifest: `/site.webmanifest`,
-}
-
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en" className="scroll-smooth">
       <GoogleAnalytics />
       <AOSInit />
       <IsClientCtxProvider>
-      <body className={`min-h-screen antialiased ${firaSans.variable} ${raleway.variable}`} suppressHydrationWarning>
-        <main className="relative flex min-h-screen flex-col overflow-x-clip">
-          <NavBar />
-          <div className="flex-1 max-w-screen-xl mx-auto">{children}</div>
-          <Footer />
-          <Toaster />
-        </main>
-      </body>
+        <body
+          className={`min-h-screen antialiased ${firaSans.variable} ${firaSansCondensed.variable} ${openSans.variable} ${lora.variable} ${raleway.variable}`}
+          suppressHydrationWarning
+        >
+          {/* relative flex min-h-screen flex-col overflow-x-clip */}
+          <main className="relative flex min-h-screen flex-col overflow-x-clip">
+            <NavBar />
+            {/* flex-1 max-w-screen-xl mx-auto" */}
+            <div className="flex-1">{children}</div>
+            <Footer />
+            <Toaster />
+          </main>
+        </body>
       </IsClientCtxProvider>
     </html>
-  )
+  );
 }

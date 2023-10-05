@@ -8,7 +8,7 @@ import { calculateRange, cn } from "@/lib/utils";
 import { navsConfig } from "@/config/navs";
 import { NavbarDrawer } from "./navbar-drawer";
 
-import { NavbarLink, NavbarLinkWithSubMenu } from "./link";
+import { NavbarLink, NavbarLinkWithSubMenu } from "../navbar-old/link";
 
 const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
   return (

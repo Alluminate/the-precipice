@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
-import NavBorder from "./border";
+import NavBorder from "../navbar/border";
 
 export interface NavbarLinkProps {
   href: string;

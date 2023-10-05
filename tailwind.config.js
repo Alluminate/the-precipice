@@ -16,7 +16,8 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      // REMOVED - this is causing the container to be too narrow
+      padding: "0rem",
       // set a custom width for the 2xl breakpoint.
       screens: {
         "2xl": "1400px",
@@ -27,7 +28,9 @@ module.exports = {
       fontFamily: {
         firaSans: ["var(--font-firaSans)"],
         raleway: ["var(--font-raleway)"],
+        lora: ["var(--font-lora)"],
         openSans: ["var(--font-openSans)"],
+        firaSansCondensed: ["var(--font-firaSansCondensed)"],
       },
       backgroundImage: {
         // NEWDEV - doesn't feel like these do anything

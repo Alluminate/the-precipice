@@ -1,41 +1,103 @@
 import Link from "next/link";
-import { PageHeader, PageHeaderHeading, Paragraph } from "@/components/elements";
+import {
+  LandingHeader,
+  BigSubHeader,
+  PageHeader,
+  PageHeaderHeading,
+  Paragraph,
+} from "@/components/elements";
 import { buttonVariants } from "@/components/ui/button";
 import { calculateRange, cn } from "@/lib/utils";
 import { HeroCard } from "./hero-card";
 import { data } from "./data";
 
+const MobileImage: React.FC = () => (
+  <img
+    src="/assets/home/landingheroimagesm.png"
+    className="md:hidden block"
+    alt="Hero"
+  />
+);
+
+const DesktopImage: React.FC = () => (
+  //   <div
+  //     // lg:w-1/2 lg:h-full bg-cover bg-right
+  //     className="hidden md:block"
+  //     style={{
+  //       backgroundImage: `url('/assets/home/landingheroimagelg.png')`,
+  //     }}
+  //   />
+  <img
+    src="/assets/home/landingheroimagelg.png"
+    className="hidden md:block"
+    alt="Hero"
+  />
+);
 
 export default function Hero() {
   return (
-    <div className="container space-y-64 md:space-y-40">
-      <PageHeader className="h-fit md:h-fit">
-        <div className="space-y-20 flex flex-col mx-auto">
-          <PageHeaderHeading className="text-center" data-aos="fade-in">
-            We <span className="golden-italic">energize</span> products, protocols, & the pros to accelerate Web 3.0.
-          </PageHeaderHeading>
-          <div className="relative w-full">
-            <div className="absolute flex flex-col w-full md:flex-row items-center justify-around gap-5 -top-10 z-10">
-              {data?.map(item => <HeroCard key={item.imageUrl} {...item} />)}
-            </div>
-            {/* Full Bleed */}
-            <div className="flex flex-col space-y-5 w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-              {calculateRange(8).map((_, index) => <div key={index} className={cn("h-[20px] bg-secondary-foreground/50")}></div>)}
-            </div>
-          </div>
-        </div>
-      </PageHeader>
-      <div data-aos="fade-up" className="text-center py-8 grid place-items-center gap-4">
-        <h2 className="text-2xl md:text-5xl italic font-bold">Forging a <span className="golden-italic">Fair Future.</span></h2>
-        <Paragraph className="max-w-[720px]">
-          <span className="golden-italic">Thorium</span> is a decentralized dev team shipping blockchain products since 2017 and a strong conviction in our Web 3.0 Convergence thesis. We build next-generation web utilities for more efficient markets. Our Radiance guild empowers engineers and investors with advanced techniques across this new domain.
+    <div className="flex flex-col-reverse md:flex-row-reverse">
+      {/* md:h-full */}
+      <div className="flex items-center justify-center md:w-3/5">
+        <MobileImage />
+        <DesktopImage />
+      </div>
+      <div className="p-8 md:pt-8 md:pl-8 md:w-2/5 md:flex md:flex-col md:justify-start md:items-start">
+        <LandingHeader className={cn("uppercase mb-2")}>
+          The Precipice
+        </LandingHeader>
+        <BigSubHeader>
+          is a longform blog platform fighting for humanity’s destiny. From{" "}
+          <span className={cn("font-bold")}>existential risk</span>, to the{" "}
+          <span className={cn("font-bold")}>broken nature of discourse</span>,
+          to our <span className={cn("font-bold")}>lack of shared truth</span>,
+          it ascends from many schools of unorthodox thinking to build the
+          necessary foundation for accelerating culture and our relationship
+          with technology 200+ years into the future.
+        </BigSubHeader>
+        <BigSubHeader className={cn("mt-6")}>
+          If you too reject the status quo, know that you are not alone. Join me
+          on a journey to shepherd all we can across the brink and to the
+          unimaginable.
+        </BigSubHeader>
+        <Paragraph className={cn("pt-6 italic")}>
+          Inspired but unaffiliated with Toby Ord’s,{" "}
+          <span className={cn("")}>The Precipice</span>. This content has been
+          shaped by a wide range of thought, perspectives, and experiences.
         </Paragraph>
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/services" className={cn(buttonVariants())}>See our Services</Link>
-          {/* <Link href="/academy" className={cn(buttonVariants({ variant: 'outline' }))}>Learn from the best</Link> */}
-          <Link href="/contact" className={cn(buttonVariants({ variant: 'outline' }))}>Learn from the best</Link>
-        </div>
       </div>
     </div>
-  )
+  );
+  // <div className="container">
+  //   {/* h-fit md:h-fit */}
+  //   <LandingHeader className={cn("place-items-start justify-items-start")}>
+  //     <span>The Precipice</span>
+  //   </LandingHeader>
+  // </div>
+  //     <div className="relative flex flex-col lg:flex-row-reverse lg:h-screen">
+  //   <div
+  //     className="lg:w-1/2 lg:h-full flex items-center justify-center bg-cover bg-right"
+  //     style={{
+  //       backgroundImage: `url('/assets/home/landingheroimagelg.png')`,
+  //     }}
+  //   >
+  //     {/* Mobile image */}
+  //     <img
+  //       src="/assets/home/landingheroimagesm.png"
+  //       className="lg:hidden block"
+  //       alt="Hero"
+  //     />
+  //   </div>
+  //   <div className="p-8 lg:w-1/2 lg:flex lg:flex-col lg:justify-center lg:items-start">
+  //     <LandingHeader className={cn("place-items-start justify-items-start")}>
+  //       The Precipice
+  //     </LandingHeader>
+  //     <BigSubHeader>
+  //       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
+  //       condimentum...
+  //     </BigSubHeader>
+  //     <Paragraph>inspired by placeholder text</Paragraph>
+  //   </div>
+  // </div>
+  // relative flex flex-col lg:flex-row-reverse lg:h-screen
 }

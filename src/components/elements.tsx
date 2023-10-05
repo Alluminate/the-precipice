@@ -1,8 +1,48 @@
-import Balance from "react-wrap-balancer"
+import Balance from "react-wrap-balancer";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-//TODO: Create helper elements to be used across
+// For "The Precipice" on Landing
+function LandingHeader({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <section
+      className={cn(
+        // "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
+        "place-items-start text-5xl md:text-7xl pt-20 font-firaSansCondensed",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </section>
+  );
+}
+
+// Used for about page and landing page
+function BigSubHeader({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h3
+      // text-2xl font-openSans sm:text-3xl max-w-xs
+      className={cn(
+        "font-openSans md:text-2xl text-2xl leading-relaxed md:leading-snug",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </h3>
+  );
+}
+
+// For About/Archives page titles and the Footer title
 function PageHeader({
   className,
   children,
@@ -11,14 +51,14 @@ function PageHeader({
   return (
     <section
       className={cn(
-        "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 ",
+        "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
         className
       )}
       {...props}
     >
       {children}
     </section>
-  )
+  );
 }
 
 function PageHeaderHeading({
@@ -29,14 +69,14 @@ function PageHeaderHeading({
   return (
     <h1
       className={cn(
-        "text-3xl font-raleway font-bold leading-tight tracking-tighter md:text-7xl lg:leading-[1.1]",
+        "text-3xl font-firaSansCondensed font-bold leading-tight tracking-tighter md:text-7xl lg:leading-[1.1]",
         className
       )}
       {...props}
     >
       <Balance>{children}</Balance>
     </h1>
-  )
+  );
 }
 
 function PageHeaderDescription({
@@ -51,19 +91,186 @@ function PageHeaderDescription({
       )}
       {...props}
     />
-  )
+  );
 }
 
-function SubHeader({ className, children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+function SubHeader({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h3 className={cn("text-2xl sm:text-3xl font-bold max-w-xs", className)} {...props}>{children}</h3>
-  )
+    <h3
+      className={cn("text-2xl sm:text-3xl font-bold max-w-xs", className)}
+      {...props}
+    >
+      {children}
+    </h3>
+  );
 }
 
-function Paragraph({ className, children, ...props }: React.HTMLAttributes<HTMLParagraphElement>) {
+function Paragraph({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p className={cn("text-base md:text-lg font-firaSans", className)} {...props}>{children}</p>
-  )
+    <p
+      className={cn("text-base md:text-lg font-firaSans", className)}
+      {...props}
+    >
+      {children}
+    </p>
+  );
 }
 
-export { PageHeader, PageHeaderHeading, PageHeaderDescription, SubHeader, Paragraph }
+// Titles of themes on the Archive Page
+function ArchivePageTagTitle({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h1
+      className={cn(
+        "text-sm font-firaSansCondensed font-semibold leading-tight tracking-tighter md:text-md lg:leading-[1.1]",
+        className
+      )}
+      {...props}
+    >
+      <Balance>{children}</Balance>
+    </h1>
+  );
+}
+
+// Titles of blogs on the Archive Page
+function ArchivePageBlogTitle({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h1
+      className={cn(
+        "text-sm font-firaSans font-semibold leading-tight tracking-tighter md:text-md lg:leading-[1.1]",
+        className
+      )}
+      {...props}
+    >
+      <Balance>{children}</Balance>
+    </h1>
+  );
+}
+
+// Title rendered in the middle of the cover image
+function BlogPageTitle({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h1
+      className={cn(
+        "text-3xl font-firaSansCondensed font-semibold leading-tight tracking-tighter md:text-7xl lg:leading-[1.1]",
+        className
+      )}
+      {...props}
+    >
+      <Balance>{children}</Balance>
+    </h1>
+  );
+}
+
+// For the title of blog cards outside of the blog page - in archives/:tag and landing
+function BlogDescriptionTitle({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLHeadingElement>) {
+  return (
+    <h3
+      className={cn("text-2xl sm:text-3xl font-bold max-w-xs", className)}
+      {...props}
+    >
+      {children}
+    </h3>
+  );
+}
+
+// TODO: Add to export function
+// For the exercpt on each blog page
+function BlogPageFiledUnder({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <Balance
+      className={cn(
+        // max-w-[750px]
+        "text-lg font-openSans text-foreground sm:text-xl",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+// For the exercpt on each blog page
+function BlogExcerpt({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <Balance
+      className={cn(
+        // max-w-[750px]
+        "text-lg font-openSans text-foreground sm:text-xl",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+// For the text of blogs
+function BlogParagraph({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p className={cn("text-base md:text-lg font-lora", className)} {...props}>
+      {children}
+    </p>
+  );
+}
+
+// for the author bio
+function BlogBio({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p className={cn("text-base md:text-lg font-lora", className)} {...props}>
+      {children}
+    </p>
+  );
+}
+
+export {
+  LandingHeader,
+  BigSubHeader,
+  PageHeader,
+  PageHeaderHeading,
+  PageHeaderDescription,
+  SubHeader,
+  Paragraph,
+  ArchivePageTagTitle,
+  ArchivePageBlogTitle,
+  BlogDescriptionTitle,
+  BlogPageTitle,
+  BlogExcerpt,
+  BlogParagraph,
+  BlogBio,
+};
