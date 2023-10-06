@@ -38,12 +38,12 @@ export default function Hero() {
   return (
     <div className="flex flex-col-reverse md:flex-row-reverse">
       {/* md:h-full */}
-      <div className="flex items-center justify-center md:w-3/5">
+      <div className="flex items-center justify-center md:w-3/5 2xl:pl-2 2xl:w-7/12">
         <MobileImage />
         <DesktopImage />
       </div>
-      <div className="p-8 md:pt-8 md:pl-8 md:w-2/5 md:flex md:flex-col md:justify-start md:items-start">
-        <LandingHeader className={cn("uppercase mb-2")}>
+      <div className="p-8 md:pt-8 md:pl-8 xl:pl-10 2xl:pl-12 md:w-2/5 2xl:w-6/12 md:flex md:flex-col md:justify-start md:items-start">
+        <LandingHeader className={cn("uppercase mb-2 2xl:pb-2")}>
           The Precipice
         </LandingHeader>
         <BigSubHeader>

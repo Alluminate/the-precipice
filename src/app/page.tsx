@@ -1,8 +1,11 @@
 import Hero from "./home/hero";
-import ThoriumRadiance from "./home/thorium-radiance";
-import WhereWeShine from "./home/where-we-shine";
-import DevBlog from "./home/dev-blog";
-import Community from "./home/community";
+import FeaturedArticles from "./home/featured-articles";
+
+// import ThoriumRadiance from "./home/thorium-radiance";
+// import WhereWeShine from "./home/where-we-shine";
+// import DevBlog from "./home/dev-blog";
+// import Community from "./home/community";
+
 import { ContentfulApi } from "@/lib/contentfulApi";
 import { siteConfig } from "@/config/site";
 
@@ -38,6 +41,7 @@ export default async function Home() {
   return (
     <section className="space-y-20 px-0 mx-0">
       <Hero />
+      <FeaturedArticles />
     </section>
   );
 }

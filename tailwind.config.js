@@ -17,7 +17,7 @@ module.exports = {
     container: {
       center: true,
       // REMOVED - this is causing the container to be too narrow
-      padding: "0rem",
+      padding: "2rem",
       // set a custom width for the 2xl breakpoint.
       screens: {
         "2xl": "1400px",
@@ -101,6 +101,11 @@ module.exports = {
       gridTemplateColumns: {
         "holy-grail": "repeat(auto-fill, minmax(var(--min-column-width), 1fr))",
       },
+      //   gridTemplateColumns: {
+      //     'card-layout': '1fr',
+      //     'md:card-layout': 'repeat(2, 1fr)',
+      //     'lg:card-layout': 'repeat(3, 1fr)',
+      // },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

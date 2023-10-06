@@ -12,7 +12,7 @@ function LandingHeader({
     <section
       className={cn(
         // "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
-        "place-items-start text-5xl md:text-7xl pt-20 font-firaSansCondensed",
+        "place-items-start text-5xl md:text-7xl 2xl:text-8xl pt-20 font-firaSansCondensed",
         className
       )}
       {...props}
@@ -32,13 +32,34 @@ function BigSubHeader({
     <h3
       // text-2xl font-openSans sm:text-3xl max-w-xs
       className={cn(
-        "font-openSans md:text-2xl text-2xl leading-relaxed md:leading-snug",
+        "font-openSans text-2xl 2xl:text-4xl leading-relaxed md:leading-snug 2xl:leading-normal",
         className
       )}
       {...props}
     >
       {children}
     </h3>
+  );
+}
+
+// TODO: Add to export function
+function BlogCardTitle({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <section
+      className={cn(
+        // "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
+        // text-base md:text-lg capitalize font-bold
+        "place-items-start text-3xl font-semibold font-firaSansCondensed",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </section>
   );
 }
 
@@ -261,6 +282,7 @@ function BlogBio({
 export {
   LandingHeader,
   BigSubHeader,
+  BlogCardTitle,
   PageHeader,
   PageHeaderHeading,
   PageHeaderDescription,

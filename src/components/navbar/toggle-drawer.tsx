@@ -13,7 +13,7 @@ const NavbarToggle: React.FC<React.ComponentProps<"button">> = ({
   };
 
   return (
-    <div className={cn("py-2")}>
+    <div className={cn("pt-4 pr-4")}>
       <button {...props} onClick={handleClick} type="button" className="...">
         <span className="sr-only">
           {isDrawerOpen ? "Close" : "Open"} main menu
