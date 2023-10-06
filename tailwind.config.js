@@ -122,7 +122,27 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"),
+    require("@tailwindcss/typography"),
+    function ({ addUtilities }) {
+      const recentArticleBackgroundColors = {
+        ".bg-color-0": {
+          backgroundColor: "#FEFCF5",
+        },
+        ".bg-color-1": {
+          backgroundColor: "#FAE9C4",
+        },
+        ".bg-color-2": {
+          backgroundColor: "#FECA26",
+        },
+        ".bg-color-3": {
+          backgroundColor: "#F58447",
+        },
+      };
+      addUtilities(recentArticleBackgroundColors, ["responsive", "hover"]);
+    },
+  ],
 };
 
 // border: "hsl(var(--border))",

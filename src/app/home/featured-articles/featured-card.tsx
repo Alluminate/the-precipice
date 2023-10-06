@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { BlogCardExcerpt, BlogCardTitle } from "@/components/elements";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";

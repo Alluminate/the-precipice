@@ -1,5 +1,6 @@
 import Hero from "./home/hero";
 import FeaturedArticles from "./home/featured-articles";
+import RecentArticles from "./home/recent-articles";
 
 // import ThoriumRadiance from "./home/thorium-radiance";
 // import WhereWeShine from "./home/where-we-shine";
@@ -42,6 +43,7 @@ export default async function Home() {
     <section className="space-y-20 px-0 mx-0">
       <Hero />
       <FeaturedArticles />
+      <RecentArticles />
     </section>
   );
 }
