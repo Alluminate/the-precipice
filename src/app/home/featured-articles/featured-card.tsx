@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Paragraph, BlogCardTitle } from "@/components/elements";
+import { BlogCardExcerpt, BlogCardTitle } from "@/components/elements";
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks";
@@ -45,7 +45,7 @@ export const FeaturedCard: React.FC<
       //   className="pt-3 flex flex-col m-0 w-full md:w-1/2 lg:w-1/3 items-center lg:items-start"
       //   className={`pt-3 flex flex-col m-5 w-full md:w-1/2 lg:w-1/3 items-center lg:items-start ${customWidth}`}
       // className={`pt-3 flex flex-col m-1 lg:mx-2 w-full ${customWidth} items-center lg:items-center`}
-      className={`pt-3 flex m-1 lg:mx-2 w-full ${customWidth} items-center lg:items-center`}
+      className={`pt-3 flex m-1 lg:mx-2 w-full ${customWidth} `}
     >
       <Link
         href={link}
@@ -59,16 +59,21 @@ export const FeaturedCard: React.FC<
             isTopCard ? "md:flex-row" : "md:flex-col"
           }`}
         >
-          <Image
-            className=""
-            src={`/assets/home/${imageUrl}.png`}
-            width={250}
-            height={250}
-            alt={title}
-          />
-          <div className={`${isTopCard ? "pl-5" : ""}`}>
+          <div className={`${isTopCard ? "2xl:w-7/12" : ""}`}>
+            <Image
+              className="articlePreviewImage"
+              src={`/assets/home/${imageUrl}.png`}
+              width={250}
+              height={250}
+              alt={title}
+            />
+          </div>
+
+          <div className={`${isTopCard ? "pl-5 2xl:w-5/12" : ""}`}>
             <BlogCardTitle>{title}</BlogCardTitle>
-            <Paragraph>{subtitle}</Paragraph>
+            <BlogCardExcerpt className={cn("pt-2 lg:pt-4")}>
+              {subtitle}
+            </BlogCardExcerpt>
           </div>
         </CardContent>
       </Link>

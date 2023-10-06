@@ -42,7 +42,6 @@ function BigSubHeader({
   );
 }
 
-// TODO: Add to export function
 function BlogCardTitle({
   className,
   children,
@@ -53,13 +52,31 @@ function BlogCardTitle({
       className={cn(
         // "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
         // text-base md:text-lg capitalize font-bold
-        "place-items-start text-3xl font-semibold font-firaSansCondensed",
+        "place-items-start text-3xl xl:text-4xl font-semibold font-firaSansCondensed",
         className
       )}
       {...props}
     >
       {children}
     </section>
+  );
+}
+
+function BlogCardExcerpt({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p
+      className={cn(
+        "text-base md:text-lg lg:text-xl 2xl:text-2xl font-firaSans",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </p>
   );
 }
 
@@ -283,6 +300,7 @@ export {
   LandingHeader,
   BigSubHeader,
   BlogCardTitle,
+  BlogCardExcerpt,
   PageHeader,
   PageHeaderHeading,
   PageHeaderDescription,

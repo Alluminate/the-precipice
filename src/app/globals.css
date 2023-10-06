@@ -241,3 +241,8 @@
 .golden-italic {
   @apply text-secondary-foreground italic font-bold;
 }
+
+.articlePreviewImage {
+  width: 100% !important; /* Force width to 100% */
+  height: auto !important; /* Allow height to auto-scale */
+}
