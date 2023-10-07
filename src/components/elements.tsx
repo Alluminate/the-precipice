@@ -89,7 +89,8 @@ function PageHeader({
   return (
     <section
       className={cn(
-        "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
+        //  "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
+        "items-center font-firaSansCondensed text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-extrabold ",
         className
       )}
       {...props}

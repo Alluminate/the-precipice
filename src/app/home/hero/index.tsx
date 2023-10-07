@@ -51,14 +51,12 @@ export default function Hero() {
           <span className={cn("font-bold")}>existential risk</span>, to the{" "}
           <span className={cn("font-bold")}>broken nature of discourse</span>,
           to our <span className={cn("font-bold")}>lack of shared truth</span>,
-          it ascends from many schools of unorthodox thinking to build the
-          necessary foundation for accelerating culture and our relationship
-          with technology 200+ years into the future.
+          it ascends from schools of unorthodox thought to accelerate culture
+          200+ years into the future.
         </BigSubHeader>
         <BigSubHeader className={cn("mt-6")}>
-          If you too reject the status quo, know that you are not alone. Join me
-          on a journey to shepherd all we can across the brink and to the
-          unimaginable.
+          If you reject the status quo, know you are not alone. Let's journey
+          across the brink to the unimaginable that awaits us.
         </BigSubHeader>
         <Paragraph className={cn("pt-6 italic")}>
           Inspired but unaffiliated with Toby Ord’s,{" "}

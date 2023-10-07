@@ -37,7 +37,7 @@ export const data: FeaturedCardProps[] = [
     imageUrl: "progressiveschismlg",
     title: "The Progressive Schism: Egalitarians vs Accelerationists",
     subtitle:
-      "Mastery over designing and implementing any solution, with PRDs, technical PM, and technical team audits.",
+      "Why separating techno-progressives/accelerationists from identitarian/social progressives and neo-marxists is crucial for humanity’s survival, even while having tremendous respect for people who believe social justice issues are the most important to solve.",
     link: "/the-progressive-schism",
     // learnMoreList: [
     //   "A Senior Blockchain Architect’s Framework for Modular Web 3.0 Protocols",
