@@ -7,15 +7,27 @@ export type Author = {
   name: string;
 };
 
-export type CoverImage = {
+export type HeroImage = {
   imageUrl: string;
   description: string;
   title: string;
 };
 
-export type TagIconProp = CoverImage & {};
+export type TagIconProp = HeroImage & {};
 
 export type BlogPost = {
+  id: string;
+  content: any;
+  excerpt: string;
+  publishedDate: string | undefined;
+  slug: string;
+  tag: string;
+  title: string;
+  heroImage?: HeroImage | null;
+  author?: Author | null;
+};
+
+export type HelpArticle = {
   id: string;
   content: any;
   subtitle: string;
@@ -23,26 +35,14 @@ export type BlogPost = {
   slug: string;
   tag: string;
   title: string;
-  coverImage?: CoverImage | null;
   author?: Author | null;
 };
-
-// export type HelpArticle = {
-//   id: string;
-//   content: any;
-//   subtitle: string;
-//   publishedDate: string | undefined;
-//   slug: string;
-//   tag: string;
-//   title: string;
-//   author?: Author | null;
-// };
 
 export type TypeBlogFields = {
   title: EntryFieldTypes.Symbol;
   content: EntryFieldTypes.RichText;
-  subtitle: EntryFieldTypes.Text;
-  coverImage?: EntryFieldTypes.AssetLink;
+  excerpt: EntryFieldTypes.Text;
+  heroImage?: EntryFieldTypes.AssetLink;
   date?: EntryFieldTypes.Date;
   slug: EntryFieldTypes.Symbol;
   author?: EntryFieldTypes.EntryLink<EntrySkeletonType>;
@@ -88,7 +88,7 @@ export type BlogEntriesProps = {
 
 export type ArticleEntriesProps = {
   tag?: string;
-  // content_type?: "help" | "academy";
+  content_type?: "help" | "academy";
 };
 
 export type BlogEntriesReturnType = {
@@ -98,10 +98,10 @@ export type BlogEntriesReturnType = {
   skip: number | undefined;
 };
 
-// export type ArticleEntriesReturnType = {
-//   articles: AllArticles[];
-//   total: number;
-// };
+export type ArticleEntriesReturnType = {
+  articles: HelpArticle[];
+  total: number;
+};
 
 export type ArticleTagsReturnType = {
   id: string;
@@ -111,7 +111,7 @@ export type ArticleTagsReturnType = {
   tagIcon: TagIconProp | null;
 };
 
-// type ArticleTagsType = "helpTags" | "academyTags";
+type ArticleTagsType = "helpTags" | "academyTags";
 
 export class ContentfulApi {
   client: ContentfulClientApi<undefined>;
@@ -131,7 +131,7 @@ export class ContentfulApi {
     });
   }
 
-  convertImage = (rawImage: any): CoverImage | TagIconProp | null => {
+  convertImage = (rawImage: any): HeroImage | TagIconProp | null => {
     if (rawImage) {
       return {
         imageUrl: rawImage.file.url.replace("//", "https://"),
@@ -169,35 +169,35 @@ export class ContentfulApi {
     return {
       id: rawData.sys.id,
       content: rawPost?.content,
-      subtitle: rawPost?.excerpt,
+      excerpt: rawPost?.excerpt,
       publishedDate: rawPost?.date
         ? this.formatDate(rawPost?.date)
         : this.formatDate(rawData.sys.createdAt),
       slug: rawPost?.slug,
       tag: rawTag?.title,
       title: rawPost?.title,
-      coverImage: this.convertImage(rawHeroImage),
+      heroImage: this.convertImage(rawHeroImage),
       author: this.convertAuthor(rawAuthor),
     };
   };
 
-  // convertHelpArticle = (rawData: any): HelpArticle => {
-  //   const rawPost = rawData.fields;
+  convertHelpArticle = (rawData: any): HelpArticle => {
+    const rawPost = rawData.fields;
 
-  //   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
-  //   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
+    const rawAuthor = rawPost.author ? rawPost.author.fields : null;
+    const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
 
-  //   return {
-  //     id: rawData.sys.id,
-  //     content: rawPost?.content,
-  //     subtitle: rawPost?.subtitle,
-  //     publishedDate: this.formatDate(rawData.sys.updatedAt),
-  //     slug: rawPost?.slug,
-  //     tag: rawTag?.slug,
-  //     title: rawPost?.title,
-  //     author: this.convertAuthor(rawAuthor),
-  //   };
-  // };
+    return {
+      id: rawData.sys.id,
+      content: rawPost?.content,
+      subtitle: rawPost?.subtitle,
+      publishedDate: this.formatDate(rawData.sys.updatedAt),
+      slug: rawPost?.slug,
+      tag: rawTag?.slug,
+      title: rawPost?.title,
+      author: this.convertAuthor(rawAuthor),
+    };
+  };
 
   async fetchBlogEntries(
     { limit, skip, tag }: BlogEntriesProps = {
@@ -285,75 +285,73 @@ export class ContentfulApi {
     }
     return [];
   }
+
+  //Help and Academy Articles
+  async fetchArticleEntries(
+    { tag, content_type = "academy" }: ArticleEntriesProps = {
+      tag: "",
+      content_type: "academy",
+    }
+  ): Promise<ArticleEntriesReturnType> {
+    try {
+      const res = await this.client?.getEntries({
+        content_type,
+        include: 1,
+        "fields.tag.sys.id": tag,
+        order: ["-fields.date"],
+      });
+
+      if (res && res.items && res.items.length > 0) {
+        const articles = res.items.map((entry) =>
+          this.convertHelpArticle(entry)
+        );
+        const total = res.total;
+        return { articles, total };
+      }
+      return { articles: [], total: 0 };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async fetchArticleBySlug(
+    content_type: ArticleEntriesProps["content_type"] = "help",
+    slug: string
+  ): Promise<HelpArticle | null> {
+    try {
+      const res = await this.client.getEntries({
+        content_type,
+        "fields.slug": slug,
+      });
+      if (res && res.items && res.items.length > 0) {
+        const post = this.convertHelpArticle(res.items[0]);
+        return post;
+      }
+      return null;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async getAllArticleTags(
+    content_type: ArticleTagsType = "helpTags"
+  ): Promise<ArticleTagsReturnType[]> {
+    const res = await this.client.getEntries({
+      content_type,
+      order: ["sys.updatedAt"],
+    });
+
+    const tags = res.items.map(
+      ({ sys, fields }: { sys: any; fields: any }) => ({
+        id: sys.id,
+        slug: fields.slug,
+        title: fields.title,
+        description: fields.description,
+        tagIcon: fields.tagIcon.file ? this.convertImage(fields.tagIcon) : null,
+      })
+    );
+    return tags;
+  }
 }
-
-// TODO: Assess if I need the Academy stuff still
-//Help and Academy Articles
-// async fetchArticleEntries(
-//   { tag, content_type = "academy" }: ArticleEntriesProps = {
-//     tag: "",
-//     content_type: "academy",
-//   }
-// ): Promise<ArticleEntriesReturnType> {
-//   try {
-//     const res = await this.client?.getEntries({
-//       content_type,
-//       include: 1,
-//       "fields.tag.sys.id": tag,
-//       order: ["-fields.date"],
-//     });
-
-//     if (res && res.items && res.items.length > 0) {
-//       const articles = res.items.map((entry) =>
-//         this.convertHelpArticle(entry)
-//       );
-//       const total = res.total;
-//       return { articles, total };
-//     }
-//     return { articles: [], total: 0 };
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
-
-// async fetchArticleBySlug(
-//   content_type: ArticleEntriesProps["content_type"] = "help",
-//   slug: string
-// ): Promise<HelpArticle | null> {
-//   try {
-//     const res = await this.client.getEntries({
-//       content_type,
-//       "fields.slug": slug,
-//     });
-//     if (res && res.items && res.items.length > 0) {
-//       const post = this.convertHelpArticle(res.items[0]);
-//       return post;
-//     }
-//     return null;
-//   } catch (error) {
-//     console.log(error);
-//     throw error;
-//   }
-// }
-
-//   async getAllArticleTags(
-//     content_type: ArticleTagsType = "helpTags"
-//   ): Promise<ArticleTagsReturnType[]> {
-//     const res = await this.client.getEntries({
-//       content_type,
-//       order: ["sys.updatedAt"],
-//     });
-
-//     const tags = res.items.map(
-//       ({ sys, fields }: { sys: any; fields: any }) => ({
-//         id: sys.id,
-//         slug: fields.slug,
-//         title: fields.title,
-//         description: fields.description,
-//         tagIcon: fields.tagIcon.file ? this.convertImage(fields.tagIcon) : null,
-//       })
-//     );
-//     return tags;
-//   }
-// }

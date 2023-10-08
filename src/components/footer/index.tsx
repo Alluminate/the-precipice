@@ -69,12 +69,12 @@ function FooterLinks() {
     <div className="flex flex-row w-full items-center">
       <div className="grid gap-6 grid-cols-3 md:grid-cols-6 w-full text-secondary font-semibold">
         <div>
-          <Link href="/" className="hover:underline">
+          <Link href="/about" className="hover:underline">
             ABOUT
           </Link>
         </div>
         <div>
-          <Link href="/" className="hover:underline">
+          <Link href="/archive" className="hover:underline">
             ARCHIVE
           </Link>
         </div>
