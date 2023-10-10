@@ -1,6 +1,5 @@
-// import { AboutCards, CoreTeam, Hero } from "@/app/about/components";
 import { ContentfulApi } from "@/lib/contentfulApi";
-import { ArchiveGrid, ArchiveTags } from "./components";
+import { ArchiveGrid, ArchiveTags, ArchiveList } from "./components";
 
 import { getMetadata } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -46,12 +45,12 @@ export default async function ArchivesPage({ params, searchParams }: Props) {
   const { blogPosts } = await getPosts({ params, searchParams });
 
   return (
-    <section className="space-y-20 px-0 mx-2 md:mx-4 lg:mx-6 xl:mx-8 2xl:mx-12">
-      <ArchiveTags tags={tags} />
-      <ArchiveGrid blog={blogPosts} />
-      {/* <Hero />
-      <AboutCards />
-      <CoreTeam /> */}
+    <section className="flex flex-col items-center  space-y-20 px-0 mx-2 md:mx-4 lg:mx-6 xl:mx-8 2xl:mx-12 min-h-screen">
+      <div className="w-full md:w-10/12 lg:w-9/12 2xl:w-8/12">
+        <ArchiveTags tags={tags} />
+        {/* <ArchiveGrid blog={blogPosts} /> */}
+        <ArchiveList blog={blogPosts} />
+      </div>
     </section>
   );
 }

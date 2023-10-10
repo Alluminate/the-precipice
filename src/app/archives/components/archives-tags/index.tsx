@@ -49,11 +49,11 @@ export function ArchiveTags({ tags, tagId }: ArchiveTagProps) {
         </Link> */}
 
         <div className="flex flex-col items-start gap-4 w-full">
-          <PageHeaderHeading className="">Pieces by Topics</PageHeaderHeading>
-          <PageHeaderDescription>
+          <PageHeader className="">Pieces by Topics</PageHeader>
+          {/* <PageHeaderDescription>
             Composed by the team on these topics:
-          </PageHeaderDescription>
-          <div className="flex flex-wrap items-center gap-2">
+          </PageHeaderDescription> */}
+          {/* <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={() => router.push("/blog")}
               className="bg-primary hover:bg-primary/80 p-4 rounded"
@@ -69,7 +69,7 @@ export function ArchiveTags({ tags, tagId }: ArchiveTagProps) {
                 {tag.title}
               </button>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

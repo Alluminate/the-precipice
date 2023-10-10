@@ -41,9 +41,6 @@ export const ArchiveCard: React.FC<Partial<BlogPost>> = ({
           <h4 className="text-base uppercase font-bold">{title}</h4>
           <p className="line-clamp-3">{subtitle}</p>
         </CardContent>
-        {/* <CardFooter className="">
-          <span className="text-primary cursor-pointer">Read More</span>
-        </CardFooter> */}
       </Card>
     </Link>
   );

@@ -27,17 +27,6 @@ export type BlogPost = {
   author?: Author | null;
 };
 
-// export type HelpArticle = {
-//   id: string;
-//   content: any;
-//   subtitle: string;
-//   publishedDate: string | undefined;
-//   slug: string;
-//   tag: string;
-//   title: string;
-//   author?: Author | null;
-// };
-
 export type TypeBlogFields = {
   title: EntryFieldTypes.Symbol;
   content: EntryFieldTypes.RichText;
@@ -62,24 +51,6 @@ export type BlogTagsSkeleton = EntrySkeletonType<
   "blogTags"
 >;
 
-// NEWDEV - remove
-// export interface TypeAcademyFields {
-//   title: EntryFieldTypes.Symbol;
-//   subtitle: EntryFieldTypes.Text;
-//   slug: EntryFieldTypes.Symbol;
-//   author: EntryFieldTypes.EntryLink<EntrySkeletonType>;
-//   date?: EntryFieldTypes.Date;
-//   content?: EntryFieldTypes.RichText;
-//   tag: EntryFieldTypes.EntryLink<EntrySkeletonType>;
-// }
-
-// export interface TypeAcademyTagsFields {
-//   title: EntryFieldTypes.Symbol;
-//   description?: EntryFieldTypes.Text;
-//   tagIcon?: EntryFieldTypes.AssetLink;
-//   slug?: EntryFieldTypes.Symbol;
-// }
-
 export type BlogEntriesProps = {
   limit?: number;
   skip?: number;
@@ -97,11 +68,6 @@ export type BlogEntriesReturnType = {
   limit: number | undefined;
   skip: number | undefined;
 };
-
-// export type ArticleEntriesReturnType = {
-//   articles: AllArticles[];
-//   total: number;
-// };
 
 export type ArticleTagsReturnType = {
   id: string;
@@ -180,24 +146,6 @@ export class ContentfulApi {
       author: this.convertAuthor(rawAuthor),
     };
   };
-
-  // convertHelpArticle = (rawData: any): HelpArticle => {
-  //   const rawPost = rawData.fields;
-
-  //   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
-  //   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
-
-  //   return {
-  //     id: rawData.sys.id,
-  //     content: rawPost?.content,
-  //     subtitle: rawPost?.subtitle,
-  //     publishedDate: this.formatDate(rawData.sys.updatedAt),
-  //     slug: rawPost?.slug,
-  //     tag: rawTag?.slug,
-  //     title: rawPost?.title,
-  //     author: this.convertAuthor(rawAuthor),
-  //   };
-  // };
 
   async fetchBlogEntries(
     { limit, skip, tag }: BlogEntriesProps = {
@@ -357,3 +305,55 @@ export class ContentfulApi {
 //     return tags;
 //   }
 // }
+
+// convertHelpArticle = (rawData: any): HelpArticle => {
+//   const rawPost = rawData.fields;
+
+//   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
+//   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
+
+//   return {
+//     id: rawData.sys.id,
+//     content: rawPost?.content,
+//     subtitle: rawPost?.subtitle,
+//     publishedDate: this.formatDate(rawData.sys.updatedAt),
+//     slug: rawPost?.slug,
+//     tag: rawTag?.slug,
+//     title: rawPost?.title,
+//     author: this.convertAuthor(rawAuthor),
+//   };
+// };
+
+// export type ArticleEntriesReturnType = {
+//   articles: AllArticles[];
+//   total: number;
+// };
+
+// NEWDEV - remove
+// export interface TypeAcademyFields {
+//   title: EntryFieldTypes.Symbol;
+//   subtitle: EntryFieldTypes.Text;
+//   slug: EntryFieldTypes.Symbol;
+//   author: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+//   date?: EntryFieldTypes.Date;
+//   content?: EntryFieldTypes.RichText;
+//   tag: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+// }
+
+// export interface TypeAcademyTagsFields {
+//   title: EntryFieldTypes.Symbol;
+//   description?: EntryFieldTypes.Text;
+//   tagIcon?: EntryFieldTypes.AssetLink;
+//   slug?: EntryFieldTypes.Symbol;
+// }
+
+// export type HelpArticle = {
+//   id: string;
+//   content: any;
+//   subtitle: string;
+//   publishedDate: string | undefined;
+//   slug: string;
+//   tag: string;
+//   title: string;
+//   author?: Author | null;
+// };
