@@ -39,38 +39,39 @@ export function ArchiveTags({ tags, tagId }: ArchiveTagProps) {
   };
 
   return (
-    <PageHeader className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[948px] md:px-0">
-      <Link href="/" passHref>
-        <p className="flex items-center gap-2 cursor-pointer">
-          <Icons.arrowLeft size={"1em"} /> Go back
-        </p>
-      </Link>
+    <div className="flex mt-12">
+      {/* <PageHeader className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[948px] md:px-0"></PageHeader> */}
+      <div className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[948px] md:px-0 leading-relaxed mt-12">
+        {/* <Link href="/" passHref>
+          <p className="flex items-center gap-2 cursor-pointer">
+            <Icons.arrowLeft size={"1em"} /> Go back
+          </p>
+        </Link> */}
 
-      <div className="flex flex-col items-start gap-4 w-full">
-        <PageHeaderHeading className="">
-          Thorium | <span className="golden-italic">News</span>
-        </PageHeaderHeading>
-        <PageHeaderDescription>
-          Composed by the team on these topics:
-        </PageHeaderDescription>
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => router.push("/blog")}
-            className="bg-primary hover:bg-primary/80 p-4 rounded"
-          >
-            All
-          </button>
-          {tags.map((tag) => (
+        <div className="flex flex-col items-start gap-4 w-full">
+          <PageHeaderHeading className="">Pieces by Topics</PageHeaderHeading>
+          <PageHeaderDescription>
+            Composed by the team on these topics:
+          </PageHeaderDescription>
+          <div className="flex flex-wrap items-center gap-2">
             <button
-              key={tag.id}
-              onClick={() => handleSelectTag(tag.id)}
+              onClick={() => router.push("/blog")}
               className="bg-primary hover:bg-primary/80 p-4 rounded"
             >
-              {tag.title}
+              All
             </button>
-          ))}
+            {tags.map((tag) => (
+              <button
+                key={tag.id}
+                onClick={() => handleSelectTag(tag.id)}
+                className="bg-primary hover:bg-primary/80 p-4 rounded"
+              >
+                {tag.title}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
-    </PageHeader>
+    </div>
   );
 }

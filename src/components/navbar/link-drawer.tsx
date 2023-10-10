@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useDrawerContext } from "./context-drawer"; //
+
 import { Icons } from "@/components/icons";
 import { cn } from "@/lib/utils";
 import NavBorder from "./border";
@@ -21,10 +23,16 @@ export const NavbarLink: React.FC<NavbarLinkProps> = ({ href, label }) => {
   const pathname = usePathname();
   const isActive = pathname === href;
 
+  const { isDrawerOpen, setIsDrawerOpen } = useDrawerContext();
+
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false);
+  };
+
   return (
     <div className={cn("md:px-4")}>
       <li>
-        <Link href={href}>
+        <Link href={href} onClick={handleDrawerClose}>
           <p
             className={cn(
               "block py-2 pl-3 text-secondary font-bold hover:bg-destructive cursor-pointer",

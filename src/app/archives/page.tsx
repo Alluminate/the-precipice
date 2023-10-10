@@ -46,7 +46,7 @@ export default async function ArchivesPage({ params, searchParams }: Props) {
   const { blogPosts } = await getPosts({ params, searchParams });
 
   return (
-    <section className="space-y-20">
+    <section className="space-y-20 px-0 mx-2 md:mx-4 lg:mx-6 xl:mx-8 2xl:mx-12">
       <ArchiveTags tags={tags} />
       <ArchiveGrid blog={blogPosts} />
       {/* <Hero />
