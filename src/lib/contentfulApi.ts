@@ -21,7 +21,8 @@ export type BlogPost = {
   subtitle: string;
   publishedDate: string | undefined;
   slug: string;
-  tag: string;
+  // TODO: CHANGED AND ADDED THIS HERE
+  tag: TagType | string;
   title: string;
   coverImage?: CoverImage | null;
   author?: Author | null;
@@ -44,6 +45,12 @@ export interface TypeBlogTagsFields {
   title: EntryFieldTypes.Symbol;
   description: EntryFieldTypes.RichText;
   slug: EntryFieldTypes.Symbol;
+}
+
+export interface TagType {
+  title: string;
+  description: any; // Adjust based on how you handle RichText fields
+  slug: string;
 }
 
 export type BlogTagsSkeleton = EntrySkeletonType<
@@ -140,12 +147,40 @@ export class ContentfulApi {
         ? this.formatDate(rawPost?.date)
         : this.formatDate(rawData.sys.createdAt),
       slug: rawPost?.slug,
-      tag: rawTag?.title,
+      tag: rawTag
+        ? {
+            title: rawTag.title,
+            description: rawTag.description,
+            slug: rawTag.slug,
+          }
+        : null,
       title: rawPost?.title,
       coverImage: this.convertImage(rawHeroImage),
       author: this.convertAuthor(rawAuthor),
     };
   };
+
+  // convertPost = (rawData: any): BlogPost => {
+  //   const rawPost = rawData.fields;
+
+  //   const rawHeroImage = rawPost.heroImage ? rawPost.heroImage.fields : null;
+  //   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
+  //   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
+
+  //   return {
+  //     id: rawData.sys.id,
+  //     content: rawPost?.content,
+  //     subtitle: rawPost?.excerpt,
+  //     publishedDate: rawPost?.date
+  //       ? this.formatDate(rawPost?.date)
+  //       : this.formatDate(rawData.sys.createdAt),
+  //     slug: rawPost?.slug,
+  //     tag: rawTag?.title,
+  //     title: rawPost?.title,
+  //     coverImage: this.convertImage(rawHeroImage),
+  //     author: this.convertAuthor(rawAuthor),
+  //   };
+  // };
 
   async fetchBlogEntries(
     { limit, skip, tag }: BlogEntriesProps = {
@@ -217,6 +252,29 @@ export class ContentfulApi {
       })
     );
     return tags;
+  }
+
+  // TODO: Review
+  async fetchBlogPostsByTag(tagTitle: string): Promise<BlogPost[]> {
+    try {
+      // Fetch entries where the tag field matches the specified tag
+      const res = await this.client.getEntries<BlogSkeleton>({
+        content_type: "blog",
+        "fields.tag": tagTitle, // Assuming your blogs have a 'tag' field that stores the tag title
+        order: "-fields.publishedDate", // Optional: ordering by date in descending order
+      });
+
+      if (res && res.items) {
+        // Convert entries to your BlogPost model
+        const posts = res.items.map((item) => this.convertPost(item));
+        return posts;
+      }
+
+      return [];
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
 
   async getPaths(): Promise<{ params: { slug: string } }[] | []> {

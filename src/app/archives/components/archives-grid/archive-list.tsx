@@ -26,23 +26,23 @@ export function ArchiveList({ blog }: ArchiveListProps) {
 
   blog.forEach((post) => {
     if (post.tag) {
-      if (!postsByTag[post.tag]) {
-        postsByTag[post.tag] = [];
+      if (!postsByTag[post.tag.slug]) {
+        postsByTag[post.tag.slug] = [];
       }
-      postsByTag[post.tag].push(post);
+      postsByTag[post.tag.slug].push(post);
     }
   });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {Object.keys(postsByTag).map((tag) => (
-        <section key={tag} className="my-12">
+      {Object.keys(postsByTag).map((tagSlug) => (
+        <section key={tagSlug} className="mt-6">
           <ArchivePageTagTitle className="text-2xl mb-6">
-            {tag}
+            {postsByTag[tagSlug][0].tag.title}
           </ArchivePageTagTitle>
           <ColoredSeparator color="grey" className="mb-6" />
           <ul className="">
-            {postsByTag[tag].map((post) => (
+            {postsByTag[tagSlug].map((post) => (
               <li key={post.id} className="mb-6">
                 <Link href={`/blog/${post.slug}`}>
                   <ArchivePageBlogTitle className="text-lg hover:underline mb-4">
@@ -54,6 +54,11 @@ export function ArchiveList({ blog }: ArchiveListProps) {
             ))}
           </ul>
           {/* Add link to tag */}
+          <Link href={`/tags/${tagSlug}`} passHref>
+            <Button as="a" variant="default" className="uppercase">
+              See all {postsByTag[tagSlug][0].tag.title} posts
+            </Button>
+          </Link>
         </section>
       ))}
     </div>
