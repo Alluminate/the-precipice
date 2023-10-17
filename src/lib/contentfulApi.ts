@@ -160,28 +160,6 @@ export class ContentfulApi {
     };
   };
 
-  // convertPost = (rawData: any): BlogPost => {
-  //   const rawPost = rawData.fields;
-
-  //   const rawHeroImage = rawPost.heroImage ? rawPost.heroImage.fields : null;
-  //   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
-  //   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
-
-  //   return {
-  //     id: rawData.sys.id,
-  //     content: rawPost?.content,
-  //     subtitle: rawPost?.excerpt,
-  //     publishedDate: rawPost?.date
-  //       ? this.formatDate(rawPost?.date)
-  //       : this.formatDate(rawData.sys.createdAt),
-  //     slug: rawPost?.slug,
-  //     tag: rawTag?.title,
-  //     title: rawPost?.title,
-  //     coverImage: this.convertImage(rawHeroImage),
-  //     author: this.convertAuthor(rawAuthor),
-  //   };
-  // };
-
   async fetchBlogEntries(
     { limit, skip, tag }: BlogEntriesProps = {
       limit: siteConfig.pageSize,
@@ -254,25 +232,59 @@ export class ContentfulApi {
     return tags;
   }
 
-  // TODO: Review
-  async fetchBlogPostsByTag(tagTitle: string): Promise<BlogPost[]> {
+  async getTagIdByTitle(tagTitle: string): Promise<string | null> {
     try {
-      // Fetch entries where the tag field matches the specified tag
-      const res = await this.client.getEntries<BlogSkeleton>({
-        content_type: "blog",
-        "fields.tag": tagTitle, // Assuming your blogs have a 'tag' field that stores the tag title
-        order: "-fields.publishedDate", // Optional: ordering by date in descending order
+      // Ensure content_type is "tags" as per your Content Model
+      const res = await this.client.getEntries({
+        content_type: "tags",
+        "fields.tagName": tagTitle,
       });
 
+      // Check if entries are returned and the first entry has a sys.id property
+      if (res.items.length > 0 && res.items[0].sys.id) {
+        return res.items[0].sys.id;
+      } else {
+        console.error(
+          "No tag found with the specified title or missing sys.id property:",
+          tagTitle
+        );
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching tag ID by title:", error);
+      return null;
+    }
+  }
+
+  // TODO: Review
+  async fetchBlogPostsByTag(tagTitle: string): Promise<BlogPost[]> {
+    console.log("Fetching posts for tag:", tagTitle);
+
+    try {
+      // Get the sys.id for the provided tag title
+      const tagId = await this.getTagIdByTitle(tagTitle);
+      if (!tagId) {
+        console.error("No tag found with title:", tagTitle);
+        return [];
+      }
+
+      // Fetch entries where the tag field matches the specified tag ID
+      const res = await this.client.getEntries<BlogSkeleton>({
+        content_type: "blog",
+        "fields.tag.sys.id": tagId,
+        order: "-fields.publishedDate",
+      });
+
+      console.log("API response:", res);
+
       if (res && res.items) {
-        // Convert entries to your BlogPost model
         const posts = res.items.map((item) => this.convertPost(item));
         return posts;
       }
 
       return [];
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching posts by tag:", error);
       throw error;
     }
   }
@@ -292,6 +304,9 @@ export class ContentfulApi {
     return [];
   }
 }
+
+const contentfulApiInstance = new ContentfulApi();
+export default contentfulApiInstance;
 
 // TODO: Assess if I need the Academy stuff still
 //Help and Academy Articles
@@ -414,4 +429,26 @@ export class ContentfulApi {
 //   tag: string;
 //   title: string;
 //   author?: Author | null;
+// };
+
+// convertPost = (rawData: any): BlogPost => {
+//   const rawPost = rawData.fields;
+
+//   const rawHeroImage = rawPost.heroImage ? rawPost.heroImage.fields : null;
+//   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
+//   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
+
+//   return {
+//     id: rawData.sys.id,
+//     content: rawPost?.content,
+//     subtitle: rawPost?.excerpt,
+//     publishedDate: rawPost?.date
+//       ? this.formatDate(rawPost?.date)
+//       : this.formatDate(rawData.sys.createdAt),
+//     slug: rawPost?.slug,
+//     tag: rawTag?.title,
+//     title: rawPost?.title,
+//     coverImage: this.convertImage(rawHeroImage),
+//     author: this.convertAuthor(rawAuthor),
+//   };
 // };

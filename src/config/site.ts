@@ -5,11 +5,11 @@ export const siteConfig = {
   description:
     "Longform articles discussing humanity's potential and how you can help us get there.",
   socials: {
-    newsletter: "https://thoriumdev.substack.com",
-    linkedin: "https://www.linkedin.com/company/thoriumdev",
-    twitter: "https://twitter.com/Thoriumdev",
-    discord: "https://discord.gg/bHTEfc4nTg",
-    youtube: "https://www.youtube.com/channel/UC6_8nSw7pHG489IS57yb2vQ",
+    newsletter: "https://...substack.com",
+    linkedin: "https://www.linkedin.com/company/...",
+    twitter: "https://twitter.com/...",
+    discord: "https://discord.gg/...",
+    youtube: "https://www.youtube.com/channel/...",
   },
   pageSize: 6,
   calendly: "https://calendly.com/mitch-",

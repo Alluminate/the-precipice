@@ -25,7 +25,7 @@ export function ArchiveList({ blog }: ArchiveListProps) {
   const postsByTag: { [key: string]: BlogPost[] } = {};
 
   blog.forEach((post) => {
-    if (post.tag) {
+    if (post.tag && typeof post.tag !== "string") {
       if (!postsByTag[post.tag.slug]) {
         postsByTag[post.tag.slug] = [];
       }
@@ -35,14 +35,16 @@ export function ArchiveList({ blog }: ArchiveListProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {Object.keys(postsByTag).map((tagSlug) => (
-        <section key={tagSlug} className="mt-6">
+      {Object.keys(postsByTag).map((slug) => (
+        <section key={slug} className="mt-6">
           <ArchivePageTagTitle className="text-2xl mb-6">
-            {postsByTag[tagSlug][0].tag.title}
+            {typeof postsByTag[slug][0].tag !== "string"
+              ? postsByTag[slug][0].tag.title
+              : postsByTag[slug][0].tag}
           </ArchivePageTagTitle>
           <ColoredSeparator color="grey" className="mb-6" />
           <ul className="">
-            {postsByTag[tagSlug].map((post) => (
+            {postsByTag[slug].map((post) => (
               <li key={post.id} className="mb-6">
                 <Link href={`/blog/${post.slug}`}>
                   <ArchivePageBlogTitle className="text-lg hover:underline mb-4">
@@ -54,9 +56,11 @@ export function ArchiveList({ blog }: ArchiveListProps) {
             ))}
           </ul>
           {/* Add link to tag */}
-          <Link href={`/tags/${tagSlug}`} passHref>
-            <Button as="a" variant="default" className="uppercase">
-              See all {postsByTag[tagSlug][0].tag.title} posts
+          {/* <Link href={`/${tagSlug}`} passHref> */}
+          <Link href={`/${slug}`}>
+            {/* <Link href={`/tags/${tagSlug}`} passHref> */}
+            <Button variant="default" className="uppercase">
+              See all {postsByTag[slug][0].tag.title} posts
             </Button>
           </Link>
         </section>
