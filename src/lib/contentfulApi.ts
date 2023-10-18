@@ -1,7 +1,9 @@
 import { ContentfulClientApi, createClient } from "contentful";
-import type { EntryFieldTypes, EntrySkeletonType } from "contentful";
+import type { EntryFieldTypes } from "contentful";
+import type { EntrySkeletonType } from "contentful/dist/types/types/query/util"
 
 import { siteConfig } from "@/config/site";
+import { ContentTypesKeys, IBlogTags, ITagType } from "./types";
 
 export type Author = {
   name: string;
@@ -189,6 +191,26 @@ export class ContentfulApi {
     }
   }
 
+  async fetchAllBlogEntries(): Promise<BlogEntriesReturnType> {
+    try {
+      const res = await this.client?.getEntries<BlogSkeleton>({
+        content_type: "blog",
+        limit: 100,
+        order: ["-fields.date"],
+      });
+      if (res && res.items && res.items.length > 0) {
+        const blogPosts = res.items.map((entry) => this.convertPost(entry));
+        const total = res.total;
+        return { blogPosts, total, limit: siteConfig.pageSize, skip: 0 };
+      }
+      return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+
+  }
+
   async fetchBlogImages() {
     try {
       const res = await this.client.getAssets();
@@ -218,6 +240,7 @@ export class ContentfulApi {
     }
   }
 
+
   async getAllTags(): Promise<{ id: string; title: string }[]> {
     const res = await this.client.getEntries<BlogTagsSkeleton>({
       content_type: "blogTags",
@@ -232,12 +255,11 @@ export class ContentfulApi {
     return tags;
   }
 
-  async getTagIdByTitle(tagTitle: string): Promise<string | null> {
+  async getTagIdByTitle(tagSlug: string): Promise<string | null> {
     try {
-      // Ensure content_type is "tags" as per your Content Model
       const res = await this.client.getEntries({
-        content_type: "tags",
-        "fields.tagName": tagTitle,
+        content_type: "blogTags",
+        "fields.slug": tagSlug,
       });
 
       // Check if entries are returned and the first entry has a sys.id property
@@ -246,7 +268,7 @@ export class ContentfulApi {
       } else {
         console.error(
           "No tag found with the specified title or missing sys.id property:",
-          tagTitle
+          tagSlug
         );
         return null;
       }
@@ -272,7 +294,7 @@ export class ContentfulApi {
       const res = await this.client.getEntries<BlogSkeleton>({
         content_type: "blog",
         "fields.tag.sys.id": tagId,
-        order: "-fields.publishedDate",
+        order: ["-fields.date"],
       });
 
       console.log("API response:", res);
@@ -289,20 +311,40 @@ export class ContentfulApi {
     }
   }
 
-  async getPaths(): Promise<{ params: { slug: string } }[] | []> {
-    const res = await this.client.getEntries({
-      content_type: "blog",
-    });
-    if (res && res.items && res.items.length > 0) {
-      const paths = res.items.map((item) => {
-        return {
-          params: { slug: (item.fields as any).slug },
-        };
-      });
-      return paths;
-    }
-    return [];
+async getTagInfoBySlug(slug: string): Promise<ITagType> {
+    const res = await this.client.getEntries<any>({
+      content_type: "blogTags",
+      limit: 100,
+      "fields.slug": slug,
+    })
+
+    return res.items[0] as ITagType
   }
+
+  async getPaths(): Promise<{ slug: string }[]> {
+    const res = await this.client.getEntries({
+      content_type: "blogTags"
+    });
+    const paths = res.items.map((item) => {
+      const slug = typeof item.fields.slug === 'string' ? item.fields.slug : ""
+      return ({
+        slug: slug.toLowerCase()
+        })})
+        console.log('all possible paths for /[slug]:', paths)
+        return paths 
+  }
+
+  async getContentTypeDetails(contentTypeId: string) {
+    try {
+      const contentType = await this.client.getContentType(contentTypeId);
+      return contentType;
+  
+    } catch (error) {
+      console.error(`Error fetching details for content type ${contentTypeId}:`, error);
+      throw error;
+    }
+  }
+  
 }
 
 const contentfulApiInstance = new ContentfulApi();

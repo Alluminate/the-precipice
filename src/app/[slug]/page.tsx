@@ -1,143 +1,74 @@
-import { ContentfulApi, BlogPost } from "@/lib/contentfulApi";
-import { GetStaticPaths, GetStaticProps } from "next";
-import dynamic from "next/dynamic";
-import { useRouter, notFound } from "next/navigation"; // Keep using next/navigation as per the error message
+import { BlogPost, ContentfulApi } from "@/lib/contentfulApi";
+import { RecentCard, RecentCardProps } from "../home/recent-articles/recent-card";
+import { Metadata } from 'next';
+import { detailedServerLogger } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
-import { getMetadata } from "@/lib/utils";
 
-const DynamicClientComponent = dynamic(
-  () => import("@/app/[slug]/clientsidecomponent"),
-  { ssr: false }
-);
+const contentful = new ContentfulApi();
+export async function generateStaticParams() {
+    const paths = await contentful.getPaths();
+    console.log('paths!', paths);
+    return paths;
+}
 
-type Props = {
-  initialPosts: BlogPost[];
-  slug: string;
-};
+export const dynamicParams = false;
 
-type Metadata = {
-  title: string;
-  description: string;
-  openGraph: {
-    type: string;
-    url: string;
-    title: string;
-    description: string;
-    siteName: string;
+function convertToRecentCardProps(blogPost: BlogPost, delay: number): RecentCardProps {
+  return {
+    imageUrl: blogPost.coverImage ? blogPost.coverImage.imageUrl : '', 
+    title: blogPost.title,
+    subtitle: blogPost.subtitle,
+    link: `/path-to-blog/${blogPost.slug}`, 
+    tag: typeof blogPost.tag === 'string' ? blogPost.tag : blogPost.tag.title,
+    delay: delay
   };
-  twitter: {
-    card: string;
-    title: string;
-    description: string;
-  };
-  // ... other properties
-};
-
-type TagMetadataProps = {
-  params: { title: string; slug: string; description: string };
-};
-
-export const dynamicParams = true;
+}
 
 export async function generateMetadata({
-  params,
-}: TagMetadataProps): Promise<Metadata> {
-  const contentful = new ContentfulApi();
-  const tagPosts = await contentful.fetchBlogPostsByTag(params.slug);
-
-  if (!tagPosts || tagPosts.length === 0) {
-    // Handle the case when no posts are found
-    return {
-      title: `No articles found for tag: ${params.slug}`,
-      description: `There are no articles associated with the tag ${params.slug} on Your Site Name.`,
-      // ... other metadata properties with default or error values
-    };
-  }
-
-  // Assuming the first post has the tag information you need
-  const tag = tagPosts[0].tag;
+  params: { slug },
+}: { params: { slug: string }}): Promise<Metadata> {
+  const tag = await contentful.getTagInfoBySlug(slug);
 
   return {
-    title: `Articles tagged: ${tag.title}`,
+    title: `Articles tagged: ${slug}`,
     description:
-      tag.description ||
-      `Explore articles related to ${tag.title} on Your Site Name.`,
+      `Explore articles related to ${tag.fields.title} on Your Site Name.`,
     openGraph: {
       type: "article",
-      url: `${siteConfig.url}/tags/${params.slug}`,
-      title: `Articles tagged: ${tag.title}`,
-      description: tag.description,
+      url: `${siteConfig.url}/tags/${slug}`,
+      title: `Articles tagged: ${tag.fields.title}`,
+      description: `Articles tagged: ${tag.fields.title}`,
       siteName: siteConfig.name,
     },
     twitter: {
       card: "summary_large_image",
-      title: `Articles tagged: ${tag.title}`,
-      description: tag.description,
+      title: `Articles tagged: ${tag.fields.title}`,
+    description: `Articles tagged: ${tag.fields.title}`,
     },
-    // ... Add more metadata properties as per your SEO strategy
   };
 }
 
-export async function generateStaticParams() {
-  const contentful = new ContentfulApi();
-  const paths = await contentful.getPaths();
-  return paths;
-}
 
-type Params = {
-  slug: string;
-};
+export default async function Page({ params }: {params : {slug: string} }) {
 
-async function getPosts(params: Params) {
-  const contentful = new ContentfulApi();
-  const posts = await contentful.fetchBlogPostsByTag(params?.slug);
-  if (!posts || posts.length === 0) {
-    notFound(); // Please ensure this function behaves as expected
+    const { slug } = params;
+
+    const postData = await contentful.fetchBlogPostsByTag(slug.toLowerCase())
+    const tagInfo = await contentful.getTagInfoBySlug('nanoforge')
+    return (
+        <>
+          <div className="p-6">
+            <h1 className="text-2xl font-bold mb-4">Posts tagged: {slug}</h1>
+            {postData.map((post) => {
+              const recentBlogPost = convertToRecentCardProps(post, 0);
+              return (
+              <div key={post.id} className="mb-6">
+                <RecentCard {...recentBlogPost}/>
+              </div>
+              )
+          })}
+          </div>
+        </>
+      );
   }
 
-  return posts;
-}
-
-export default async function TagPage({ params }: Props) {
-  await generateMetadata({ params });
-  const posts = await getPosts(params);
-
-  return <DynamicClientComponent initialPosts={posts} slug={params.slug} />;
-}
-
-// export default function TagPage({ initialPosts, slug }: Props) {
-//     const router = useRouter();
-
-//     if (router.isFallback) {
-//       return <div>Loading...</div>; // Or a loading spinner/component
-//     }
-
-//     return (
-//       <>
-//         <DynamicClientComponent initialPosts={initialPosts} slug={slug} />
-//       </>
-//     );
-//   }
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const paths = await generateStaticParams();
-//   return { paths, fallback: true };
-// };
-
-// export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
-//   const slug = params?.slug as string | undefined;
-//   let initialPosts: BlogPost[] = [];
-
-//   if (slug) {
-//     try {
-//       initialPosts = await contentfulApiInstance.fetchBlogPostsByTag(slug);
-//     } catch (error) {
-//       console.error("Error fetching posts:", error);
-//     }
-//   }
-
-//   return {
-//     props: { initialPosts, slug: slug || "" },
-//     revalidate: 1,
-//   };
-// };

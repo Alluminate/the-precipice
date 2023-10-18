@@ -11,6 +11,28 @@ Tech Stack
 
 <hr>
 
+<hr>
+## Update - 10-18-23 
+
+- Restructured logic in old `[path]` route (now called `oldPage`)
+  - In order to render a dynamic route, you have to: 
+  1) Generate the slugs/URLs for each page using `generateStaticParams` 
+    - This is technically optional, but if you want your page to be prerendered serverside or generated statically, you need to
+  2) Pass the paths returned from `generateStaticParams` to the main page component, and use the paths to find all posts that belong to it
+  - Currently, based on the blogPost tags, the different paths you have available are: `partners`, `nanoforge`, `radiance`, and `team`.
+  - For debugging purposes, I created a page called `/archives/all-posts` so you can view all of the pages from Contentful, their ID, and their tag.
+- `GetStaticPaths` and `GetStaticProps` are functions from NextJS 12; they won't work in the new app router.
+- Further logic restructures that were done: 
+  - Instead of fetching the data clientside with useEffect, the app router allows us to do it all on the server. You can use async functions right inside your component 
+  - A few key types were created to make sure proper values were being accessed 
+  - I set the value of `dynamicParams` to `false`, so you can more easily tell when something is wrong with one of your pages. This means that if there's a page missing from `generateStaticParams`, you'll know since attempting to go to that page will return a 404.
+
+### Future Recommendations 
+- I *highly* recommend using a codegen tool to generate types for your Contentful data. This will make it much easier to work with.
+  - Currently, there's a variety of type errors scattered throughout the codebase. Many of them aren't breaking, but the more you build on top of them, the more likely you might run into issues. 
+- You may want to create a universal error handler, such as a toast or a logger, so that you can more easily tell when/where API errors are coming from.
+
+<hr>
 ## components.json
 
 - `schema`: This is a common field used in JSON configuration files to link to a JSON schema that provides validation for the configuration file. Tools that recognize this can validate your config against this schema, ensuring you're not using invalid fields or values. The URL provided gives a hint about where this configuration might be coming from.

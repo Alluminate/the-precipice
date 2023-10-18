@@ -63,3 +63,29 @@ export const getMetadata = ({
     images: [`${imageUrl ? imageUrl : siteConfig.ogImage}`],
   },
 });
+
+
+export function detailedServerLogger(obj: any, prefix = ''): void {
+  if (typeof obj !== 'object' || obj === null) {
+    return;
+  }
+
+  Object.keys(obj).forEach((key) => {
+    const value = obj[key];
+
+    if (typeof value === 'object' && value !== null) {
+      if (Array.isArray(value)) {
+        console.log(`${prefix} ${key}: (Array)`);
+        value.forEach((item, index) => {
+          console.log(`${prefix}  [${index}]:`);
+          detailedServerLogger(item, `${prefix}    `);
+        });
+      } else {
+        console.log(`${prefix} ${key}: (Object)`);
+        detailedServerLogger(value, `${prefix}  `);  // Recursive call with increased indentation
+      }
+    } else {
+      console.log(`${prefix} ${key}: ${value}`);
+    }
+  });
+}
