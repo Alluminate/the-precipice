@@ -47,12 +47,13 @@ export default function Hero() {
           The Precipice
         </LandingHeader>
         <BigSubHeader>
-          is a longform blog platform fighting for humanity’s destiny. From{" "}
+          is a longform blog platform fighting for humanity’s destiny with
+          dangerously sensible ideas. From{" "}
           <span className={cn("font-bold")}>existential risk</span>, to the{" "}
-          <span className={cn("font-bold")}>broken nature of discourse</span>,
-          to our <span className={cn("font-bold")}>lack of shared truth</span>,
-          it ascends from schools of unorthodox thought to accelerate culture
-          200+ years into the future.
+          <span className={cn("font-bold")}>broken discourse</span>, to our lack
+          of <span className={cn("font-bold")}>shared truth</span>, it ascends
+          from schools of unorthodox thought to accelerate culture 200+ years
+          into the future.
         </BigSubHeader>
         <BigSubHeader className={cn("mt-6")}>
           If you reject the status quo, know you are not alone. Let's journey

@@ -32,11 +32,12 @@ export const RecentCard: React.FC<
   link,
   tag,
   delay,
-  customBgClass,
+  customBgClass = "bg-color-0",
   customWidth = "",
   // isTopCard,
 }) => {
   const isMobile = useIsMobile();
+  const imageSource = imageUrl.includes(".png") ? imageUrl : `/assets/home/${imageUrl}.png`;
 
   return (
     <Card
@@ -49,7 +50,7 @@ export const RecentCard: React.FC<
           <div className={"w-full md:w-5/12"}>
             <Image
               className="articlePreviewImage"
-              src={`/assets/home/${imageUrl}.png`}
+              src={imageSource}
               width={250}
               height={250}
               alt={title}

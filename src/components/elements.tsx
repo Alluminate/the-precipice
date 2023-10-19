@@ -90,7 +90,7 @@ function PageHeader({
     <section
       className={cn(
         //  "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
-        "items-center font-firaSansCondensed text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-extrabold ",
+        "items-center font-firaSansCondensed text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-5xl font-extrabold uppercase",
         className
       )}
       {...props}
@@ -172,7 +172,8 @@ function ArchivePageTagTitle({
   return (
     <h1
       className={cn(
-        "text-sm font-firaSansCondensed font-semibold leading-tight tracking-tighter md:text-md lg:leading-[1.1]",
+        // "text-sm leading-tight tracking-tighter lg:leading-[1.1]",
+        "font-firaSansCondensed font-semibold text:lg md:text-xl uppercase",
         className
       )}
       {...props}
@@ -191,7 +192,8 @@ function ArchivePageBlogTitle({
   return (
     <h1
       className={cn(
-        "text-sm font-firaSans font-semibold leading-tight tracking-tighter md:text-md lg:leading-[1.1]",
+        // "text-sm font-firaSans font-semibold leading-tight tracking-tighter md:text-md lg:leading-[1.1]",
+        "font-firaSans font-semibold text-md md:text-lg",
         className
       )}
       {...props}

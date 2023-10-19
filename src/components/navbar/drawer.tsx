@@ -13,6 +13,10 @@ import { NavbarLink, NavbarLinkWithSubMenu } from "./link-drawer";
 const Drawer: React.FC = () => {
   const { isDrawerOpen, setIsDrawerOpen } = useDrawerContext();
 
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false);
+  };
+
   return (
     <div
       className={`
@@ -49,7 +53,12 @@ const Drawer: React.FC = () => {
                 link.submenuList ? (
                   <NavbarLinkWithSubMenu key={link.href} {...link} />
                 ) : (
-                  <NavbarLink key={link.href} {...link} />
+                  <NavbarLink
+                    key={link.href}
+                    onClick={handleDrawerClose}
+                    // handleDrawerClose={handleDrawerClose}
+                    {...link}
+                  />
                 )
               )}
             </ul>

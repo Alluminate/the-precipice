@@ -38,14 +38,16 @@ function FooterLogo() {
   return (
     <div className="flex flex-row gap-10 text-secondary items-center justify-center md:justify-start w-full m:w-1/2">
       <div className="flex justify-center sm:justify-start md:mb-0">
-        <Link href="/">
-          <a className="sm:hidden">
+        <div className="sm:hidden">
+          <Link href="/">
             <Icons.logo width={120} height={120} />
-          </a>
-          <a className="hidden sm:block">
+          </Link>
+        </div>
+        <div className="hidden sm:block">
+          <Link href="/">
             <Icons.logo width={200} height={200} />
-          </a>
-        </Link>
+          </Link>
+        </div>
       </div>
       <div className="flex flex-col justify-center">
         <Paragraph className="text-left text-xl lg:text-2xl font-semibold">
@@ -67,28 +69,28 @@ function FooterLinks() {
     <div className="flex flex-row w-full items-center">
       <div className="grid gap-6 grid-cols-3 md:grid-cols-6 w-full text-secondary font-semibold">
         <div>
-          <Link href="/" className="hover:underline">
-            About
+          <Link href="/about" className="hover:underline">
+            ABOUT
+          </Link>
+        </div>
+        <div>
+          <Link href="/archive" className="hover:underline">
+            ARCHIVE
           </Link>
         </div>
         <div>
           <Link href="/" className="hover:underline">
-            Archive
+            PRESSKIT
           </Link>
         </div>
         <div>
           <Link href="/" className="hover:underline">
-            Presskit
+            NEWSLETTER
           </Link>
         </div>
-        <div>
+        <div className="md:pl-2 lg:pl-3 xl:pl-4">
           <Link href="/" className="hover:underline">
-            Newsletter
-          </Link>
-        </div>
-        <div>
-          <Link href="/" className="hover:underline">
-            Youtube
+            YOUTUBE
           </Link>
         </div>
       </div>
