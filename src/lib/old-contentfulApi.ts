@@ -1,43 +1,13 @@
 import { ContentfulClientApi, createClient } from "contentful";
 import type { EntryFieldTypes } from "contentful";
-import type { EntrySkeletonType } from "contentful/dist/types/types/query/util";
-import {
-  IAuthor,
-  IBlogPost,
-  IBlogPostFields,
-  ITags,
-  CONTENT_TYPE,
-  IEntry,
-  LOCALE_CODE,
-  CONTENTFUL_DEFAULT_LOCALE_CODE,
-} from "@/types/contentful";
+import type { EntrySkeletonType } from "contentful/dist/types/types/query/util"
+
 import { siteConfig } from "@/config/site";
+import { ContentTypesKeys, IBlogTags, ITagType } from "../types/old-types";
 
-//   import { ContentTypesKeys, IBlogTags, ITagType } from "../types/old-types";
-
-// Formerly Author
-export type IAuthorFields = {
+export type Author = {
   name: string;
-  bio?: string | undefined;
 };
-
-function isIAuthorFields(object: any): object is IAuthorFields {
-  return "name" in object;
-}
-
-function isIBlogPostFields(obj: any): obj is IBlogPostFields {
-  return (
-    "coverImage" in obj && "author" in obj && "slug" in obj && "content" in obj
-  );
-}
-
-function hasValidNameAndBio(fields: any): fields is IAuthorFields {
-  return (
-    fields &&
-    typeof fields.name === "string" &&
-    (typeof fields.bio === "string" || typeof fields.bio === "undefined")
-  );
-}
 
 export type CoverImage = {
   imageUrl: string;
@@ -47,25 +17,25 @@ export type CoverImage = {
 
 export type TagIconProp = CoverImage & {};
 
-// Formerly BlogPost
-// export type IBlogPostFields = {
-//     id: string;
-//     content: any;
-//     subtitle: string;
-//     publishedDate: string | undefined;
-//     slug: string;
-//     tag: ITagFields | string;
-//     title: string;
-//     coverImage?: CoverImage | null;
-//     author?: IAuthorFields | null;
-//   };
+export type BlogPost = {
+  id: string;
+  content: any;
+  subtitle: string;
+  publishedDate: string | undefined;
+  slug: string;
+  // TODO: CHANGED AND ADDED THIS HERE
+  tag: TagType | string;
+  title: string;
+  coverImage?: CoverImage | null;
+  author?: Author | null;
+};
 
 export type TypeBlogFields = {
   title: EntryFieldTypes.Symbol;
   content: EntryFieldTypes.RichText;
   subtitle: EntryFieldTypes.Text;
   coverImage?: EntryFieldTypes.AssetLink;
-  publishedDate?: EntryFieldTypes.Date;
+  date?: EntryFieldTypes.Date;
   slug: EntryFieldTypes.Symbol;
   author?: EntryFieldTypes.EntryLink<EntrySkeletonType>;
   tag: EntryFieldTypes.EntryLink<EntrySkeletonType>;
@@ -79,10 +49,9 @@ export interface TypeBlogTagsFields {
   slug: EntryFieldTypes.Symbol;
 }
 
-//   Formerly TagType
-export interface ITagFields {
+export interface TagType {
   title: string;
-  description: any;
+  description: any; // Adjust based on how you handle RichText fields
   slug: string;
 }
 
@@ -97,8 +66,13 @@ export type BlogEntriesProps = {
   tag?: string;
 };
 
+export type ArticleEntriesProps = {
+  tag?: string;
+  // content_type?: "help" | "academy";
+};
+
 export type BlogEntriesReturnType = {
-  blogPosts: IBlogPostFields[];
+  blogPosts: BlogPost[];
   total: number;
   limit: number | undefined;
   skip: number | undefined;
@@ -111,6 +85,8 @@ export type ArticleTagsReturnType = {
   description: string;
   tagIcon: TagIconProp | null;
 };
+
+// type ArticleTagsType = "helpTags" | "academyTags";
 
 export class ContentfulApi {
   client: ContentfulClientApi<undefined>;
@@ -141,16 +117,10 @@ export class ContentfulApi {
     return null;
   };
 
-  convertAuthor = (rawAuthor: IAuthor): IAuthor | null => {
-    if (rawAuthor && hasValidNameAndBio(rawAuthor.fields)) {
+  convertAuthor = (rawAuthor: Author): Author | null => {
+    if (rawAuthor) {
       return {
-        sys: rawAuthor.sys,
-        metadata: rawAuthor.metadata,
-        fields: {
-          name: rawAuthor.fields.name,
-          // bio is optional, so it might not exist on every IAuthorFields
-          ...(rawAuthor.fields.bio ? { bio: rawAuthor.fields.bio } : {}),
-        },
+        name: rawAuthor.name,
       };
     }
     return null;
@@ -164,35 +134,32 @@ export class ContentfulApi {
     }
   };
 
-  convertPost = (rawData: IBlogPost): IBlogPostFields | null => {
-    if (isIBlogPostFields(rawData.fields)) {
-      //  Using this method with caution, not certain if rawPost will contain the required fields, using type assertions here
-      const rawPost = rawData.fields as unknown as IBlogPostFields;
-      const rawTag = rawPost?.tag ? (rawPost.tag as ITagFields) : null;
+  convertPost = (rawData: any): BlogPost => {
+    const rawPost = rawData.fields;
 
-      return {
-        id: rawData.sys.id,
-        content: rawPost.content,
-        subtitle: rawPost.subtitle,
-        publishedDate: rawPost.publishedDate
-          ? this.formatDate(rawPost.publishedDate)
-          : this.formatDate(rawData.sys.createdAt),
-        slug: rawPost.slug,
-        tag: rawTag
-          ? {
-              title: rawTag.tagName,
-              description: rawTag.description,
-              slug: rawTag.slug,
-            }
-          : null,
-        title: rawPost.title,
-        coverImage: this.convertImage(rawPost.coverImage),
-        author: this.convertAuthor(rawData),
-      };
-    }
+    const rawHeroImage = rawPost.heroImage ? rawPost.heroImage.fields : null;
+    const rawAuthor = rawPost.author ? rawPost.author.fields : null;
+    const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
 
-    // Return null or throw an error if the fields do not match the expected type.
-    return null;
+    return {
+      id: rawData.sys.id,
+      content: rawPost?.content,
+      subtitle: rawPost?.excerpt,
+      publishedDate: rawPost?.date
+        ? this.formatDate(rawPost?.date)
+        : this.formatDate(rawData.sys.createdAt),
+      slug: rawPost?.slug,
+      tag: rawTag
+        ? {
+            title: rawTag.title,
+            description: rawTag.description,
+            slug: rawTag.slug,
+          }
+        : null,
+      title: rawPost?.title,
+      coverImage: this.convertImage(rawHeroImage),
+      author: this.convertAuthor(rawAuthor),
+    };
   };
 
   async fetchBlogEntries(
@@ -241,6 +208,7 @@ export class ContentfulApi {
       console.log(error);
       throw error;
     }
+
   }
 
   async fetchBlogImages() {
@@ -255,7 +223,7 @@ export class ContentfulApi {
     }
   }
 
-  async fetchBlogBySlug(slug: string): Promise<IBlogPost> {
+  async fetchBlogBySlug(slug: string): Promise<BlogPost> {
     try {
       const res = await this.client.getEntries<BlogSkeleton>({
         content_type: "blog",
@@ -265,12 +233,13 @@ export class ContentfulApi {
         const post = this.convertPost(res.items[0]);
         return post;
       }
-      return {} as IBlogPost;
+      return {} as BlogPost;
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
+
 
   async getAllTags(): Promise<{ id: string; title: string }[]> {
     const res = await this.client.getEntries<BlogTagsSkeleton>({
@@ -310,7 +279,7 @@ export class ContentfulApi {
   }
 
   // TODO: Review
-  async fetchBlogPostsByTag(tagTitle: string): Promise<IBlogPost[]> {
+  async fetchBlogPostsByTag(tagTitle: string): Promise<BlogPost[]> {
     console.log("Fetching posts for tag:", tagTitle);
 
     try {
@@ -342,43 +311,186 @@ export class ContentfulApi {
     }
   }
 
-  async getTagInfoBySlug(slug: string): Promise<ITags> {
+async getTagInfoBySlug(slug: string): Promise<ITagType> {
     const res = await this.client.getEntries<any>({
       content_type: "blogTags",
       limit: 100,
       "fields.slug": slug,
-    });
+    })
 
-    return res.items[0] as ITags;
+    return res.items[0] as ITagType
   }
 
   async getPaths(): Promise<{ slug: string }[]> {
     const res = await this.client.getEntries({
-      content_type: "blogTags",
+      content_type: "blogTags"
     });
     const paths = res.items.map((item) => {
-      const slug = typeof item.fields.slug === "string" ? item.fields.slug : "";
-      return {
-        slug: slug.toLowerCase(),
-      };
-    });
-    console.log("all possible paths for /[slug]:", paths);
-    return paths;
+      const slug = typeof item.fields.slug === 'string' ? item.fields.slug : ""
+      return ({
+        slug: slug.toLowerCase()
+        })})
+        console.log('all possible paths for /[slug]:', paths)
+        return paths 
   }
 
   async getContentTypeDetails(contentTypeId: string) {
     try {
       const contentType = await this.client.getContentType(contentTypeId);
       return contentType;
+  
     } catch (error) {
-      console.error(
-        `Error fetching details for content type ${contentTypeId}:`,
-        error
-      );
+      console.error(`Error fetching details for content type ${contentTypeId}:`, error);
       throw error;
     }
   }
+  
 }
 
 const contentfulApiInstance = new ContentfulApi();
 export default contentfulApiInstance;
+
+// TODO: Assess if I need the Academy stuff still
+//Help and Academy Articles
+// async fetchArticleEntries(
+//   { tag, content_type = "academy" }: ArticleEntriesProps = {
+//     tag: "",
+//     content_type: "academy",
+//   }
+// ): Promise<ArticleEntriesReturnType> {
+//   try {
+//     const res = await this.client?.getEntries({
+//       content_type,
+//       include: 1,
+//       "fields.tag.sys.id": tag,
+//       order: ["-fields.date"],
+//     });
+
+//     if (res && res.items && res.items.length > 0) {
+//       const articles = res.items.map((entry) =>
+//         this.convertHelpArticle(entry)
+//       );
+//       const total = res.total;
+//       return { articles, total };
+//     }
+//     return { articles: [], total: 0 };
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
+
+// async fetchArticleBySlug(
+//   content_type: ArticleEntriesProps["content_type"] = "help",
+//   slug: string
+// ): Promise<HelpArticle | null> {
+//   try {
+//     const res = await this.client.getEntries({
+//       content_type,
+//       "fields.slug": slug,
+//     });
+//     if (res && res.items && res.items.length > 0) {
+//       const post = this.convertHelpArticle(res.items[0]);
+//       return post;
+//     }
+//     return null;
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// }
+
+//   async getAllArticleTags(
+//     content_type: ArticleTagsType = "helpTags"
+//   ): Promise<ArticleTagsReturnType[]> {
+//     const res = await this.client.getEntries({
+//       content_type,
+//       order: ["sys.updatedAt"],
+//     });
+
+//     const tags = res.items.map(
+//       ({ sys, fields }: { sys: any; fields: any }) => ({
+//         id: sys.id,
+//         slug: fields.slug,
+//         title: fields.title,
+//         description: fields.description,
+//         tagIcon: fields.tagIcon.file ? this.convertImage(fields.tagIcon) : null,
+//       })
+//     );
+//     return tags;
+//   }
+// }
+
+// convertHelpArticle = (rawData: any): HelpArticle => {
+//   const rawPost = rawData.fields;
+
+//   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
+//   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
+
+//   return {
+//     id: rawData.sys.id,
+//     content: rawPost?.content,
+//     subtitle: rawPost?.subtitle,
+//     publishedDate: this.formatDate(rawData.sys.updatedAt),
+//     slug: rawPost?.slug,
+//     tag: rawTag?.slug,
+//     title: rawPost?.title,
+//     author: this.convertAuthor(rawAuthor),
+//   };
+// };
+
+// export type ArticleEntriesReturnType = {
+//   articles: AllArticles[];
+//   total: number;
+// };
+
+// NEWDEV - remove
+// export interface TypeAcademyFields {
+//   title: EntryFieldTypes.Symbol;
+//   subtitle: EntryFieldTypes.Text;
+//   slug: EntryFieldTypes.Symbol;
+//   author: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+//   date?: EntryFieldTypes.Date;
+//   content?: EntryFieldTypes.RichText;
+//   tag: EntryFieldTypes.EntryLink<EntrySkeletonType>;
+// }
+
+// export interface TypeAcademyTagsFields {
+//   title: EntryFieldTypes.Symbol;
+//   description?: EntryFieldTypes.Text;
+//   tagIcon?: EntryFieldTypes.AssetLink;
+//   slug?: EntryFieldTypes.Symbol;
+// }
+
+// export type HelpArticle = {
+//   id: string;
+//   content: any;
+//   subtitle: string;
+//   publishedDate: string | undefined;
+//   slug: string;
+//   tag: string;
+//   title: string;
+//   author?: Author | null;
+// };
+
+// convertPost = (rawData: any): BlogPost => {
+//   const rawPost = rawData.fields;
+
+//   const rawHeroImage = rawPost.heroImage ? rawPost.heroImage.fields : null;
+//   const rawAuthor = rawPost.author ? rawPost.author.fields : null;
+//   const rawTag = rawPost?.tag ? rawPost?.tag.fields : null;
+
+//   return {
+//     id: rawData.sys.id,
+//     content: rawPost?.content,
+//     subtitle: rawPost?.excerpt,
+//     publishedDate: rawPost?.date
+//       ? this.formatDate(rawPost?.date)
+//       : this.formatDate(rawData.sys.createdAt),
+//     slug: rawPost?.slug,
+//     tag: rawTag?.title,
+//     title: rawPost?.title,
+//     coverImage: this.convertImage(rawHeroImage),
+//     author: this.convertAuthor(rawAuthor),
+//   };
+// };

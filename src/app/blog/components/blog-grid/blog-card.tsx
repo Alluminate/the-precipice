@@ -1,11 +1,13 @@
-"use client"
+// @ DEV This page represents one of the old preview cards to be represented in the grid of blog posts
 
-import Image from "next/image"
-import Link from "next/link"
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { buttonVariants } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { BlogPost } from "@/lib/contentfulApi"
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { BlogPost } from "@/lib/contentfulApi";
 
 export interface BlogCardProps {
   imageUrl: string;
@@ -15,7 +17,14 @@ export interface BlogCardProps {
   slug: string;
 }
 
-export const BlogCard: React.FC<Partial<BlogPost>> = ({ heroImage, title  = 'blog image', excerpt, slug, publishedDate, tag }) => {
+export const BlogCard: React.FC<Partial<BlogPost>> = ({
+  heroImage,
+  title = "blog image",
+  excerpt,
+  slug,
+  publishedDate,
+  tag,
+}) => {
   return (
     <Link className="inline-grid" href={`/blog/${slug}`} passHref>
       <Card className="flex flex-col bg-black border border-primary shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
@@ -39,5 +48,5 @@ export const BlogCard: React.FC<Partial<BlogPost>> = ({ heroImage, title  = 'blo
         </CardFooter>
       </Card>
     </Link>
-  )
-}
+  );
+};

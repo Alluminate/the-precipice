@@ -1,3 +1,5 @@
+// @ DEV - I'm likely changing the header to represent the breadcrumbs of the post
+
 "use client";
 
 import {
@@ -48,7 +50,7 @@ export function Header({ tags, tagId }: HeaderProps) {
 
       <div className="flex flex-col items-start gap-4 w-full">
         <PageHeaderHeading className="">
-          Thorium | <span className="golden-italic">News</span>
+          Company | <span className="golden-italic">News</span>
         </PageHeaderHeading>
         <PageHeaderDescription>
           Composed by the team on these topics:
