@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { buttonVariants } from "@/components/ui/button";
+import { ButtonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BlogCardExcerpt, BlogCardTitle } from "@/components/elements";
 import { Icons } from "@/components/icons";
@@ -22,6 +22,7 @@ export interface FeaturedCardProps {
   //     link: string;
   //   }
   delay: number;
+  isTopCard?: boolean;
 }
 
 export const FeaturedCard: React.FC<

@@ -1,8 +1,8 @@
-import { BlogPost } from "@/lib/contentfulApi";
 import { ArchiveCard } from "./archive-card";
+import { TGetPostsReturnType } from "../../page";
 
 interface ArchiveGridProps {
-  blog: BlogPost[];
+  blog: TGetPostsReturnType["blogPosts"];
 }
 
 export function ArchiveGrid({ blog }: ArchiveGridProps) {

@@ -1,42 +1,40 @@
 import { ContentfulClientApi, createClient } from "contentful";
-import type { EntryFieldTypes } from "contentful";
+import type { Asset, Entry, EntryFieldTypes } from "contentful";
 import type { EntrySkeletonType } from "contentful/dist/types/types/query/util";
-import {
-  IAuthor,
-  IBlogPost,
-  IBlogPostFields,
-  ITags,
-  CONTENT_TYPE,
-  IEntry,
-  LOCALE_CODE,
-  CONTENTFUL_DEFAULT_LOCALE_CODE,
-} from "@/types/contentful";
 import { siteConfig } from "@/config/site";
+import { TypeBlogPostFields, TypeBlogPost, TypeAuthor, TypeAuthorFields, TypeTagsFields, TypeTags, TypeTagsSkeleton, TypeBlogPostSkeleton, TypeAuthorSkeleton } from "@contentfulTypes"
+import { BlogPostReturnType } from "@/types/types";
 
-//   import { ContentTypesKeys, IBlogTags, ITagType } from "../types/old-types";
+//The 'any' in these typesare there because this type expecte generics for your locale, which 
+//isn't relevant for your project at the moment (used for things like translations or different)
+//content depending on location
 
-// Formerly Author
-export type IAuthorFields = {
-  name: string;
-  bio?: string | undefined;
-};
+export type TAuthor = TypeAuthor<any, any>;
+export type TBlogPost = TypeBlogPost<any, any>;
+export type TTags = TypeTags<any, any>;
+export type TBlogPostFieldKeys = keyof TypeBlogPostFields;
 
-function isIAuthorFields(object: any): object is IAuthorFields {
+
+function isTypeAuthorFields(object: any): object is TypeAuthorFields {
   return "name" in object;
 }
 
-function isIBlogPostFields(obj: any): obj is IBlogPostFields {
+function isTypeBlogPostFields(obj: any): obj is TypeBlogPostFields {
   return (
     "coverImage" in obj && "author" in obj && "slug" in obj && "content" in obj
   );
 }
 
-function hasValidNameAndBio(fields: any): fields is IAuthorFields {
+function hasValidNameAndBio(fields: any): boolean {
   return (
     fields &&
     typeof fields.name === "string" &&
     (typeof fields.bio === "string" || typeof fields.bio === "undefined")
   );
+}
+
+export function isTypeAuthor(entry: any): entry is Entry<TypeAuthorSkeleton, undefined, string> {
+  return entry && entry.sys && entry.sys.contentType && entry.sys.contentType.sys.id === 'author';
 }
 
 export type CoverImage = {
@@ -48,7 +46,7 @@ export type CoverImage = {
 export type TagIconProp = CoverImage & {};
 
 // Formerly BlogPost
-// export type IBlogPostFields = {
+// export type TypeBlogPostFields = {
 //     id: string;
 //     content: any;
 //     subtitle: string;
@@ -57,7 +55,7 @@ export type TagIconProp = CoverImage & {};
 //     tag: ITagFields | string;
 //     title: string;
 //     coverImage?: CoverImage | null;
-//     author?: IAuthorFields | null;
+//     author?: TypeAuthorFields | null;
 //   };
 
 export type TypeBlogFields = {
@@ -98,7 +96,7 @@ export type BlogEntriesProps = {
 };
 
 export type BlogEntriesReturnType = {
-  blogPosts: IBlogPostFields[];
+  blogPosts: TypeBlogPostFields[];
   total: number;
   limit: number | undefined;
   skip: number | undefined;
@@ -113,7 +111,7 @@ export type ArticleTagsReturnType = {
 };
 
 export class ContentfulApi {
-  client: ContentfulClientApi<undefined>;
+client: ContentfulClientApi<"WITHOUT_UNRESOLVABLE_LINKS">;
   dateOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -127,28 +125,27 @@ export class ContentfulApi {
         ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN ?? ""
         : process.env.CONTENTFUL_ACCESS_TOKEN ?? "",
       ...(preview && { host: "preview.contentful.com" }),
-    });
+    }).withoutUnresolvableLinks;
   }
 
-  convertImage = (rawImage: any): CoverImage | TagIconProp | null => {
+convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFieldTypes.AssetLink ): CoverImage | TagIconProp | null => {
     if (rawImage) {
       return {
-        imageUrl: rawImage.file.url.replace("//", "https://"),
-        description: rawImage.description,
-        title: rawImage.title,
+        imageUrl: rawImage.fields.file?.url.replace("//", "https://") ?? "",
+        description: rawImage.fields.description ?? "",
+        title: "test",
       };
     }
     return null;
   };
 
-  convertAuthor = (rawAuthor: IAuthor): IAuthor | null => {
+  convertAuthor = (rawAuthor: Entry<TypeAuthorSkeleton, undefined, string>): TAuthor | null => {
     if (rawAuthor && hasValidNameAndBio(rawAuthor.fields)) {
       return {
         sys: rawAuthor.sys,
         metadata: rawAuthor.metadata,
         fields: {
           name: rawAuthor.fields.name,
-          // bio is optional, so it might not exist on every IAuthorFields
           ...(rawAuthor.fields.bio ? { bio: rawAuthor.fields.bio } : {}),
         },
       };
@@ -156,44 +153,43 @@ export class ContentfulApi {
     return null;
   };
 
-  formatDate = (rawDate: string): string | undefined => {
-    if (rawDate) {
-      return new Intl.DateTimeFormat("en-US", this.dateOptions).format(
-        new Date(rawDate)
-      );
+  formatDate = (rawDate: string | undefined): string => {
+    if (!rawDate) {
+      return new Intl.DateTimeFormat("en-US", this.dateOptions).format(new Date());
     }
+    return new Intl.DateTimeFormat("en-US", this.dateOptions).format(new Date(rawDate));
   };
+  
+  convertPost = (rawData: Entry<TypeBlogPostSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>) => {
+    if (!isTypeBlogPostFields(rawData.fields)) {
+      return null;
+    }
+      const rawPost = rawData.fields;
+      const rawTag = rawPost?.tag;
 
-  convertPost = (rawData: IBlogPost): IBlogPostFields | null => {
-    if (isIBlogPostFields(rawData.fields)) {
-      //  Using this method with caution, not certain if rawPost will contain the required fields, using type assertions here
-      const rawPost = rawData.fields as unknown as IBlogPostFields;
-      const rawTag = rawPost?.tag ? (rawPost.tag as ITagFields) : null;
-
+      let author: TAuthor | null = null;
+      if (isTypeAuthor(rawData.fields.author)) {
+        author = this.convertAuthor(rawData.fields.author);
+      }
+  
       return {
         id: rawData.sys.id,
         content: rawPost.content,
         subtitle: rawPost.subtitle,
-        publishedDate: rawPost.publishedDate
-          ? this.formatDate(rawPost.publishedDate)
-          : this.formatDate(rawData.sys.createdAt),
+        date: (rawPost.publishedDate
+          ? this.formatDate(rawPost.publishedDate.toString())
+          : this.formatDate(rawData.sys.createdAt.toString())),
         slug: rawPost.slug,
-        tag: rawTag
-          ? {
-              title: rawTag.tagName,
-              description: rawTag.description,
-              slug: rawTag.slug,
-            }
-          : null,
+        tag: {
+              title: rawTag.entry?.fields?.tagName,
+              description: rawTag.entry?.fields?.description,
+              slug: rawTag.entry?.fields?.slug,
+          },
         title: rawPost.title,
         coverImage: this.convertImage(rawPost.coverImage),
-        author: this.convertAuthor(rawData),
+        author: author,
       };
-    }
-
-    // Return null or throw an error if the fields do not match the expected type.
-    return null;
-  };
+    };
 
   async fetchBlogEntries(
     { limit, skip, tag }: BlogEntriesProps = {
@@ -201,45 +197,49 @@ export class ContentfulApi {
       skip: 0,
       tag: "",
     }
-  ): Promise<BlogEntriesReturnType> {
+  ) {
     try {
-      const res = await this.client?.getEntries<BlogSkeleton>({
-        content_type: "blog",
+  const res: Awaited<BlogPostReturnType> = await this.client?.getEntries<TypeBlogPostSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">({
+        content_type: "blogPost",
         include: 1,
         limit,
         skip,
-        "fields.tag.sys.id": tag,
-        order: ["-fields.date"],
+        order: ["-fields.publishedDate"],
+        "fields.title": tag,
       });
 
+      type ConvertedPost = ReturnType<typeof this.convertPost>;
+
       if (res && res.items && res.items.length > 0) {
-        const blogPosts = res.items.map((entry) => this.convertPost(entry));
+        const blogPosts = res.items.map((entry) => this.convertPost(entry)).filter((post) => post !== null) as NonNullable<ConvertedPost>[];
         const total = res.total;
         return { blogPosts, total, limit, skip };
       }
       return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
     } catch (error) {
-      console.log(error);
-      throw error;
+      console.log("error fetching entries:", error);
     }
   }
 
-  async fetchAllBlogEntries(): Promise<BlogEntriesReturnType> {
+  async fetchAllBlogEntries() {
     try {
-      const res = await this.client?.getEntries<BlogSkeleton>({
-        content_type: "blog",
+      const res = await this.client?.getEntries<TypeBlogPostSkeleton>({
+        content_type: "blogPost",
         limit: 100,
-        order: ["-fields.date"],
+        order: ["-fields.publishedDate"],
       });
+
+      type ConvertedPost = ReturnType<typeof this.convertPost>;
+      
+
       if (res && res.items && res.items.length > 0) {
-        const blogPosts = res.items.map((entry) => this.convertPost(entry));
+        const blogPosts = res.items.map((entry) => this.convertPost(entry)).filter((post) => post !== null) as NonNullable<ConvertedPost>[];
         const total = res.total;
         return { blogPosts, total, limit: siteConfig.pageSize, skip: 0 };
       }
       return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
     } catch (error) {
-      console.log(error);
-      throw error;
+  console.log("error fetching all entries:", error);
     }
   }
 
@@ -255,32 +255,31 @@ export class ContentfulApi {
     }
   }
 
-  async fetchBlogBySlug(slug: string): Promise<IBlogPost> {
+  async fetchBlogBySlug(slug: string) {
     try {
-      const res = await this.client.getEntries<BlogSkeleton>({
-        content_type: "blog",
+      const res = await this.client.getEntries<TypeBlogPostSkeleton>({
+        content_type: "blogPost",
         "fields.slug": slug,
       });
       if (res && res.items && res.items.length > 0) {
         const post = this.convertPost(res.items[0]);
         return post;
       }
-      return {} as IBlogPost;
+      return null;
     } catch (error) {
-      console.log(error);
-      throw error;
+    console.log("error fetching entry by slug", error);
     }
   }
 
-  async getAllTags(): Promise<{ id: string; title: string }[]> {
-    const res = await this.client.getEntries<BlogTagsSkeleton>({
-      content_type: "blogTags",
-    });
+  async getAllTags() {
+  const res = await this.client.getEntries<TypeTagsSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">({
+      content_type: "tags",
+      });
 
     const tags = res.items.map(
-      ({ sys, fields }: { sys: any; fields: any }) => ({
+      ({ sys, fields }) => ({
         id: sys.id,
-        title: fields.title,
+        title: fields.tagName,
       })
     );
     return tags;
@@ -310,7 +309,7 @@ export class ContentfulApi {
   }
 
   // TODO: Review
-  async fetchBlogPostsByTag(tagTitle: string): Promise<IBlogPost[]> {
+  async fetchBlogPostsByTag(tagTitle: string) {
     console.log("Fetching posts for tag:", tagTitle);
 
     try {
@@ -322,10 +321,10 @@ export class ContentfulApi {
       }
 
       // Fetch entries where the tag field matches the specified tag ID
-      const res = await this.client.getEntries<BlogSkeleton>({
-        content_type: "blog",
+      const res = await this.client.getEntries<TypeBlogPostSkeleton>({
+        content_type: "blogPost",
         "fields.tag.sys.id": tagId,
-        order: ["-fields.date"],
+        order: ["-fields.publishedDate"],
       });
 
       console.log("API response:", res);
@@ -338,23 +337,23 @@ export class ContentfulApi {
       return [];
     } catch (error) {
       console.error("Error fetching posts by tag:", error);
-      throw error;
+      return []
     }
   }
 
-  async getTagInfoBySlug(slug: string): Promise<ITags> {
-    const res = await this.client.getEntries<any>({
-      content_type: "blogTags",
+  async getTagInfoBySlug(slug: string) {
+    const res = await this.client.getEntries<TypeTagsSkeleton>({
+      content_type: "tags",
       limit: 100,
       "fields.slug": slug,
     });
 
-    return res.items[0] as ITags;
+    if (!!res.items.length) return res.items[0]
   }
 
-  async getPaths(): Promise<{ slug: string }[]> {
-    const res = await this.client.getEntries({
-      content_type: "blogTags",
+  async getPaths() {
+    const res = await this.client.getEntries<TypeTagsSkeleton>({
+      content_type: "tags",
     });
     const paths = res.items.map((item) => {
       const slug = typeof item.fields.slug === "string" ? item.fields.slug : "";

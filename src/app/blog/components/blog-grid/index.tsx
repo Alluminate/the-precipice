@@ -1,10 +1,10 @@
 // @ DEV this renders the blog posts through a map function
 
-import { BlogPost } from "@/lib/contentfulApi";
+import { TBlogContent } from "../../[slug]/page";
 import { BlogCard } from "./blog-card";
 
 interface BlogGridProps {
-  blog: BlogPost[];
+  blog: TBlogContent[];
 }
 
 export function BlogGrid({ blog }: BlogGridProps) {

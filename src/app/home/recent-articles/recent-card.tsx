@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/recent-article-layout";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button, ButtonVariants } from "@/components/ui/button";
 import {
   BlogCardExcerpt,
   BlogCardTitle,
@@ -24,7 +24,7 @@ export interface RecentCardProps {
 }
 
 export const RecentCard: React.FC<
-  RecentCardProps & { customWidth?: string }
+  RecentCardProps & { customWidth?: string, customBgClass?: string }
 > = ({
   imageUrl,
   title,

@@ -90,7 +90,7 @@ export default function WhoYouAre() {
         </div>
         <div className="flex flex-col pt-4 text-center">
           <Paragraph className="font-semibold">
-            Even Better if this isn't you.
+            Even Better if this isn&apos;t you.
           </Paragraph>
         </div>
       </div>

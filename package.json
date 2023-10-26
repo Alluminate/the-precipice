@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "contentful-typescript-codegen": "contentful-typescript-codegen --output @types/generated/contentful.d.ts"
+    "generate": "cf-content-types-generator -s h8dzfmrvmn3m -t CFPAT-4rheICbQrqfVD0B87kN-ROiHi2Tq2eDMh-UVYCitzLQ -o types/generated/contentful.d.ts -X -g"
   },
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.17.0",
@@ -27,6 +27,7 @@
     "@types/react-dom": "18.2.6",
     "aos": "^2.3.4",
     "autoprefixer": "10.4.14",
+    "cf-content-types-generator": "^2.12.9",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
     "contentful": "^10.3.1",
@@ -51,8 +52,8 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
     "@types/aos": "^3.0.4",
+    "contentful-cli": "^3.1.0",
     "contentful-management": "^11.2.0",
-    "contentful-typescript-codegen": "^3.4.0",
     "prettier": "^3.0.3"
   }
 }

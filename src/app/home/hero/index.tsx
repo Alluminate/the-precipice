@@ -6,31 +6,30 @@ import {
   PageHeaderHeading,
   Paragraph,
 } from "@/components/elements";
-import { buttonVariants } from "@/components/ui/button";
+import { ButtonVariants } from "@/components/ui/button";
 import { calculateRange, cn } from "@/lib/utils";
-import { HeroCard } from "./hero-card";
-import { data } from "./data";
+// import { HeroCard } from "./hero-card";
+// import { data } from "./data";
 
-const MobileImage: React.FC = () => (
-  <img
-    src="/assets/home/landingheroimagesm.png"
-    className="md:hidden block"
-    alt="Hero"
-  />
+import Image from "next/image";
+
+const MobileImage = () => (
+  <div className="md:hidden block">
+    <Image
+      src="/assets/home/landingheroimagesm.png"
+      alt="Hero"
+      width={500}
+      height={500}
+    />
+  </div>
 );
 
-const DesktopImage: React.FC = () => (
-  //   <div
-  //     // lg:w-1/2 lg:h-full bg-cover bg-right
-  //     className="hidden md:block"
-  //     style={{
-  //       backgroundImage: `url('/assets/home/landingheroimagelg.png')`,
-  //     }}
-  //   />
-  <img
+  const DesktopImage = () => (
+    <Image
     src="/assets/home/landingheroimagelg.png"
-    className="hidden md:block"
     alt="Hero"
+    width={500}
+    height={500}
   />
 );
 
@@ -56,7 +55,7 @@ export default function Hero() {
           into the future.
         </BigSubHeader>
         <BigSubHeader className={cn("mt-6")}>
-          If you reject the status quo, know you are not alone. Let's journey
+            If you reject the status quo, know that you are not alone. Let&rsquo;s journey
           across the brink to the unimaginable that awaits us.
         </BigSubHeader>
         <Paragraph className={cn("pt-6 italic")}>

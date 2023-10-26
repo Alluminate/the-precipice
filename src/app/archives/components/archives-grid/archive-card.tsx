@@ -3,9 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { buttonVariants } from "@/components/ui/button";
+import { ButtonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { BlogPost } from "@/lib/contentfulApi";
+import { TGetPostsReturnType } from "../../page";
 
 export interface ArchiveCardProps {
   imageUrl: string;
@@ -15,14 +15,18 @@ export interface ArchiveCardProps {
   slug: string;
 }
 
-export const ArchiveCard: React.FC<Partial<BlogPost>> = ({
+export const ArchiveCard = ({
   coverImage,
-  title = "blog image",
+  title,
   subtitle,
   slug,
-  publishedDate,
+  date,
   tag,
-}) => {
+}: TGetPostsReturnType["blogPosts"][number]) => {
+  let titleDisplay;
+  const tagTitle = tag.title;
+ typeof title === "string" ? titleDisplay = title : titleDisplay = "Placeholder Title";
+
   return (
     <Link className="inline-grid" href={`/blog/${slug}`} passHref>
       <Card className="flex flex-col bg-black border border-primary shadow-none hover:shadow-primary hover:shadow-md transition-shadow">
@@ -35,10 +39,10 @@ export const ArchiveCard: React.FC<Partial<BlogPost>> = ({
             alt={title}
           />
           <div className="flex items-center gap-2">
-            <span className="bg-primary rounded p-2 text-sm">{tag}</span>
-            <span className="text-sm">{publishedDate}</span>
+            <span className="bg-primary rounded p-2 text-sm">{tagTitle}</span>
+            <span className="text-sm">{date}</span>
           </div>
-          <h4 className="text-base uppercase font-bold">{title}</h4>
+          <h4 className="text-base uppercase font-bold">{titleDisplay}</h4>
           <p className="line-clamp-3">{subtitle}</p>
         </CardContent>
       </Card>

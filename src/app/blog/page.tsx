@@ -1,6 +1,6 @@
 // @ DEV : this is an older blog page meant to render a grid of blog posts on a separate /blog page. Which isn't the structure I have now.
 
-import { ContentfulApi } from "@/lib/contentfulApi";
+import contentfulApiInstance, { ContentfulApi } from "@/lib/contentfulApi";
 import { BlogGrid, Header } from "./components";
 import { siteConfig } from "@/config/site";
 
@@ -17,15 +17,24 @@ async function getTags() {
 }
 
 async function getPosts({ params, searchParams }: Props) {
-  // const contentful = new ContentfulApi(preview);
-  const contentful = new ContentfulApi();
   let page = 1;
 
-  const { blogPosts, total, limit, skip } = await contentful.fetchBlogEntries({
+  const data = await contentfulApiInstance.fetchBlogEntries({
     tag: "",
     skip: (page - 1) * siteConfig.pageSize,
     limit: siteConfig.pageSize,
   });
+
+  if (!data) {
+    return {
+      blogPosts: [],
+      total: 0,
+      limit: 0,
+      skip: 0,
+    };
+  }
+  
+  const { blogPosts, total, limit, skip } = data;
 
   return { blogPosts, total, limit, skip };
 }

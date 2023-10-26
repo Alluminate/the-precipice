@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 
-import { Button, buttonVariants } from "@/components/ui/button"
+import { Button, ButtonVariants } from "@/components/ui/button"
 import {
   Form,
   FormControl,
@@ -127,7 +127,7 @@ export function ContactForm() {
           <h3 data-aos="fade-left" className="text-xl max-w-xs text-center sm:text-left">Arrange a call with Mitchell, our Lead of Business Development.</h3>
         </div>
         <div data-aos="fade-in" className="flex justify-center">
-          <a href={siteConfig.calendly} className={buttonVariants({ variant: 'outline' })} target="_blank" rel="noopener noreferrer">Book a time</a>
+          <a href={siteConfig.calendly} className={ButtonVariants({ variant: 'outline' })} target="_blank" rel="noopener noreferrer">Book a time</a>
         </div>
       </div>
     </div>

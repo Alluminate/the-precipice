@@ -1,4 +1,4 @@
-import { ContentfulApi } from "@/lib/contentfulApi";
+import contentfulApiInstance, { ContentfulApi } from "@/lib/contentfulApi";
 import { BlogContent } from "../components";
 import { Metadata, ResolvingMetadata } from "next";
 import { siteConfig } from "@/config/site";
@@ -12,23 +12,26 @@ type Props = {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const contentful = new ContentfulApi();
-  const post = await contentful.fetchBlogBySlug(params.slug);
+  const post = await contentfulApiInstance.fetchBlogBySlug(params.slug);
+
+  if (!post) {
+    notFound();
+  }
 
   return {
     title: `${post.title}`,
-    description: `${post.excerpt}`,
+    description: `${post.subtitle}`,
     openGraph: {
       type: "article",
       url: `${siteConfig.url}/blog/${params.slug}`,
       title: `${post.title}`,
-      description: `${post.excerpt}`,
-      publishedTime: `${post.publishedDate}`,
+      description: `${post.subtitle}`,
+      publishedTime: `${post.date}`,
       siteName: siteConfig.name,
       authors: ['Thorium'],
       images: [
         {
-          url: `${post.heroImage?.imageUrl}`,
+          url: `${post.coverImage?.imageUrl}`,
           width: 1200,
           height: 630,
           alt: `${post.title}`,
@@ -38,8 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: "summary_large_image",
       title: `${post.title}`,
-      description: `${post.excerpt}`,
-      images: [`${post.heroImage?.imageUrl}`],
+      description: `${post.subtitle}`,
+      images: [`${post.coverImage?.imageUrl}`],
     },
   }
 }
@@ -56,14 +59,15 @@ type Params = {
 
 async function getPost(params: Params) {
   // const contentful = new ContentfulApi(preview);
-  const contentful = new ContentfulApi();
-  const post = await contentful.fetchBlogBySlug(params?.slug);
+  const post = await contentfulApiInstance.fetchBlogBySlug(params?.slug);
   if (!post) {
     notFound()
   }
 
   return post;
 }
+
+export type TBlogContent = Awaited<ReturnType<typeof getPost>>
 
 export default async function BlogContentPage({ params }: Props) {
   await generateMetadata({ params });

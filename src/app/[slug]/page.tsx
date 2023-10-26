@@ -1,8 +1,9 @@
-import { BlogPost, ContentfulApi } from "@/lib/contentfulApi";
+import { ContentfulApi } from "@/lib/contentfulApi";
 import { RecentCard, RecentCardProps } from "../home/recent-articles/recent-card";
 import { Metadata } from 'next';
 import { detailedServerLogger } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import { TGetPostsReturnType } from "../archives/page";
 
 const contentful = new ContentfulApi();
 export async function generateStaticParams() {
@@ -13,7 +14,7 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
-function convertToRecentCardProps(blogPost: BlogPost, delay: number): RecentCardProps {
+function convertToRecentCardProps(blogPost: TGetPostsReturnType["blogPosts"][number], delay: number): RecentCardProps {
   return {
     imageUrl: blogPost.coverImage ? blogPost.coverImage.imageUrl : '', 
     title: blogPost.title,
@@ -28,22 +29,23 @@ export async function generateMetadata({
   params: { slug },
 }: { params: { slug: string }}): Promise<Metadata> {
   const tag = await contentful.getTagInfoBySlug(slug);
+  
 
   return {
     title: `Articles tagged: ${slug}`,
     description:
-      `Explore articles related to ${tag.fields.title} on Your Site Name.`,
+      `Explore articles related to ${tag?.fields?.tagName} on Your Site Name.`,
     openGraph: {
       type: "article",
       url: `${siteConfig.url}/tags/${slug}`,
-      title: `Articles tagged: ${tag.fields.title}`,
-      description: `Articles tagged: ${tag.fields.title}`,
+      title: `Articles tagged: ${tag?.fields.tagName}`,
+      description: `Articles tagged: ${tag?.fields.tagName}`,
       siteName: siteConfig.name,
     },
     twitter: {
       card: "summary_large_image",
-      title: `Articles tagged: ${tag.fields.title}`,
-    description: `Articles tagged: ${tag.fields.title}`,
+      title: `Articles tagged: ${tag?.fields.tagName}`,
+    description: `Articles tagged: ${tag?.fields.tagName}`,
     },
   };
 }
@@ -60,6 +62,7 @@ export default async function Page({ params }: {params : {slug: string} }) {
           <div className="p-6">
             <h1 className="text-2xl font-bold mb-4">Posts tagged: {slug}</h1>
             {postData.map((post) => {
+              if (!post) return null
               const recentBlogPost = convertToRecentCardProps(post, 0);
               return (
               <div key={post.id} className="mb-6">
