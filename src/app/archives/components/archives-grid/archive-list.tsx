@@ -14,14 +14,17 @@ interface ArchiveListProps {
 
 // Helper function to group posts by their tag
 function groupPostsByTag(posts: TGetPostsReturnType["blogPosts"]) {
-  return posts.reduce((acc, post) => {
-    const tagSlug = post.tag.slug;
-    if (!acc[tagSlug]) {
-      acc[tagSlug] = [];
-    }
-    acc[tagSlug].push(post);
-    return acc;
-  }, {} as { [key: string]: TGetPostsReturnType["blogPosts"] });
+  return posts.reduce(
+    (acc, post) => {
+      const tagSlug = post.tag.slug;
+      if (!acc[tagSlug]) {
+        acc[tagSlug] = [];
+      }
+      acc[tagSlug].push(post);
+      return acc;
+    },
+    {} as { [key: string]: TGetPostsReturnType["blogPosts"] }
+  );
 }
 
 export function ArchiveList({ blog }: ArchiveListProps) {
@@ -38,13 +41,12 @@ export function ArchiveList({ blog }: ArchiveListProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
       {Object.entries(postsByTag).map(([slug, posts]) => {
-        const firstPostTitle = posts[0].title;
         const tagTitle = posts[0].tag.title;
 
         return (
           <section key={slug} className="mt-6">
             <ArchivePageTagTitle className="text-2xl mb-6">
-              {firstPostTitle}
+              {tagTitle}
             </ArchivePageTagTitle>
             <ColoredSeparator color="grey" className="mb-6" />
             <ul>

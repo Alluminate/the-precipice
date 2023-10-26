@@ -1,5 +1,6 @@
 import contentfulApiInstance, { ContentfulApi } from "@/lib/contentfulApi";
 import { ArchiveGrid, ArchiveTags, ArchiveList } from "./components";
+import { PageHeader } from "@/components/elements";
 
 import { getMetadata } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -44,12 +45,24 @@ async function getPosts({ params, searchParams }: Props) {
     };
   }
 
-  const { blogPosts, total, limit, skip } = data 
+  const { blogPosts, total, limit, skip } = data;
 
   return { blogPosts, total, limit, skip };
 }
 
 export type TGetPostsReturnType = Awaited<ReturnType<typeof getPosts>>;
+
+const ArchiveHeader = () => {
+  return (
+    <div className="flex mt-12">
+      <div className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[948px] md:px-0 leading-relaxed mt-12">
+        <div className="flex flex-col items-start gap-4 w-full">
+          <PageHeader className="">Pieces by Topics</PageHeader>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default async function ArchivesPage({ params, searchParams }: Props) {
   const tags = await getTags();
@@ -58,8 +71,9 @@ export default async function ArchivesPage({ params, searchParams }: Props) {
   return (
     <section className="flex flex-col items-center space-y-20 px-0 mx-2 md:mx-4 lg:mx-6 xl:mx-8 2xl:mx-12 min-h-screen">
       <div className="w-full md:w-10/12 lg:w-9/12 2xl:w-8/12">
-        <ArchiveTags tags={tags} />
-        <ArchiveGrid blog={blogPosts} />
+        {/* <ArchiveTags tags={tags} /> */}
+        <ArchiveHeader />
+        {/* <ArchiveGrid blog={blogPosts} /> */}
         <ArchiveList blog={blogPosts} />
       </div>
     </section>

@@ -33,7 +33,7 @@ async function getPosts({ params, searchParams }: Props) {
       skip: 0,
     };
   }
-  
+
   const { blogPosts, total, limit, skip } = data;
 
   return { blogPosts, total, limit, skip };

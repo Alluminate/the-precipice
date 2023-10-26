@@ -24,12 +24,12 @@ const MobileImage = () => (
   </div>
 );
 
-  const DesktopImage = () => (
-    <Image
+const DesktopImage = () => (
+  <Image
     src="/assets/home/landingheroimagelg.png"
     alt="Hero"
-    width={500}
-    height={500}
+    width={850}
+    height={850}
   />
 );
 
@@ -37,7 +37,7 @@ export default function Hero() {
   return (
     <div className="flex flex-col-reverse md:flex-row-reverse">
       {/* md:h-full */}
-      <div className="flex items-center justify-center md:w-3/5 2xl:pl-2 2xl:w-7/12">
+      <div className="flex items-center justify-center md:w-3/5 lg:py-12 2xl:pl-2 2xl:w-7/12">
         <MobileImage />
         <DesktopImage />
       </div>
@@ -55,8 +55,8 @@ export default function Hero() {
           into the future.
         </BigSubHeader>
         <BigSubHeader className={cn("mt-6")}>
-            If you reject the status quo, know that you are not alone. Let&rsquo;s journey
-          across the brink to the unimaginable that awaits us.
+          If you reject the status quo, know that you are not alone. Let&rsquo;s
+          journey across the brink to the unimaginable that awaits us.
         </BigSubHeader>
         <Paragraph className={cn("pt-6 italic")}>
           Inspired but unaffiliated with Toby Ord’s,{" "}

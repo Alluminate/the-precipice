@@ -2,10 +2,20 @@ import { ContentfulClientApi, createClient } from "contentful";
 import type { Asset, Entry, EntryFieldTypes } from "contentful";
 import type { EntrySkeletonType } from "contentful/dist/types/types/query/util";
 import { siteConfig } from "@/config/site";
-import { TypeBlogPostFields, TypeBlogPost, TypeAuthor, TypeAuthorFields, TypeTagsFields, TypeTags, TypeTagsSkeleton, TypeBlogPostSkeleton, TypeAuthorSkeleton } from "@contentfulTypes"
+import {
+  TypeBlogPostFields,
+  TypeBlogPost,
+  TypeAuthor,
+  TypeAuthorFields,
+  TypeTagsFields,
+  TypeTags,
+  TypeTagsSkeleton,
+  TypeBlogPostSkeleton,
+  TypeAuthorSkeleton,
+} from "@contentfulTypes";
 import { BlogPostReturnType } from "@/types/types";
 
-//The 'any' in these typesare there because this type expecte generics for your locale, which 
+//The 'any' in these typesare there because this type expecte generics for your locale, which
 //isn't relevant for your project at the moment (used for things like translations or different)
 //content depending on location
 
@@ -13,7 +23,6 @@ export type TAuthor = TypeAuthor<any, any>;
 export type TBlogPost = TypeBlogPost<any, any>;
 export type TTags = TypeTags<any, any>;
 export type TBlogPostFieldKeys = keyof TypeBlogPostFields;
-
 
 function isTypeAuthorFields(object: any): object is TypeAuthorFields {
   return "name" in object;
@@ -33,8 +42,15 @@ function hasValidNameAndBio(fields: any): boolean {
   );
 }
 
-export function isTypeAuthor(entry: any): entry is Entry<TypeAuthorSkeleton, undefined, string> {
-  return entry && entry.sys && entry.sys.contentType && entry.sys.contentType.sys.id === 'author';
+export function isTypeAuthor(
+  entry: any
+): entry is Entry<TypeAuthorSkeleton, undefined, string> {
+  return (
+    entry &&
+    entry.sys &&
+    entry.sys.contentType &&
+    entry.sys.contentType.sys.id === "author"
+  );
 }
 
 export type CoverImage = {
@@ -44,19 +60,6 @@ export type CoverImage = {
 };
 
 export type TagIconProp = CoverImage & {};
-
-// Formerly BlogPost
-// export type TypeBlogPostFields = {
-//     id: string;
-//     content: any;
-//     subtitle: string;
-//     publishedDate: string | undefined;
-//     slug: string;
-//     tag: ITagFields | string;
-//     title: string;
-//     coverImage?: CoverImage | null;
-//     author?: TypeAuthorFields | null;
-//   };
 
 export type TypeBlogFields = {
   title: EntryFieldTypes.Symbol;
@@ -111,7 +114,7 @@ export type ArticleTagsReturnType = {
 };
 
 export class ContentfulApi {
-client: ContentfulClientApi<"WITHOUT_UNRESOLVABLE_LINKS">;
+  client: ContentfulClientApi<"WITHOUT_UNRESOLVABLE_LINKS">;
   dateOptions: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -128,7 +131,10 @@ client: ContentfulClientApi<"WITHOUT_UNRESOLVABLE_LINKS">;
     }).withoutUnresolvableLinks;
   }
 
-convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFieldTypes.AssetLink ): CoverImage | TagIconProp | null => {
+  convertImage = (
+    rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> &
+      EntryFieldTypes.AssetLink
+  ): CoverImage | TagIconProp | null => {
     if (rawImage) {
       return {
         imageUrl: rawImage.fields.file?.url.replace("//", "https://") ?? "",
@@ -139,7 +145,9 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
     return null;
   };
 
-  convertAuthor = (rawAuthor: Entry<TypeAuthorSkeleton, undefined, string>): TAuthor | null => {
+  convertAuthor = (
+    rawAuthor: Entry<TypeAuthorSkeleton, undefined, string>
+  ): TAuthor | null => {
     if (rawAuthor && hasValidNameAndBio(rawAuthor.fields)) {
       return {
         sys: rawAuthor.sys,
@@ -155,41 +163,47 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
 
   formatDate = (rawDate: string | undefined): string => {
     if (!rawDate) {
-      return new Intl.DateTimeFormat("en-US", this.dateOptions).format(new Date());
+      return new Intl.DateTimeFormat("en-US", this.dateOptions).format(
+        new Date()
+      );
     }
-    return new Intl.DateTimeFormat("en-US", this.dateOptions).format(new Date(rawDate));
+    return new Intl.DateTimeFormat("en-US", this.dateOptions).format(
+      new Date(rawDate)
+    );
   };
-  
-  convertPost = (rawData: Entry<TypeBlogPostSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>) => {
+
+  convertPost = (
+    rawData: Entry<TypeBlogPostSkeleton, "WITHOUT_UNRESOLVABLE_LINKS", string>
+  ) => {
     if (!isTypeBlogPostFields(rawData.fields)) {
       return null;
     }
-      const rawPost = rawData.fields;
-      const rawTag = rawPost?.tag;
+    const rawPost = rawData.fields;
+    const rawTag = rawPost?.tag;
 
-      let author: TAuthor | null = null;
-      if (isTypeAuthor(rawData.fields.author)) {
-        author = this.convertAuthor(rawData.fields.author);
-      }
-  
-      return {
-        id: rawData.sys.id,
-        content: rawPost.content,
-        subtitle: rawPost.subtitle,
-        date: (rawPost.publishedDate
-          ? this.formatDate(rawPost.publishedDate.toString())
-          : this.formatDate(rawData.sys.createdAt.toString())),
-        slug: rawPost.slug,
-        tag: {
-              title: rawTag.entry?.fields?.tagName,
-              description: rawTag.entry?.fields?.description,
-              slug: rawTag.entry?.fields?.slug,
-          },
-        title: rawPost.title,
-        coverImage: this.convertImage(rawPost.coverImage),
-        author: author,
-      };
+    let author: TAuthor | null = null;
+    if (isTypeAuthor(rawData.fields.author)) {
+      author = this.convertAuthor(rawData.fields.author);
+    }
+
+    return {
+      id: rawData.sys.id,
+      content: rawPost.content,
+      subtitle: rawPost.subtitle,
+      date: rawPost.publishedDate
+        ? this.formatDate(rawPost.publishedDate.toString())
+        : this.formatDate(rawData.sys.createdAt.toString()),
+      slug: rawPost.slug,
+      tag: {
+        title: rawTag.entry?.fields?.tagName,
+        description: rawTag.entry?.fields?.description,
+        slug: rawTag.entry?.fields?.slug,
+      },
+      title: rawPost.title,
+      coverImage: this.convertImage(rawPost.coverImage),
+      author: author,
     };
+  };
 
   async fetchBlogEntries(
     { limit, skip, tag }: BlogEntriesProps = {
@@ -199,7 +213,10 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
     }
   ) {
     try {
-  const res: Awaited<BlogPostReturnType> = await this.client?.getEntries<TypeBlogPostSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">({
+      const res: Awaited<BlogPostReturnType> = await this.client?.getEntries<
+        TypeBlogPostSkeleton,
+        "WITHOUT_UNRESOLVABLE_LINKS"
+      >({
         content_type: "blogPost",
         include: 1,
         limit,
@@ -211,7 +228,9 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
       type ConvertedPost = ReturnType<typeof this.convertPost>;
 
       if (res && res.items && res.items.length > 0) {
-        const blogPosts = res.items.map((entry) => this.convertPost(entry)).filter((post) => post !== null) as NonNullable<ConvertedPost>[];
+        const blogPosts = res.items
+          .map((entry) => this.convertPost(entry))
+          .filter((post) => post !== null) as NonNullable<ConvertedPost>[];
         const total = res.total;
         return { blogPosts, total, limit, skip };
       }
@@ -230,16 +249,17 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
       });
 
       type ConvertedPost = ReturnType<typeof this.convertPost>;
-      
 
       if (res && res.items && res.items.length > 0) {
-        const blogPosts = res.items.map((entry) => this.convertPost(entry)).filter((post) => post !== null) as NonNullable<ConvertedPost>[];
+        const blogPosts = res.items
+          .map((entry) => this.convertPost(entry))
+          .filter((post) => post !== null) as NonNullable<ConvertedPost>[];
         const total = res.total;
         return { blogPosts, total, limit: siteConfig.pageSize, skip: 0 };
       }
       return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
     } catch (error) {
-  console.log("error fetching all entries:", error);
+      console.log("error fetching all entries:", error);
     }
   }
 
@@ -267,21 +287,22 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
       }
       return null;
     } catch (error) {
-    console.log("error fetching entry by slug", error);
+      console.log("error fetching entry by slug", error);
     }
   }
 
   async getAllTags() {
-  const res = await this.client.getEntries<TypeTagsSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">({
+    const res = await this.client.getEntries<
+      TypeTagsSkeleton,
+      "WITHOUT_UNRESOLVABLE_LINKS"
+    >({
       content_type: "tags",
-      });
+    });
 
-    const tags = res.items.map(
-      ({ sys, fields }) => ({
-        id: sys.id,
-        title: fields.tagName,
-      })
-    );
+    const tags = res.items.map(({ sys, fields }) => ({
+      id: sys.id,
+      title: fields.tagName,
+    }));
     return tags;
   }
 
@@ -337,7 +358,7 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
       return [];
     } catch (error) {
       console.error("Error fetching posts by tag:", error);
-      return []
+      return [];
     }
   }
 
@@ -348,7 +369,7 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
       "fields.slug": slug,
     });
 
-    if (!!res.items.length) return res.items[0]
+    if (!!res.items.length) return res.items[0];
   }
 
   async getPaths() {
@@ -381,3 +402,16 @@ convertImage = (rawImage: Asset<"WITHOUT_UNRESOLVABLE_LINKS", string> & EntryFie
 
 const contentfulApiInstance = new ContentfulApi();
 export default contentfulApiInstance;
+
+// Formerly BlogPost
+// export type TypeBlogPostFields = {
+//     id: string;
+//     content: any;
+//     subtitle: string;
+//     publishedDate: string | undefined;
+//     slug: string;
+//     tag: ITagFields | string;
+//     title: string;
+//     coverImage?: CoverImage | null;
+//     author?: TypeAuthorFields | null;
+//   };

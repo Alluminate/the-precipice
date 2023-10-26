@@ -1,3 +1,21 @@
+# Changes from Integrating Newly Generated Types
+
+- changed `function convertToRecentCardProps(blogPost: BlogPost, delay: number): RecentCardProps {` to `function convertToRecentCardProps(blogPost: TGetPostsReturnType["blogPosts"][number], delay: number): RecentCardProps {`
+
+- changed
+
+```
+title: `Articles tagged: ${tag.fields.title}`,
+description: `Articles tagged: ${tag.fields.title}`,
+```
+
+to
+
+```
+title: `Articles tagged: ${tag?.fields.tagName}`,
+description: `Articles tagged: ${tag?.fields.tagName}`,
+```
+
 # `[slug]` Folder: Technical Documentation
 
 ## 📝 Introduction
