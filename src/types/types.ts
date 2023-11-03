@@ -1,3 +1,4 @@
+import { ContentfulApi } from '@/lib/contentfulApi';
 import { TypeAuthorSkeleton, TypeBlogPostSkeleton, TypeTagsSkeleton } from '@contentfulTypes';
 import type { ChainModifiers, ContentfulClientApi, Entry, EntrySkeletonType, LocaleCode } from 'contentful';
 import { createClient } from 'contentful';
@@ -12,3 +13,6 @@ type GetEntriesValue<T> = ReturnType<typeof client.getEntries<T extends EntrySke
 export type BlogPostReturnType = GetEntriesValue<TypeBlogPostSkeleton>
 export type AuthorReturnType = GetEntriesValue<TypeAuthorSkeleton>
 export type TagsReturnType = GetEntriesValue<TypeTagsSkeleton>
+
+export type FetchAllBlogEntriesReturnType = Awaited<ReturnType<ContentfulApi["fetchAllBlogEntries"]>>
+export type FetchAllBlogEntriesBlogPostType = NonNullable<FetchAllBlogEntriesReturnType>["blogPosts"][number]

@@ -38,7 +38,7 @@ export function ArchiveTags({ tags, tagId }: ArchiveTagProps) {
     <div className="flex mt-12">
       <div className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[948px] md:px-0 leading-relaxed mt-12">
         <div className="flex flex-col items-start gap-4 w-full">
-          <PageHeader className="">Pieces by Topics</PageHeader>
+          {/* <PageHeader className="">Pieces by Topics</PageHeader> */}
           {tags.map((tag) => (
             <button
               key={tag.id}
@@ -53,4 +53,5 @@ export function ArchiveTags({ tags, tagId }: ArchiveTagProps) {
     </div>
   );
 }
+
 

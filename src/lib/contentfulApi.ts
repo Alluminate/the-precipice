@@ -128,7 +128,7 @@ export class ContentfulApi {
         ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN ?? ""
         : process.env.CONTENTFUL_ACCESS_TOKEN ?? "",
       ...(preview && { host: "preview.contentful.com" }),
-    }).withoutUnresolvableLinks;
+    }).withoutUnresolvableLinks
   }
 
   convertImage = (
@@ -178,8 +178,8 @@ export class ContentfulApi {
     if (!isTypeBlogPostFields(rawData.fields)) {
       return null;
     }
-    const rawPost = rawData.fields;
-    const rawTag = rawPost?.tag;
+    const rawPost = rawData?.fields
+    const { tagName, slug, description } = rawData?.fields.tag.fields;
 
     let author: TAuthor | null = null;
     if (isTypeAuthor(rawData.fields.author)) {
@@ -195,9 +195,9 @@ export class ContentfulApi {
         : this.formatDate(rawData.sys.createdAt.toString()),
       slug: rawPost.slug,
       tag: {
-        title: rawTag.entry?.fields?.tagName,
-        description: rawTag.entry?.fields?.description,
-        slug: rawTag.entry?.fields?.slug,
+        title: tagName,
+        description,
+        slug
       },
       title: rawPost.title,
       coverImage: this.convertImage(rawPost.coverImage),
@@ -226,6 +226,7 @@ export class ContentfulApi {
       });
 
       type ConvertedPost = ReturnType<typeof this.convertPost>;
+      
 
       if (res && res.items && res.items.length > 0) {
         const blogPosts = res.items
@@ -249,15 +250,12 @@ export class ContentfulApi {
       });
 
       type ConvertedPost = ReturnType<typeof this.convertPost>;
-
-      if (res && res.items && res.items.length > 0) {
+      
         const blogPosts = res.items
           .map((entry) => this.convertPost(entry))
           .filter((post) => post !== null) as NonNullable<ConvertedPost>[];
         const total = res.total;
-        return { blogPosts, total, limit: siteConfig.pageSize, skip: 0 };
-      }
-      return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
+        return { blogPosts: blogPosts ?? [], total, limit: siteConfig.pageSize, skip: 0 };
     } catch (error) {
       console.log("error fetching all entries:", error);
     }
@@ -377,9 +375,9 @@ export class ContentfulApi {
       content_type: "tags",
     });
     const paths = res.items.map((item) => {
-      const slug = typeof item.fields.slug === "string" ? item.fields.slug : "";
+      const slug = item.fields.tagName
       return {
-        slug: slug.toLowerCase(),
+        slug: slug
       };
     });
     console.log("all possible paths for /[slug]:", paths);

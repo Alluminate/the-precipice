@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/elements";
 
 import { getMetadata } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
+import { FetchAllBlogEntriesReturnType } from "@/types/types";
 
 export const metadata = {
   ...getMetadata({
@@ -27,30 +28,34 @@ async function getTags() {
   return tags;
 }
 
-async function getPosts({ params, searchParams }: Props) {
-  let page = 1;
+async function getAllPosts() {
+  const blogPosts: FetchAllBlogEntriesReturnType = await contentfulApiInstance.fetchAllBlogEntries();
 
-  const data = await contentfulApiInstance.fetchBlogEntries({
-    tag: "",
-    skip: (page - 1) * siteConfig.pageSize,
-    limit: siteConfig.pageSize,
-  });
-
-  if (!data) {
-    return {
-      blogPosts: [],
-      total: 0,
-      limit: 0,
-      skip: 0,
-    };
-  }
-
-  const { blogPosts, total, limit, skip } = data;
-
-  return { blogPosts, total, limit, skip };
+  return blogPosts;
 }
 
-export type TGetPostsReturnType = Awaited<ReturnType<typeof getPosts>>;
+// async function getPosts({ params, searchParams }: Props) {
+//   let page = 1;
+
+//   const data = await contentfulApiInstance.fetchBlogEntries({
+//     tag: "",
+//     skip: (page - 1) * siteConfig.pageSize,
+//     limit: siteConfig.pageSize,
+//   });
+
+//   if (!data) {
+//     return {
+//       blogPosts: [],
+//       total: 0,
+//       limit: 0,
+//       skip: 0,
+//     };
+//   }
+
+//   const { blogPosts, total, limit, skip } = data;
+
+//   return { blogPosts, total, limit, skip };
+// }
 
 const ArchiveHeader = () => {
   return (
@@ -64,17 +69,20 @@ const ArchiveHeader = () => {
   );
 };
 
-export default async function ArchivesPage({ params, searchParams }: Props) {
-  const tags = await getTags();
-  const { blogPosts } = await getPosts({ params, searchParams });
+export default async function ArchivesPage() {
+  const blogPosts = await getAllPosts();
 
+  if (!blogPosts) {
+    return null;
+  }
+  
   return (
     <section className="flex flex-col items-center space-y-20 px-0 mx-2 md:mx-4 lg:mx-6 xl:mx-8 2xl:mx-12 min-h-screen">
       <div className="w-full md:w-10/12 lg:w-9/12 2xl:w-8/12">
         {/* <ArchiveTags tags={tags} /> */}
         <ArchiveHeader />
         {/* <ArchiveGrid blog={blogPosts} /> */}
-        <ArchiveList blog={blogPosts} />
+        <ArchiveList blog={blogPosts?.blogPosts} />
       </div>
     </section>
   );
