@@ -55,7 +55,7 @@ export default async function Page({ params }: {params : {slug: string} }) {
 
     const { slug } = params;
 
-    const postData = await contentful.fetchBlogPostsByTag(slug.toLowerCase())
+    const postData = await contentful.fetchBlogPostsBySlug(slug.toLowerCase())
     const tagInfo = await contentful.getTagInfoBySlug('nanoforge')
     return (
         <>

@@ -285,7 +285,7 @@ export class ContentfulApi {
       }
       return null;
     } catch (error) {
-      console.log("error fetching entry by slug", error);
+      console.log(`error fetching entry by slug: ${slug}`, error);
     }
   }
 
@@ -304,11 +304,11 @@ export class ContentfulApi {
     return tags;
   }
 
-  async getTagIdByTitle(tagSlug: string): Promise<string | null> {
+  async getTagIdBySlug(tagSlug: string): Promise<string | null> {
     try {
-      const res = await this.client.getEntries({
-        content_type: "blogTags",
-        "fields.slug": tagSlug,
+      const res = await this.client.getEntries<TypeTagsSkeleton>({
+      content_type: "tags",
+      "fields.slug": tagSlug,
       });
 
       // Check if entries are returned and the first entry has a sys.id property
@@ -322,23 +322,22 @@ export class ContentfulApi {
         return null;
       }
     } catch (error) {
-      console.error("Error fetching tag ID by title:", error);
+      console.error(`Error fetching tag ID by title: ${tagSlug}`, error);
       return null;
     }
   }
 
   // TODO: Review
-  async fetchBlogPostsByTag(tagTitle: string) {
-    console.log("Fetching posts for tag:", tagTitle);
+  async fetchBlogPostsBySlug(slug: string) {
+    console.log("Fetching posts for tag:", slug);
 
     try {
       // Get the sys.id for the provided tag title
-      const tagId = await this.getTagIdByTitle(tagTitle);
+      const tagId = await this.getTagIdBySlug(slug);
       if (!tagId) {
-        console.error("No tag found with title:", tagTitle);
+        console.error("No tag found with title:", slug);
         return [];
       }
-
       // Fetch entries where the tag field matches the specified tag ID
       const res = await this.client.getEntries<TypeBlogPostSkeleton>({
         content_type: "blogPost",
