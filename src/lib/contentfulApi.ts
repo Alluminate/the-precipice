@@ -375,7 +375,7 @@ export class ContentfulApi {
       content_type: "tags",
     });
     const paths = res.items.map((item) => {
-      const slug = item.fields.tagName
+      const slug = item.fields.slug;
       return {
         slug: slug
       };

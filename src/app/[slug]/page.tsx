@@ -3,7 +3,7 @@ import { RecentCard, RecentCardProps } from "../home/recent-articles/recent-card
 import { Metadata } from 'next';
 import { detailedServerLogger } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
-import { TGetPostsReturnType } from "../archives/page";
+import { FetchAllBlogEntriesBlogPostType } from "@/types/types";
 
 const contentful = new ContentfulApi();
 export async function generateStaticParams() {
@@ -14,13 +14,13 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
-function convertToRecentCardProps(blogPost: TGetPostsReturnType["blogPosts"][number], delay: number): RecentCardProps {
+function convertToRecentCardProps(blogPost: FetchAllBlogEntriesBlogPostType, delay: number): RecentCardProps {
   return {
     imageUrl: blogPost.coverImage ? blogPost.coverImage.imageUrl : '', 
     title: blogPost.title,
     subtitle: blogPost.subtitle,
     link: `/path-to-blog/${blogPost.slug}`, 
-    tag: typeof blogPost.tag === 'string' ? blogPost.tag : blogPost.tag.title,
+    tag: blogPost.tag.title as string,
     delay: delay
   };
 }
