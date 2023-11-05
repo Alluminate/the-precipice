@@ -1,5 +1,5 @@
 import contentfulApiInstance, { ContentfulApi } from "@/lib/contentfulApi";
-import { BlogContent } from "../components";
+import { BlogContent } from "./blog-content";
 import { Metadata, ResolvingMetadata } from "next";
 import { siteConfig } from "@/config/site";
 import { notFound } from "next/navigation";
