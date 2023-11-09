@@ -2,7 +2,7 @@ import { ContentfulApi } from "@/lib/contentfulApi";
 import {
   RecentCard,
   RecentCardProps,
-} from "../home/recent-articles/recent-card";
+} from "../../home/recent-articles/recent-card";
 import { Metadata } from "next";
 import { detailedServerLogger } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
@@ -10,7 +10,7 @@ import { FetchAllBlogEntriesBlogPostType } from "@/types/types";
 
 const contentful = new ContentfulApi();
 export async function generateStaticParams() {
-  const paths = await contentful.getPaths();
+  const paths = await contentful.getTagPaths();
   console.log("paths!", paths);
   return paths;
 }
@@ -25,7 +25,7 @@ function convertToRecentCardProps(
     imageUrl: blogPost.coverImage ? blogPost.coverImage.imageUrl : "",
     title: blogPost.title,
     subtitle: blogPost.subtitle,
-    link: `/${blogPost.tag.slug}/${blogPost.slug}`,
+    link: `/blog/${blogPost.tag.slug}/${blogPost.slug}`,
     tag: blogPost.tag.title as string,
     delay: delay,
   };
@@ -56,16 +56,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default async function Page({ params }: { params: { tagSlug: string } }) {
+  const { tagSlug } = params;
+  console.log(params)
 
-  const postData = await contentful.fetchBlogPostsBySlug(slug.toLowerCase());
+  const postData = await contentful.fetchBlogPostsByTag(tagSlug);
   const tagInfo = await contentful.getTagInfoBySlug("...");
   // const tagInfo = await contentful.getTagInfoBySlug("nanoforge");
   return (
     <>
       <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Posts tagged: {slug}</h1>
+        <h1 className="text-2xl font-bold mb-4">Posts tagged: {tagSlug}</h1>
         {postData.map((post) => {
           if (!post) return null;
           const recentBlogPost = convertToRecentCardProps(post, 0);

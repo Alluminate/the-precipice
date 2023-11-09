@@ -12,7 +12,7 @@ import { NavbarLink, NavbarLinkWithSubMenu } from "../navbar-old/link";
 
 const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
   return (
-    <div className="flex justify-between w-full fixed top-0 left-0 z-50 bg-white border border-b-border">
+    <div className="flex justify-between w-full sticky top-0 left-0 z-50 bg-white border border-b-border">
       {/* <div className="flex flex-col flex-wrap items-end mx-auto w-full fixed top-0 left-0 z-50"> */}
       <div className="flex justify-between top-0 left-0 z-50 xl:px-6">
         <Logo />

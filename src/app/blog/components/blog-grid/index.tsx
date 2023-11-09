@@ -1,6 +1,6 @@
 // @ DEV this renders the blog posts through a map function
 
-import { TBlogContent } from "../../[slug]/page";
+import { TBlogContent } from "../../[tagSlug]/[postSlug]/page";
 import { BlogCard } from "./blog-card";
 
 interface BlogGridProps {

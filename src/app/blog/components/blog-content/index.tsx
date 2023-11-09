@@ -6,7 +6,7 @@ import { ContentfulImage } from "@/components/ui/contentful-image";
 import { PageHeader } from "@/components/elements";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextOptions } from "@/lib/richtext-options";
-import { TBlogContent } from "../../[slug]/page";
+import { TBlogContent } from "../../[tagSlug]/[postSlug]/page";
 
 interface BlogContentProps {
   post: TBlogContent;
@@ -37,7 +37,7 @@ export function BlogContent({
       </PageHeader>
       <div className="rounded-md bg-black md:p-8">
         <div className="max-w-2xl mb-16">
-          <p className="bg-primary px-4 py-2 rounded inline">{tag.title}</p>
+          <p className="bg-primary px-4 py-2 rounded inline">{tag.title as string}</p>
           <h1 className="font-bold text-4xl mt-4 mb-2">{title}</h1>
           <h3 className="text-xl">{subtitle}</h3>
           <span className="text-sm text-muted-foreground">{date}</span>

@@ -328,7 +328,7 @@ export class ContentfulApi {
   }
 
   // TODO: Review
-  async fetchBlogPostsBySlug(slug: string) {
+  async fetchBlogPostsByTag(slug: string) {
     console.log("Fetching posts for tag:", slug);
 
     try {
@@ -369,7 +369,7 @@ export class ContentfulApi {
     if (!!res.items.length) return res.items[0];
   }
 
-  async getPaths() {
+  async getTagPaths() {
     const res = await this.client.getEntries<TypeTagsSkeleton>({
       content_type: "tags",
     });
