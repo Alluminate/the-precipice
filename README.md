@@ -13,6 +13,17 @@ Tech Stack
 
 <hr>
 
+## Update - 11-8-23
+- Updated hierarchy of blog: 
+  - `/blog` is now the main blog page, which will display all posts. This, semantically, should 
+  replace "archives" and would likely perform better for SEO
+  - `/blog/[tagSlug]` is now the page for seeing all posts of a certain tag e.g. `/blog/culture` 
+  - `/blog/[tagSlug]/[postSlug]` is now the individual blog post page 
+- Fixed any type errors I came across. Going forward you shouldn't need to access any types that aren't being directly generated, or that I haven't already created inside `src/types/types.ts`. 
+- Fixed a minor navbar issue that's been bugging me for a while `:)`
+- I believe you're now at the point where the repo can be cleaned up and old files deleted.
+
+
 ## Update - 10-18-23
 
 - Restructured logic in old `[path]` route (now called `oldPage`)
