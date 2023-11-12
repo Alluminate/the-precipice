@@ -29,7 +29,8 @@ async function getTags() {
 }
 
 async function getAllPosts() {
-  const blogPosts: FetchAllBlogEntriesReturnType = await contentfulApiInstance.fetchAllBlogEntries();
+  const blogPosts: FetchAllBlogEntriesReturnType =
+    await contentfulApiInstance.fetchAllBlogEntries();
 
   return blogPosts;
 }
@@ -60,7 +61,7 @@ async function getAllPosts() {
 const ArchiveHeader = () => {
   return (
     <div className="flex mt-12">
-      <div className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[948px] md:px-0 leading-relaxed mt-12">
+      <div className="h-fit md:h-fit items-start w-full md:w-[736px] lg:w-[948px] md:px-0 leading-relaxed mt-12 mb-4">
         <div className="flex flex-col items-start gap-4 w-full">
           <PageHeader className="">Pieces by Topics</PageHeader>
         </div>
@@ -75,7 +76,7 @@ export default async function ArchivesPage() {
   if (!blogPosts) {
     return null;
   }
-  
+
   return (
     <section className="flex flex-col items-center space-y-20 px-0 mx-2 md:mx-4 lg:mx-6 xl:mx-8 2xl:mx-12 min-h-screen">
       <div className="w-full md:w-10/12 lg:w-9/12 2xl:w-8/12">

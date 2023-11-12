@@ -1,4 +1,4 @@
-import { NavbarLinkProps } from "@/components/navbar-old/link";
+import { NavbarLinkProps } from "../../src/components/navbar/navbar-old/link";
 
 interface NavsConfig {
   topNav: NavbarLinkProps[];

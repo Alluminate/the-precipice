@@ -1,5 +1,5 @@
 import React from "react";
-import { Icons } from "../icons";
+import { Icons } from "../../icons";
 import { useNavbarContext } from "./context";
 import { cn } from "@/lib/utils";
 

@@ -56,9 +56,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { tagSlug: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: { tagSlug: string };
+}) {
   const { tagSlug } = params;
-  console.log(params)
+  console.log(params);
 
   const postData = await contentful.fetchBlogPostsByTag(tagSlug);
   const tagInfo = await contentful.getTagInfoBySlug("...");

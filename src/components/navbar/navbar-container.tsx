@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { NavbarContext } from "../navbar-old/context";
-import { NavbarCollapse } from "../navbar-old/collapse";
-import { NavbarToggle } from "../navbar-old/toggle";
+import { NavbarContext } from "./navbar-old/context";
+import { NavbarCollapse } from "./navbar-old/collapse";
+import { NavbarToggle } from "./navbar-old/toggle";
 // import { NavbarLink } from './link';
 
 export interface NavbarContainerProps

@@ -6,13 +6,18 @@ import {
   Paragraph,
 } from "@/components/elements";
 import { Button } from "@/components/ui/button";
-import { FetchAllBlogEntriesBlogPostType, FetchAllBlogEntriesReturnType } from "@/types/types";
+import {
+  FetchAllBlogEntriesBlogPostType,
+  FetchAllBlogEntriesReturnType,
+} from "@/types/types";
 
 interface ArchiveListProps {
   blog: NonNullable<FetchAllBlogEntriesReturnType>["blogPosts"];
 }
 
-function groupPostsByTag(posts: NonNullable<FetchAllBlogEntriesReturnType>["blogPosts"]) {
+function groupPostsByTag(
+  posts: NonNullable<FetchAllBlogEntriesReturnType>["blogPosts"]
+) {
   const grouped = posts.reduce(
     (acc, post) => {
       const tagSlug = post.tag.slug as string;
@@ -22,13 +27,15 @@ function groupPostsByTag(posts: NonNullable<FetchAllBlogEntriesReturnType>["blog
       acc[tagSlug].push(post);
       return acc;
     },
-    {} as { [key: string]: NonNullable<FetchAllBlogEntriesReturnType>["blogPosts"] }
+    {} as {
+      [key: string]: NonNullable<FetchAllBlogEntriesReturnType>["blogPosts"];
+    }
   );
 
   const emptyPostElement = {} as FetchAllBlogEntriesBlogPostType;
 
   //Adding empty elements to groups with less than 3 posts
-  Object.keys(grouped).forEach(tagSlug => {
+  Object.keys(grouped).forEach((tagSlug) => {
     const group = grouped[tagSlug];
     if (group.length > 3) {
       // Slice the group to only include the first 3 posts
@@ -43,7 +50,6 @@ function groupPostsByTag(posts: NonNullable<FetchAllBlogEntriesReturnType>["blog
 
   return grouped;
 }
-
 
 export function ArchiveList({ blog }: ArchiveListProps) {
   if (blog?.length === 0) {
@@ -78,8 +84,8 @@ export function ArchiveList({ blog }: ArchiveListProps) {
                     </Link>
                     <ColoredSeparator color="grey" />
                   </li>
-                )
-            })}
+                );
+              })}
             </ul>
             <Link href={`/${slug}`}>
               <Button variant="default" className="uppercase">

@@ -13,18 +13,18 @@ Tech Stack
 
 <hr>
 
-## Update - 11-8-23
-- Updated hierarchy of blog: 
-  - `/blog` is now the main blog page, which will display all posts. This, semantically, should 
-  replace "archives" and would likely perform better for SEO
-  - `/blog/[tagSlug]` is now the page for seeing all posts of a certain tag e.g. `/blog/culture` 
-  - `/blog/[tagSlug]/[postSlug]` is now the individual blog post page 
-- Fixed any type errors I came across. Going forward you shouldn't need to access any types that aren't being directly generated, or that I haven't already created inside `src/types/types.ts`. 
+## Update - 2023.11.08
+
+- Updated hierarchy of blog:
+  - `/blog` is now the main blog page, which will display all posts. This, semantically, should
+    replace "archives" and would likely perform better for SEO
+  - `/blog/[tagSlug]` is now the page for seeing all posts of a certain tag e.g. `/blog/culture`
+  - `/blog/[tagSlug]/[postSlug]` is now the individual blog post page
+- Fixed any type errors I came across. Going forward you shouldn't need to access any types that aren't being directly generated, or that I haven't already created inside `src/types/types.ts`.
 - Fixed a minor navbar issue that's been bugging me for a while `:)`
 - I believe you're now at the point where the repo can be cleaned up and old files deleted.
 
-
-## Update - 10-18-23
+## Update - 2023.10.18
 
 - Restructured logic in old `[path]` route (now called `oldPage`)
   - In order to render a dynamic route, you have to:
@@ -39,7 +39,7 @@ Tech Stack
   - A few key types were created to make sure proper values were being accessed
   - I set the value of `dynamicParams` to `false`, so you can more easily tell when something is wrong with one of your pages. This means that if there's a page missing from `generateStaticParams`, you'll know since attempting to go to that page will return a 404.
 
-### Future Recommendations
+### Recommendations from 2023.10.18
 
 - I _highly_ recommend using a codegen tool to generate types for your Contentful data. This will make it much easier to work with.
   - Currently, there's a variety of type errors scattered throughout the codebase. Many of them aren't breaking, but the more you build on top of them, the more likely you might run into issues.

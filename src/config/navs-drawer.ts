@@ -1,4 +1,4 @@
-import { NavbarLinkProps } from "@/components/navbar-old/link";
+import { NavbarLinkProps } from "../components/navbar/navbar-old/link";
 
 export interface NavbarSectionConfig {
   sectionTitle: string;
