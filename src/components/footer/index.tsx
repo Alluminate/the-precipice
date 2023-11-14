@@ -8,8 +8,8 @@ import SocialIcons from "./social-icons";
 export function Footer() {
   return (
     // Overall container
-    <footer className="pt-20 mt-12 bg-foreground">
-      <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+    <footer className="pt-20 pb-12 md:pb-0 mt-12 bg-foreground">
+      <div className="pl-8 md:pl-0 mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <WhoYouAre />
         <ColoredSeparator
           className="mb-8"
@@ -21,7 +21,7 @@ export function Footer() {
           <FooterLinks />
         </div>
       </div>
-      <div className="sm:flex sm:justify-center">
+      <div className="pl-8 md:pl-0 sm:flex sm:justify-center">
         <BottomLinks />
         <ColoredSeparator
           color="steel-blue"

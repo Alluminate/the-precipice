@@ -14,6 +14,8 @@ import {
   BlogParagraph,
   BlogBio,
 } from "@/components/elements";
+import { ColoredSeparator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 interface BlogContentProps {
   post: TBlogContent;
@@ -65,18 +67,27 @@ export function BlogContent({
 
       {/* Blog Content */}
       <section className="container space-y-20 flex flex-col flex-[1_1_65ch] max-w-blog">
-        <div className="rounded-md bg-black md:p-8">
-          <div className="max-w-2xl mb-16">
-            <p className="bg-primary px-4 py-2 rounded inline">
-              {tag.title as string}
-            </p>
-            <h1 className="font-bold text-4xl mt-4 mb-2">{title}</h1>
-            <h3 className="text-xl">{subtitle}</h3>
-            <span className="text-sm text-muted-foreground">{date}</span>
+        <div className="rounded-md mt-8">
+          {/* <ColoredSeparator /> */}
+          <div className="max-w-2xl mt-8 mb-4">
+            <BlogExcerpt className="mb-4">{subtitle}</BlogExcerpt>
+            <span className="text-md text-muted-foreground">{date}</span>
           </div>
-          <article className="prose max-w-none lg:prose-base prose-headings:text-foreground prose-headings:scroll-pt-28 prose-p:text-foreground prose-code:text-background prose-code:bg-foreground prose-code:rounded-sm prose-code:p-1">
-            {documentToReactComponents(content, richTextOptions)}
+          <ColoredSeparator className="mb-4" />
+          <article className="prose max-w-none prose-base prose-headings:text-foreground prose-headings:scroll-pt-28 prose-p:text-foreground prose-code:text-background prose-code:bg-foreground prose-code:rounded-sm prose-code:p-1">
+            <BlogParagraph>
+              {documentToReactComponents(content, richTextOptions)}
+            </BlogParagraph>
           </article>
+        </div>
+        <div className="">
+          <Link href="/archives" passHref>
+            {/* <p className="flex items-center gap-2 cursor-pointer"> */}
+            <Button variant="default" className="uppercase">
+              <Icons.arrowLeft size={"1.5em"} /> Go back to the Archives
+            </Button>
+            {/* </p> */}
+          </Link>
         </div>
       </section>
     </div>
@@ -93,3 +104,8 @@ export function BlogContent({
 //   </p>
 // </Link>
 // </PageHeader>
+
+//
+// <p className="bg-primary px-4 py-2 rounded inline">
+//   {tag.title as string}
+// </p>

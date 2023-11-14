@@ -265,7 +265,7 @@ function BlogExcerpt({
     <Balance
       className={cn(
         // max-w-[750px]
-        "text-lg font-openSans text-foreground sm:text-xl",
+        "text-3xl md:text-4xl font-openSans text-foreground sm:text-xl",
         className
       )}
       {...props}
