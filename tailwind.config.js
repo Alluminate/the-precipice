@@ -44,6 +44,11 @@ module.exports = {
       maxWidth: {
         blog: "var(--max-width-blog)",
       },
+      height: {
+        "1/4": "25vh",
+        "1/3": "33.33vh",
+        "1/2": "50vh",
+      },
       colors: {
         // DEFAULT is a shorthand in Tailwind. It means that if you want to use the color defined in the DEFAULT property, you would use the color name only, without specifying any shades.
         // To use the color defined in DEFAULT, you would use the class .text-primary for text color or .bg-primary for background color.

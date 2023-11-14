@@ -212,7 +212,7 @@ function BlogPageTitle({
   return (
     <h1
       className={cn(
-        "text-3xl font-firaSansCondensed font-semibold leading-tight tracking-tighter md:text-7xl lg:leading-[1.1]",
+        "text-3xl font-firaSansCondensed font-semibold leading-tight tracking-tighter md:text-7xl lg:leading-[1.1] uppercase",
         className
       )}
       {...props}
@@ -248,7 +248,7 @@ function BlogPageFiledUnder({
     <Balance
       className={cn(
         // max-w-[750px]
-        "text-lg font-openSans text-foreground sm:text-xl",
+        "text-xl md:text-2xl font-openSans text-foreground",
         className
       )}
       {...props}
@@ -313,6 +313,7 @@ export {
   ArchivePageBlogTitle,
   BlogDescriptionTitle,
   BlogPageTitle,
+  BlogPageFiledUnder,
   BlogExcerpt,
   BlogParagraph,
   BlogBio,

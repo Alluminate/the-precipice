@@ -7,18 +7,18 @@ import { notFound } from "next/navigation";
 export const dynamicParams = true;
 
 type Props = {
-  params: { tagSlug: string, postSlug: string };
+  params: { tagSlug: string; postSlug: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 export async function generateStaticParams() {
   const contentful = new ContentfulApi();
   const paths = await contentful.fetchAllBlogEntries();
-  
+
   return paths?.blogPosts.map((entry) => {
     return {
       tag: entry.tag.slug,
-      post: entry.slug
+      post: entry.slug,
     };
   });
 }
@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: `${post.subtitle}`,
       publishedTime: `${post.date}`,
       siteName: siteConfig.name,
-      authors: ["Thorium"],
+      authors: ["The Precipice"],
       images: [
         {
           url: `${post.coverImage?.imageUrl}`,
@@ -58,7 +58,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   };
 }
-
 
 async function getPost(postSlug: string) {
   // const contentful = new ContentfulApi(preview);
