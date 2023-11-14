@@ -77,7 +77,7 @@ export function ArchiveList({ blog }: ArchiveListProps) {
               {posts.map((post, i) => {
                 return (
                   <li key={post.id} className="mb-6">
-                    <Link href={`/blog/${post.slug}`}>
+                    <Link href={`/blog/${slug}/${post.slug}`}>
                       <ArchivePageBlogTitle className="text-lg hover:underline mb-4">
                         {post.title}
                       </ArchivePageBlogTitle>
