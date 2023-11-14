@@ -87,7 +87,7 @@ export function ArchiveList({ blog }: ArchiveListProps) {
                 );
               })}
             </ul>
-            <Link href={`/${slug}`}>
+            <Link href={`/blog/${slug}`}>
               <Button variant="default" className="uppercase">
                 See all {tagTitle as string} posts
               </Button>

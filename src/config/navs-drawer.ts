@@ -63,35 +63,35 @@ export const navsDrawerConfig: NavsDrawerConfig = {
       links: [
         {
           label: "The Endgame Crisis",
-          href: "/endgame-crisis",
+          href: "/blog/endgame-crisis",
         },
         {
           label: "Humanity's Potential",
-          href: "/humanitys-potential",
+          href: "/blog/humanitys-potential",
         },
         {
           label: "Society",
-          href: "/society",
+          href: "/blog/society",
         },
         {
           label: "Culture",
-          href: "/culture",
+          href: "/blog/culture",
         },
         {
           label: "Meaning",
-          href: "/meaning",
+          href: "/blog/meaning",
         },
         {
           label: "Venture Philosophy",
-          href: "/venture-philosophy",
+          href: "/blog/venture-philosophy",
         },
         {
           label: "Core Concepts",
-          href: "/core-concepts",
+          href: "/blog/core-concepts",
         },
         {
           label: "Shared Truth",
-          href: "/shared-truth",
+          href: "/blog/shared-truth",
         },
       ],
     },

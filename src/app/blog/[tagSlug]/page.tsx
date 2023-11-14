@@ -56,6 +56,8 @@ export async function generateMetadata({
   };
 }
 
+const bgColorClasses = ["bg-color-0", "bg-color-1", "bg-color-2", "bg-color-3"];
+
 export default async function Page({
   params,
 }: {
@@ -69,14 +71,17 @@ export default async function Page({
   // const tagInfo = await contentful.getTagInfoBySlug("nanoforge");
   return (
     <>
-      <div className="p-6">
-        <h1 className="text-2xl font-bold mb-4">Posts tagged: {tagSlug}</h1>
-        {postData.map((post) => {
+      <div className="p-12">
+        {/* <h1 className="text-2xl font-bold mb-4">Posts tagged: {tagSlug}</h1> */}
+        {postData.map((post, index) => {
           if (!post) return null;
           const recentBlogPost = convertToRecentCardProps(post, 0);
           return (
             <div key={post.id} className="mb-6">
-              <RecentCard {...recentBlogPost} />
+              <RecentCard
+                {...recentBlogPost}
+                customBgClass={bgColorClasses[index % bgColorClasses.length]}
+              />
             </div>
           );
         })}

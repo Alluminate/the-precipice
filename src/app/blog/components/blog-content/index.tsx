@@ -11,7 +11,6 @@ import {
   BlogPageTitle,
   BlogPageFiledUnder,
   BlogExcerpt,
-  BlogParagraph,
   BlogBio,
 } from "@/components/elements";
 import { ColoredSeparator } from "@/components/ui/separator";
@@ -65,7 +64,7 @@ export function BlogContent({
         </div>
       </div>
 
-      {/* Blog Content */}
+      {/* Blog Content — Notes: Remember that lib/richtext-options controls headers and paragraphs */}
       <section className="container space-y-20 flex flex-col flex-[1_1_65ch] max-w-blog">
         <div className="rounded-md mt-8">
           {/* <ColoredSeparator /> */}
@@ -75,9 +74,7 @@ export function BlogContent({
           </div>
           <ColoredSeparator className="mb-4" />
           <article className="prose max-w-none prose-base prose-headings:text-foreground prose-headings:scroll-pt-28 prose-p:text-foreground prose-code:text-background prose-code:bg-foreground prose-code:rounded-sm prose-code:p-1">
-            <BlogParagraph>
-              {documentToReactComponents(content, richTextOptions)}
-            </BlogParagraph>
+            {documentToReactComponents(content, richTextOptions)}
           </article>
         </div>
         <div className="">
