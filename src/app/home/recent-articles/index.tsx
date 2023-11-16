@@ -7,6 +7,7 @@ import {
   FetchAllBlogEntriesBlogPostType,
   FetchAllBlogEntriesReturnType,
 } from "@/types/types";
+import Link from "next/link";
 
 // ADDED FUNCTIONS
 
@@ -103,8 +104,14 @@ export default async function RecentArticles() {
         <div className="hidden 2xl:block 2xl:w-1/12" />
       </div>
       <div className="text-center mt-8">
-        <Paragraph className="mb-5">Showing 5 of 25</Paragraph>
-        <Button className="uppercase py-2 px-10">See All Pieces</Button>
+        <Paragraph className="mb-5">
+          Showing 5 of {blogPostsData?.total}
+        </Paragraph>
+        <Button className="uppercase py-2 px-10">
+          <Link className="inline-grid" href={`/archives`} passHref>
+            See All Pieces
+          </Link>
+        </Button>
       </div>
     </div>
     // </section>
