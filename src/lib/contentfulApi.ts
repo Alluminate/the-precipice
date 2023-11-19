@@ -1,5 +1,10 @@
 import { ContentfulClientApi, createClient } from "contentful";
-import type { Asset, Entry, EntryFieldTypes } from "contentful";
+import type {
+  Asset,
+  Entry,
+  EntryFieldTypes,
+  EntryCollection,
+} from "contentful";
 import type { EntrySkeletonType } from "contentful/dist/types/types/query/util";
 import { siteConfig } from "@/config/site";
 import {
@@ -128,7 +133,7 @@ export class ContentfulApi {
         ? process.env.CONTENTFUL_PREVIEW_ACCESS_TOKEN ?? ""
         : process.env.CONTENTFUL_ACCESS_TOKEN ?? "",
       ...(preview && { host: "preview.contentful.com" }),
-    }).withoutUnresolvableLinks
+    }).withoutUnresolvableLinks;
   }
 
   convertImage = (
@@ -178,7 +183,7 @@ export class ContentfulApi {
     if (!isTypeBlogPostFields(rawData.fields)) {
       return null;
     }
-    const rawPost = rawData?.fields
+    const rawPost = rawData?.fields;
     const { tagName, slug, description } = rawData?.fields.tag.fields;
 
     let author: TAuthor | null = null;
@@ -197,7 +202,7 @@ export class ContentfulApi {
       tag: {
         title: tagName,
         description,
-        slug
+        slug,
       },
       title: rawPost.title,
       coverImage: this.convertImage(rawPost.coverImage),
@@ -226,7 +231,6 @@ export class ContentfulApi {
       });
 
       type ConvertedPost = ReturnType<typeof this.convertPost>;
-      
 
       if (res && res.items && res.items.length > 0) {
         const blogPosts = res.items
@@ -250,12 +254,17 @@ export class ContentfulApi {
       });
 
       type ConvertedPost = ReturnType<typeof this.convertPost>;
-      
-        const blogPosts = res.items
-          .map((entry) => this.convertPost(entry))
-          .filter((post) => post !== null) as NonNullable<ConvertedPost>[];
-        const total = res.total;
-        return { blogPosts: blogPosts ?? [], total, limit: siteConfig.pageSize, skip: 0 };
+
+      const blogPosts = res.items
+        .map((entry) => this.convertPost(entry))
+        .filter((post) => post !== null) as NonNullable<ConvertedPost>[];
+      const total = res.total;
+      return {
+        blogPosts: blogPosts ?? [],
+        total,
+        limit: siteConfig.pageSize,
+        skip: 0,
+      };
     } catch (error) {
       console.log("error fetching all entries:", error);
     }
@@ -307,8 +316,8 @@ export class ContentfulApi {
   async getTagIdBySlug(tagSlug: string): Promise<string | null> {
     try {
       const res = await this.client.getEntries<TypeTagsSkeleton>({
-      content_type: "tags",
-      "fields.slug": tagSlug,
+        content_type: "tags",
+        "fields.slug": tagSlug,
       });
 
       // Check if entries are returned and the first entry has a sys.id property
@@ -326,6 +335,24 @@ export class ContentfulApi {
       return null;
     }
   }
+
+  // @DEV FIX THIS FUNCTION
+  // async getTagDescriptionBySlug(tagSlug: string): Promise<string | null> {
+  //   const res: EntryCollection<any> = await this.client.getEntries({
+  //     content_type: "tag",
+  //     "fields.slug": tagSlug,
+  //   });
+
+  //   if (res.items[0].sys.id) {
+  //     console.log(res.items[0].fields.description); // Log the fields object
+  //     return res.items[0].fields.description as string;
+  //   } else {
+  //     console.error("No tag found with the specified title:", tagSlug);
+  //     return null;
+  //   }
+
+  //   return null;
+  // }
 
   // TODO: Review
   async fetchBlogPostsByTag(slug: string) {
@@ -376,7 +403,7 @@ export class ContentfulApi {
     const paths = res.items.map((item) => {
       const slug = item.fields.slug;
       return {
-        slug: slug
+        slug: slug,
       };
     });
     console.log("all possible paths for /[slug]:", paths);

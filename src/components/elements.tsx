@@ -52,7 +52,7 @@ function BlogCardTitle({
       className={cn(
         // "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
         // text-base md:text-lg capitalize font-bold
-        "place-items-start text-3xl xl:text-4xl font-semibold font-firaSansCondensed",
+        "place-items-start text-3xl xl:text-3xl 2xl:text-3xl font-semibold font-firaSansCondensed",
         className
       )}
       {...props}
@@ -70,7 +70,45 @@ function BlogCardExcerpt({
   return (
     <p
       className={cn(
-        "text-base md:text-lg lg:text-xl 2xl:text-2xl font-firaSans",
+        "text-base md:text-lg lg:text-lg xl:text-xl 2xl:text-xl font-firaSans",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </p>
+  );
+}
+
+function PreviewCardTitle({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <section
+      className={cn(
+        // "flex h-[100svh] md:h-[100vh] flex-col items-center gap-2 px-4 md:px-12 pt-40 md:pt-44 font-firaSansCondensed",
+        // text-base md:text-lg capitalize font-bold
+        "place-items-start text-3xl xl:text-4xl 2xl:text-5xl font-semibold font-firaSansCondensed",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </section>
+  );
+}
+
+function PreviewCardExcerpt({
+  className,
+  children,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
+  return (
+    <p
+      className={cn(
+        "text-base md:text-xl lg:text-2xl xl:-2xl 2xl:text-3xl font-firaSans",
         className
       )}
       {...props}
@@ -304,6 +342,8 @@ export {
   BigSubHeader,
   BlogCardTitle,
   BlogCardExcerpt,
+  PreviewCardTitle,
+  PreviewCardExcerpt,
   PageHeader,
   PageHeaderHeading,
   PageHeaderDescription,

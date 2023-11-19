@@ -5,8 +5,8 @@ import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/recent-article-layout";
 import { Button, ButtonVariants } from "@/components/ui/button";
 import {
-  BlogCardExcerpt,
-  BlogCardTitle,
+  PreviewCardExcerpt,
+  PreviewCardTitle,
   Paragraph,
 } from "@/components/elements";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ export interface RecentCardProps {
 }
 
 export const RecentCard: React.FC<
-  RecentCardProps & { customWidth?: string, customBgClass?: string }
+  RecentCardProps & { customWidth?: string; customBgClass?: string }
 > = ({
   imageUrl,
   title,
@@ -37,7 +37,9 @@ export const RecentCard: React.FC<
   // isTopCard,
 }) => {
   const isMobile = useIsMobile();
-  const imageSource = imageUrl.includes(".png") ? imageUrl : `/assets/home/${imageUrl}.png`;
+  const imageSource = imageUrl.includes(".png")
+    ? imageUrl
+    : `/assets/home/${imageUrl}.png`;
 
   return (
     <Card
@@ -58,10 +60,10 @@ export const RecentCard: React.FC<
           </div>
 
           <div className={"relative w-full md:w-6/12 md:pl-5"}>
-            <BlogCardTitle>{title}</BlogCardTitle>
-            <BlogCardExcerpt className={cn("pt-2 lg:pt-4")}>
+            <PreviewCardTitle>{title}</PreviewCardTitle>
+            <PreviewCardExcerpt className={cn("pt-2 lg:pt-4")}>
               {subtitle}
-            </BlogCardExcerpt>
+            </PreviewCardExcerpt>
             <div className={"mt-4 md:mt-0 md:absolute md:bottom-0"}>
               <Button>
                 <Paragraph>{tag}</Paragraph>

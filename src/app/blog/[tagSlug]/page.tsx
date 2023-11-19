@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import { detailedServerLogger } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 import { FetchAllBlogEntriesBlogPostType } from "@/types/types";
+import { PageHeader, PageHeaderDescription } from "@/components/elements";
 
 const contentful = new ContentfulApi();
 export async function generateStaticParams() {
@@ -39,19 +40,19 @@ export async function generateMetadata({
   const tag = await contentful.getTagInfoBySlug(slug);
 
   return {
-    title: `Articles tagged: ${slug}`,
-    description: `Explore articles related to ${tag?.fields?.tagName} on Your Site Name.`,
+    title: `${tag?.fields.tagName} Articles | The Precipice - Big Ideas to Accelerate Culture 200 Years into the Future`,
+    description: `Explore articles related to ${tag?.fields?.tagName}.`,
     openGraph: {
       type: "article",
       url: `${siteConfig.url}/tags/${slug}`,
       title: `Articles tagged: ${tag?.fields.tagName}`,
-      description: `Articles tagged: ${tag?.fields.tagName}`,
+      description: `Explore articles related to ${tag?.fields.tagName}`,
       siteName: siteConfig.name,
     },
     twitter: {
       card: "summary_large_image",
       title: `Articles tagged: ${tag?.fields.tagName}`,
-      description: `Articles tagged: ${tag?.fields.tagName}`,
+      description: `Explore articles related to ${tag?.fields.tagName}`,
     },
   };
 }
@@ -68,10 +69,19 @@ export default async function Page({
 
   const postData = await contentful.fetchBlogPostsByTag(tagSlug);
   const tagInfo = await contentful.getTagInfoBySlug("...");
-  // const tagInfo = await contentful.getTagInfoBySlug("nanoforge");
+
+  // @DEV Fix getTagDescriptionBySLug
+  // const tagDescription = await contentful.getTagDescriptionBySlug(tagSlug);
+  // console.log(`Here's the tag slug: ${tagSlug}`);
+  // console.log(`Here's the tag description: ${tagDescription}`);
+
   return (
     <>
       <div className="p-12">
+        <div className="flex flex-col items-start gap-4 w-full">
+          <PageHeader className="my-4">{tagSlug}</PageHeader>
+          {/* <PageHeaderDescription>{tagDescription}</PageHeaderDescription> */}
+        </div>
         {/* <h1 className="text-2xl font-bold mb-4">Posts tagged: {tagSlug}</h1> */}
         {postData.map((post, index) => {
           if (!post) return null;

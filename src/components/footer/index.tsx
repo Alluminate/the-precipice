@@ -74,7 +74,7 @@ function FooterLinks() {
           </Link>
         </div>
         <div>
-          <Link href="/archive" className="hover:underline">
+          <Link href="/archives" className="hover:underline">
             ARCHIVE
           </Link>
         </div>

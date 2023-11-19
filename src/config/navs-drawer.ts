@@ -33,11 +33,11 @@ export const navsDrawerConfig: NavsDrawerConfig = {
         },
         {
           label: "Instagram",
-          href: "/instagram",
+          href: "https://www.instagram.com/theprecipice_/",
         },
         {
           label: "Twitter",
-          href: "/twitter",
+          href: "https://twitter.com/_themitch_",
         },
       ],
     },
@@ -46,15 +46,15 @@ export const navsDrawerConfig: NavsDrawerConfig = {
       links: [
         {
           label: "Watch Content",
-          href: "/watch",
+          href: "/",
         },
         {
           label: "Get Telegram Updates",
-          href: "/telegram",
+          href: "/",
         },
         {
           label: "Subscribe to Newsletter",
-          href: "/subscribe",
+          href: "/",
         },
       ],
     },
@@ -68,6 +68,18 @@ export const navsDrawerConfig: NavsDrawerConfig = {
         {
           label: "Humanity's Potential",
           href: "/blog/humanitys-potential",
+        },
+        {
+          label: "Memetic Warfare",
+          href: "/blog/memetic-warfare",
+        },
+        {
+          label: "Information Ecology",
+          href: "/blog/information-ecology",
+        },
+        {
+          label: "Proof of Humanity",
+          href: "/blog/proof-of-humanity",
         },
         {
           label: "Society",

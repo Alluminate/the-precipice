@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "The Precipice - Big Ideas to Accelerate Culture 200 Years into the Future",
   url: "https://theprecipice.co",
-  ogImage: "https://thoriumdev.com/og.jpg",
+  ogImage: "https://theprecipice.co/og.jpg",
   description:
     "Longform articles discussing humanity's potential and how you can help us get there.",
   socials: {
