@@ -268,7 +268,10 @@ function BlogDescriptionTitle({
 }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn("text-2xl sm:text-3xl font-bold max-w-xs", className)}
+      className={cn(
+        "text-2xl sm:text-3xl font-bold max-w-xs text-foreground",
+        className
+      )}
       {...props}
     >
       {children}
@@ -286,7 +289,7 @@ function BlogPageFiledUnder({
     <Balance
       className={cn(
         // max-w-[750px]
-        "text-xl md:text-2xl font-openSans text-foreground",
+        "text-xl md:text-2xl font-openSans",
         className
       )}
       {...props}

@@ -42,7 +42,7 @@ export function BlogContent({
           )}
 
           {/* className="items-start w-full" */}
-          <div className="absolute top-0 left-0 md:top-5 md:left-5 z-10 p-4">
+          <div className="absolute top-0 left-0 md:top-5 md:left-5 z-10 p-4 text-foreground">
             <Link href="/archives" passHref>
               <p className="flex items-center gap-2 cursor-pointer">
                 <Icons.arrowLeft size={"1.5em"} /> Go back to the Archives
@@ -53,9 +53,11 @@ export function BlogContent({
           {/* <div className="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center"> */}
           <div className="absolute top-1/2 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 text-center w-4/5 md:w-3/5">
             {/* <h1 className="text-white text-4xl font-bold">{title}</h1> */}
-            <BlogPageTitle>{title}</BlogPageTitle>
+            <BlogPageTitle className="text-black hover:text-white">
+              {title}
+            </BlogPageTitle>
             <div className="mt-2 md:mt-5">
-              <BlogPageFiledUnder>
+              <BlogPageFiledUnder className="text-black hover:text-white">
                 filed under{" "}
                 <span className="uppercase ml-2">{tag.title as string}</span>
               </BlogPageFiledUnder>

@@ -125,10 +125,18 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      // @DEV tailwindcss-text-fill-stroke
+      // textFillColor: (theme) => theme("borderColor"),
+      // textStrokeColor: (theme) => theme("borderColor"),
+      // textStrokeWidth: (theme) => ({
+      //   ...theme("borderWidth"),
+      //   0.5: "0.5px",
+      // }),
     },
   },
   plugins: [
     require("tailwindcss-animate"),
+    // require("tailwindcss-text-fill-stroke"),
     require("@tailwindcss/typography"),
     function ({ addUtilities }) {
       const recentArticleBackgroundColors = {
