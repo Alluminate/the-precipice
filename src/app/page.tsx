@@ -1,6 +1,7 @@
 import Hero from "./home/hero";
 import FeaturedArticles from "./home/featured-articles";
 import RecentArticles from "./home/recent-articles";
+// import Slogan from "./home/slogan";
 import { ContentfulApi } from "@/lib/contentfulApi";
 import { siteConfig } from "@/config/site";
 
@@ -36,6 +37,7 @@ export default async function Home() {
   return (
     <section className="space-y-20 px-0 mx-0">
       <Hero />
+      {/* <Slogan /> */}
       <FeaturedArticles />
       <RecentArticles />
     </section>

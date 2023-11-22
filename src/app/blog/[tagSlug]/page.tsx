@@ -57,7 +57,16 @@ export async function generateMetadata({
   };
 }
 
-const bgColorClasses = ["bg-color-0", "bg-color-1", "bg-color-2", "bg-color-3"];
+const bgColorClasses = [
+  "bg-color-0",
+  "bg-color-1",
+  "bg-color-2",
+  "bg-color-3",
+  "bg-color-4",
+  "bg-color-5",
+  "bg-color-6",
+  "bg-color-7",
+];
 
 export default async function Page({
   params,

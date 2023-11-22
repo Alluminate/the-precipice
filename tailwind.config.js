@@ -144,13 +144,29 @@ module.exports = {
           backgroundColor: "#FEFCF5",
         },
         ".bg-color-1": {
-          backgroundColor: "#FAE9C4",
+          // backgroundColor: "#FAE9C4",
+          backgroundColor: "#FFF4DC",
         },
         ".bg-color-2": {
-          backgroundColor: "#FECA26",
+          // backgroundColor: "#FECA26",
+          backgroundColor: "#FDF7BC",
         },
         ".bg-color-3": {
-          backgroundColor: "#F58447",
+          // backgroundColor: "#F58447",
+          backgroundColor: "#FFEBAB",
+        },
+        ".bg-color-4": {
+          // backgroundColor: "#F58447",
+          backgroundColor: "#FFD9AD",
+        },
+        ".bg-color-5": {
+          backgroundColor: "#FFD6BF",
+        },
+        ".bg-color-6": {
+          backgroundColor: "#FFE8BA",
+        },
+        ".bg-color-7": {
+          backgroundColor: "#FFF4DC",
         },
       };
       addUtilities(recentArticleBackgroundColors, ["responsive", "hover"]);
