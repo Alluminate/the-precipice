@@ -17,8 +17,8 @@ export async function generateStaticParams() {
 
   return paths?.blogPosts.map((entry) => {
     return {
-      tag: entry.tag.slug,
-      post: entry.slug,
+      tag: entry.tag.slug ?? "",
+      post: entry.slug ?? "",
     };
   });
 }

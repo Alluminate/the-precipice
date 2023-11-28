@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Paragraph } from "@/components/elements"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { buttonVariants } from "@/components/ui/button"
+import { ButtonVariants } from "@/components/ui/button"
 import { Icons } from "@/components/icons"
 import { cn } from "@/lib/utils"
 
@@ -32,7 +32,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ id, imageUrl, title, d
         />
       </CardContent>
       <CardFooter className="flex w-full">
-        <Link href='/contact' className={cn(buttonVariants({ variant: 'outline' }), 'inline-flex items-center gap-1 border-primary font-bold w-fit')}>LET’S BUILD IT <Icons.arrowRight size={'1em'} strokeWidth={3} /></Link>
+        <Link href='/contact' className={cn(ButtonVariants({ variant: 'outline' }), 'inline-flex items-center gap-1 border-primary font-bold w-fit')}>LET’S BUILD IT <Icons.arrowRight size={'1em'} strokeWidth={3} /></Link>
       </CardFooter>
     </Card>
   )

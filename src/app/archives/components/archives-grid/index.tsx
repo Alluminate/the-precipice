@@ -1,8 +1,8 @@
 import { ArchiveCard } from "./archive-card";
-import { TGetPostsReturnType } from "../../page";
+import { FetchAllBlogEntriesBlogPostType } from "@/types/types";
 
 interface ArchiveGridProps {
-  blog: TGetPostsReturnType["blogPosts"];
+  blog: FetchAllBlogEntriesBlogPostType[];
 }
 
 export function ArchiveGrid({ blog }: ArchiveGridProps) {

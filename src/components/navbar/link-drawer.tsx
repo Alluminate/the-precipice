@@ -11,6 +11,7 @@ export interface NavbarLinkProps {
   href: string;
   label: string;
   submenuList?: NavbarLinkProps[];
+  onClick?: () => void;
 }
 
 export interface NavbarSectionProps {

@@ -242,6 +242,8 @@ export class ContentfulApi {
       return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
     } catch (error) {
       console.log("error fetching entries:", error);
+      return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
+
     }
   }
 
@@ -267,6 +269,7 @@ export class ContentfulApi {
       };
     } catch (error) {
       console.log("error fetching all entries:", error);
+      return { blogPosts: [], limit: siteConfig.pageSize, skip: 0, total: 0 };
     }
   }
 

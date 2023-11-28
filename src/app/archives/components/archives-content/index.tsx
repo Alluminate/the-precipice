@@ -4,10 +4,10 @@ import { ContentfulImage } from "@/components/ui/contentful-image";
 import { PageHeader } from "@/components/elements";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { richTextOptions } from "@/lib/richtext-options";
-import { TGetPostsReturnType } from "../../page";
+import { FetchAllBlogEntriesBlogPostType } from "@/types/types";
 
 interface BlogContentProps {
-  post: TGetPostsReturnType["blogPosts"][number];
+  post: FetchAllBlogEntriesBlogPostType
 }
 
 export function ArchiveContent({
@@ -35,7 +35,7 @@ export function ArchiveContent({
       </PageHeader>
       <div className="rounded-md bg-black md:p-8">
         <div className="max-w-2xl mb-16">
-          <p className="bg-primary px-4 py-2 rounded inline">{tag.title}</p>
+          <p className="bg-primary px-4 py-2 rounded inline">{tag.title as string}</p>
           <h1 className="font-bold text-4xl mt-4 mb-2">{title}</h1>
           <h3 className="text-xl">{subtitle}</h3>
           <span className="text-sm text-muted-foreground">{date}</span>

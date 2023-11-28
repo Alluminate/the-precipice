@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { Navbar } from "./navbar-container";
-import Logo from "./logo";
-import { buttonVariants } from "@/components/ui/button";
+import { Navbar as NavContainer } from "../navbar-container";
+import Logo from "../logo";
+import { ButtonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { calculateRange, cn } from "@/lib/utils";
 import { navsConfig } from "@/config/navs";
@@ -29,19 +29,19 @@ const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
   return (
     <div className="flex flex-col w-full fixed top-0 left-0 z-50">
       <NavTop />
-      <Navbar {...props} className="bg-background border-b border-foreground">
+      <NavContainer {...props} className="bg-background border-b border-foreground">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Logo />
           {/* <div className="flex gap-3"> */}
           {/* IIII */}
           <div className="flex md:order-2">
-            <Link href="/contact" className={cn(buttonVariants())}>
+            <Link href="/contact" className={cn(ButtonVariants())}>
               Contact Us
             </Link>
-            <Navbar.Toggle />
+            <NavContainer.Toggle />
           </div>
           {/* IIII */}
-          <Navbar.Collapse>
+          <NavContainer.Collapse>
             {navsConfig.topNav.map((nav) => {
               return nav.submenuList?.length ? (
                 <NavbarLinkWithSubMenu key={nav.href} {...nav} />
@@ -49,10 +49,10 @@ const NavBar = ({ ...props }: React.HTMLAttributes<HTMLElement>) => {
                 <NavbarLink key={nav.href} href={nav.href} label={nav.label} />
               );
             })}
-          </Navbar.Collapse>
+          </NavContainer.Collapse>
         </div>
         {/* </div> */}
-      </Navbar>
+      </NavContainer>
     </div>
   );
 };
