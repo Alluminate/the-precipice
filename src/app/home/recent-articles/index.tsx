@@ -1,7 +1,7 @@
 import contentfulApiInstance, { ContentfulApi } from "@/lib/contentfulApi";
 // import { data } from "./sample-data";
 import { RecentCard, RecentCardProps } from "./recent-card";
-import { Button, ButtonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Paragraph } from "@/components/elements";
 import {
   FetchAllBlogEntriesBlogPostType,
