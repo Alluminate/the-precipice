@@ -28,13 +28,7 @@ async function getAllPosts() {
 }
 
 function convertToRecentCardProps(
-  blogPost: {
-    coverImage: { imageUrl: string };
-    title: any;
-    subtitle: any;
-    tag: { slug: any; title: string };
-    slug: any;
-  },
+  blogPost: FetchAllBlogEntriesBlogPostType,
   delay: number
 ): RecentCardProps {
   return {
@@ -87,7 +81,6 @@ export default async function RecentArticles() {
         <div className="flex flex-wrap justify-start md:justify-center gap-0 px-0 mx-0 2xl:mx-12 2xl:w-10/12">
           {recentPosts &&
             recentPosts?.map((post, index) => {
-              if (!post) return null;
               const recentBlogPost = convertToRecentCardProps(post, 0);
               return (
                 <div key={post.id} className="mb-6">

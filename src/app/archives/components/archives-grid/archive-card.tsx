@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { ButtonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { TGetPostsReturnType } from "../../page";
+import { FetchAllBlogEntriesBlogPostType } from "@/types/types";
 
 export interface ArchiveCardProps {
   imageUrl: string;
@@ -22,7 +22,7 @@ export const ArchiveCard = ({
   slug,
   date,
   tag,
-}: TGetPostsReturnType["blogPosts"][number]) => {
+}: FetchAllBlogEntriesBlogPostType) => {
   let titleDisplay;
   const tagTitle = tag.title;
  typeof title === "string" ? titleDisplay = title : titleDisplay = "Placeholder Title";
@@ -39,7 +39,7 @@ export const ArchiveCard = ({
             alt={title}
           />
           <div className="flex items-center gap-2">
-            <span className="bg-primary rounded p-2 text-sm">{tagTitle}</span>
+            <span className="bg-primary rounded p-2 text-sm">{tagTitle as string}</span>
             <span className="text-sm">{date}</span>
           </div>
           <h4 className="text-base uppercase font-bold">{titleDisplay}</h4>

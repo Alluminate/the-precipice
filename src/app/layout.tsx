@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Metadata } from "next";
+import type { Metadata } from 'next'
 import {
   Fira_Sans,
   Raleway,
@@ -47,7 +47,7 @@ const lora = Lora({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://theprecipice.co"),
+  metadataBase: new URL("https://theprecipice.com"),
   title: siteConfig.name,
   description: siteConfig.description,
   // title: {
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "The Precipice",
-      url: "https://theprecipice.co",
+      url: "https://theprecipice.com",
     },
   ],
 

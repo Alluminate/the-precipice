@@ -1,12 +1,12 @@
 import contentfulApiInstance, { ContentfulApi } from "@/lib/contentfulApi";
 import { ArchiveList } from "./components/archive/archives-grid/archive-list";
 import { PageHeader } from "@/components/elements";
-
+import type { Metadata } from 'next'
 import { getMetadata } from "@/lib/utils";
 import { siteConfig } from "@/config/site";
 import { FetchAllBlogEntriesReturnType } from "@/types/types";
 
-export const metadata = {
+export const metadata: Metadata = {
   ...getMetadata({
     title:
       "Archives | The Precipice - Big Ideas to Accelerate Culture 200 Years into the Future",
@@ -34,28 +34,6 @@ async function getAllPosts() {
   return blogPosts;
 }
 
-// async function getPosts({ params, searchParams }: Props) {
-//   let page = 1;
-
-//   const data = await contentfulApiInstance.fetchBlogEntries({
-//     tag: "",
-//     skip: (page - 1) * siteConfig.pageSize,
-//     limit: siteConfig.pageSize,
-//   });
-
-//   if (!data) {
-//     return {
-//       blogPosts: [],
-//       total: 0,
-//       limit: 0,
-//       skip: 0,
-//     };
-//   }
-
-//   const { blogPosts, total, limit, skip } = data;
-
-//   return { blogPosts, total, limit, skip };
-// }
 
 const ArchiveHeader = () => {
   return (

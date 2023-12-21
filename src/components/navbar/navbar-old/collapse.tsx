@@ -2,7 +2,7 @@ import React from "react";
 import { useNavbarContext } from "./context";
 import { cn } from "@/lib/utils";
 // Added
-import { buttonVariants } from "@/components/ui/button";
+import { ButtonVariants } from "@/components/ui/button";
 import Link from "next/link";
 
 // Props Destructuring: The component takes in all the props of a div plus any children that are passed into it.
@@ -41,7 +41,7 @@ export const NavbarCollapse: React.FC<React.ComponentProps<"div">> = ({
           {children}
         </ul>
         <div>
-          <Link href="/contact" className={cn(buttonVariants())}>
+          <Link href="/contact" className={cn(ButtonVariants())}>
             Contact Us
           </Link>
         </div>
