@@ -32,15 +32,6 @@ module.exports = {
         openSans: ["var(--font-openSans)"],
         firaSansCondensed: ["var(--font-firaSansCondensed)"],
       },
-      backgroundImage: {
-        // NEWDEV - doesn't feel like these do anything
-        // It's supposed to allow you to define custom background images that can be used with Tailwind's bg- utility. For instance, .bg-thorium-rad-1 will apply the corresponding background image.
-        "thorium-rad-1": "url('/home/thorium-radiance/thorium-rad-1.png')",
-        "thorium-rad-2": "url('/home/thorium-radiance/thorium-rad-2.png')",
-        "thorium-rad-3": "url('/home/thorium-radiance/thorium-rad-3.png')",
-        "thorium-rad-4": "url('/home/thorium-radiance/thorium-rad-4.png')",
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-      },
       maxWidth: {
         blog: "var(--max-width-blog)",
       },

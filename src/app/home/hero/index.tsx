@@ -6,7 +6,6 @@ import {
   PageHeaderHeading,
   Paragraph,
 } from "@/components/elements";
-import { ButtonVariants } from "@/components/ui/button";
 import { calculateRange, cn } from "@/lib/utils";
 // import { HeroCard } from "./hero-card";
 // import { data } from "./data";

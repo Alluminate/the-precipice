@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ButtonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BlogCardExcerpt, BlogCardTitle } from "@/components/elements";
 import { Icons } from "@/components/icons";
@@ -48,11 +47,7 @@ export const FeaturedCard: React.FC<
       // className={`pt-3 flex flex-col m-1 lg:mx-2 w-full ${customWidth} items-center lg:items-center`}
       className={`pt-3 flex m-1 lg:mx-2 w-full ${customWidth} `}
     >
-      <Link
-        href={link}
-        className={cn("px-0 mx-0")}
-        //   className={cn(buttonVariants({ variant: "outline" }), "gap-1")}
-      >
+      <Link href={link} className={cn("px-0 mx-0")}>
         {/* <CardContent className="space-y-4 flex-1 flex flex-col"> */}
 
         <CardContent

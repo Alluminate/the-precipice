@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
-import { ButtonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FetchAllBlogEntriesBlogPostType } from "@/types/types";
 
@@ -25,7 +24,9 @@ export const ArchiveCard = ({
 }: FetchAllBlogEntriesBlogPostType) => {
   let titleDisplay;
   const tagTitle = tag.title;
- typeof title === "string" ? titleDisplay = title : titleDisplay = "Placeholder Title";
+  typeof title === "string"
+    ? (titleDisplay = title)
+    : (titleDisplay = "Placeholder Title");
 
   return (
     <Link className="inline-grid" href={`/blog/${slug}`} passHref>
@@ -39,7 +40,9 @@ export const ArchiveCard = ({
             alt={title}
           />
           <div className="flex items-center gap-2">
-            <span className="bg-primary rounded p-2 text-sm">{tagTitle as string}</span>
+            <span className="bg-primary rounded p-2 text-sm">
+              {tagTitle as string}
+            </span>
             <span className="text-sm">{date}</span>
           </div>
           <h4 className="text-base uppercase font-bold">{titleDisplay}</h4>

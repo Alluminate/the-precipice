@@ -1,11 +1,12 @@
-import { Hero } from "./components";
-import { FAQS } from "../services/components";
+// import { Hero } from "./components";
+// import { FAQS } from "../services/components";
 
-export default function ContactPage() {   
+export default function ContactPage() {
   return (
-    <section className='space-y-20'>
-      <Hero />
-      <FAQS />
-    </section>
+    <></>
+    // <section className='space-y-20'>
+    //   <Hero />
+    //   <FAQS />
+    // </section>
   )
  }
