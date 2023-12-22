@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/recent-article-layout";
-import { Button, ButtonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   PreviewCardExcerpt,
   PreviewCardTitle,

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Logo from "./logo";
-import { ButtonVariants } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
+// import { ButtonVariants } from "@/components/ui/button";
+// import { Icons } from "@/components/icons";
 import { calculateRange, cn } from "@/lib/utils";
 import { navsConfig } from "@/config/navs";
 import { NavbarDrawer } from "./navbar-drawer";
